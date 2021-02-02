@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{92984347-7E76-4061-863A-B4136677BB3A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ConfigAPIClient</RootNamespace>
+    <AssemblyName>ConfigAPIClient</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\SampleClientCS.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\SampleClientCS.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\SampleClientCS.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\SampleClientCS.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <PackageReference Include="MilestoneSystems.VideoOS.ConfigurationAPI" Version="*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK" Version="*" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConfigApiClient.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MemberPicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MemberPicker.Designer.cs">
+      <DependentUpon>MemberPicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\CustomPropertiesUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\CustomPropertiesUserControl.Designer.cs">
+      <DependentUpon>CustomPropertiesUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\TaskUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\TaskUserControl.Designer.cs">
+      <DependentUpon>TaskUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyEnableUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyEnableUserControl.Designer.cs">
+      <DependentUpon>PropertyEnableUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\GroupUserControl.cs" />
+    <Compile Include="Panels\GroupUserControl.Designer.cs">
+      <DependentUpon>GroupUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PanelUtils.cs" />
+    <Compile Include="Panels\PropertyListUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyListUserControl.Designer.cs">
+      <DependentUpon>PropertyListUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\CheckedListUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\CheckedListUserControl.Designer.cs">
+      <DependentUpon>CheckedListUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\DateTimePickerPropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\DateTimePickerPropertyUserControl.Designer.cs">
+      <DependentUpon>DateTimePickerPropertyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\DateTimeDisplayPropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\DateTimeDisplayPropertyUserControl.Designer.cs">
+      <DependentUpon>DateTimeDisplayPropertyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\SeperatorPropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\SeperatorPropertyUserControl.Designer.cs">
+      <DependentUpon>SeperatorPropertyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\PathListPropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\PathListPropertyUserControl.Designer.cs">
+      <DependentUpon>PathListPropertyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\SidPropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\SidPropertyUserControl.Designer.cs">
+      <DependentUpon>SidPropertyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\PathPropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\PathPropertyUserControl.Designer.cs">
+      <DependentUpon>PathPropertyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\ProgressPropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\ProgressPropertyUserControl.Designer.cs">
+      <DependentUpon>ProgressPropertyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\SliderPropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\SliderPropertyUserControl.Designer.cs">
+      <DependentUpon>SliderPropertyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\EnumPropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\EnumPropertyUserControl.Designer.cs">
+      <DependentUpon>EnumPropertyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\TagItem.cs" />
+    <Compile Include="Panels\PropertyUserControls\TickPropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\TickPropertyUserControl.Designer.cs">
+      <DependentUpon>TickPropertyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\DoublePropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\DoublePropertyUserControl.Designer.cs">
+      <DependentUpon>DoublePropertyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\FolderUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\FolderUserControl.Designer.cs">
+      <DependentUpon>FolderUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\HelpUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\HelpUserControl.Designer.cs">
+      <DependentUpon>HelpUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\IntPropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\IntPropertyUserControl.Designer.cs">
+      <DependentUpon>IntPropertyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\PropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\PropertyUserControl.Designer.cs">
+      <DependentUpon>PropertyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\ScrollPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\ScrollPanel.Designer.cs">
+      <DependentUpon>ScrollPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\StringPropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\StringPropertyUserControl.Designer.cs">
+      <DependentUpon>StringPropertyUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\SimpleUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\SimpleUserControl.Designer.cs">
+      <DependentUpon>SimpleUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\TabUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\TabUserControl.Designer.cs">
+      <DependentUpon>TabUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Icons.cs" />
+    <Compile Include="MethodInvokeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MethodInvokeForm.Designer.cs">
+      <DependentUpon>MethodInvokeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MotionDetectUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MotionDetectUserControl.Designer.cs">
+      <DependentUpon>MotionDetectUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\PathListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\PathListForm.Designer.cs">
+      <DependentUpon>PathListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\PrivacyMaskUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\PrivacyMaskUserControl.Designer.cs">
+      <DependentUpon>PrivacyMaskUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserPicker.cs" />
+    <Compile Include="Util\BitmapFormatting.cs" />
+    <Compile Include="Util\BitmapLiveImages.cs" />
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MemberPicker.resx">
+      <DependentUpon>MemberPicker.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\CustomPropertiesUserControl.resx">
+      <DependentUpon>CustomPropertiesUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\TaskUserControl.resx">
+      <DependentUpon>TaskUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyEnableUserControl.resx">
+      <DependentUpon>PropertyEnableUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\GroupUserControl.resx">
+      <DependentUpon>GroupUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyListUserControl.resx">
+      <DependentUpon>PropertyListUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\CheckedListUserControl.resx">
+      <DependentUpon>CheckedListUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\DateTimePickerPropertyUserControl.resx">
+      <DependentUpon>DateTimePickerPropertyUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\DateTimeDisplayPropertyUserControl.resx">
+      <DependentUpon>DateTimeDisplayPropertyUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\SeperatorPropertyUserControl.resx">
+      <DependentUpon>SeperatorPropertyUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\PathListPropertyUserControl.resx">
+      <DependentUpon>PathListPropertyUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\SidPropertyUserControl.resx">
+      <DependentUpon>SidPropertyUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\PathPropertyUserControl.resx">
+      <DependentUpon>PathPropertyUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\ProgressPropertyUserControl.resx">
+      <DependentUpon>ProgressPropertyUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\SliderPropertyUserControl.resx">
+      <DependentUpon>SliderPropertyUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\EnumPropertyUserControl.resx">
+      <DependentUpon>EnumPropertyUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\TickPropertyUserControl.resx">
+      <DependentUpon>TickPropertyUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\DoublePropertyUserControl.resx">
+      <DependentUpon>DoublePropertyUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\FolderUserControl.resx">
+      <DependentUpon>FolderUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\HelpUserControl.resx">
+      <DependentUpon>HelpUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\IntPropertyUserControl.resx">
+      <DependentUpon>IntPropertyUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\PropertyUserControl.resx">
+      <DependentUpon>PropertyUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\ScrollPanel.resx">
+      <DependentUpon>ScrollPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\StringPropertyUserControl.resx">
+      <DependentUpon>StringPropertyUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\SimpleUserControl.resx">
+      <DependentUpon>SimpleUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\TabUserControl.resx">
+      <DependentUpon>TabUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="MethodInvokeForm.resx">
+      <DependentUpon>MethodInvokeForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MotionDetectUserControl.resx">
+      <DependentUpon>MotionDetectUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PathListForm.resx">
+      <DependentUpon>PathListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\PrivacyMaskUserControl.resx">
+      <DependentUpon>PrivacyMaskUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="Properties\DataSources\VideoOS.ConfigurationAPI.ConfigurationItem.datasource" />
+    <None Include="Properties\DataSources\VideoOS.ConfigurationAPI.MethodInfo.datasource" />
+    <None Include="Properties\DataSources\VideoOS.ConfigurationAPI.ValidateResult.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\alarm2.ico" />
+    <EmbeddedResource Include="Resources\alert.ico" />
+    <EmbeddedResource Include="Resources\AnalyticsSource.ico" />
+    <EmbeddedResource Include="Resources\camera.ico" />
+    <EmbeddedResource Include="Resources\central.ico" />
+    <EmbeddedResource Include="Resources\Clear Video Wall View - Single Item.png" />
+    <EmbeddedResource Include="Resources\Clear Video Wall View.png" />
+    <EmbeddedResource Include="Resources\event.ico" />
+    <EmbeddedResource Include="Resources\Folder Closed Flat 16 n p.png" />
+    <EmbeddedResource Include="Resources\folder_closed.ico" />
+    <EmbeddedResource Include="Resources\folder_open.ico" />
+    <EmbeddedResource Include="Resources\input.ico" />
+    <EmbeddedResource Include="Resources\matrix.ico" />
+    <EmbeddedResource Include="Resources\microphone.ico" />
+    <EmbeddedResource Include="Resources\output.ico" />
+    <EmbeddedResource Include="Resources\PlugIn.bmp" />
+    <EmbeddedResource Include="Resources\Presets.ico" />
+    <EmbeddedResource Include="Resources\Recorder.ico" />
+    <EmbeddedResource Include="Resources\Role.ico" />
+    <EmbeddedResource Include="Resources\SDK_general.ico" />
+    <EmbeddedResource Include="Resources\SDK_tool.ico" />
+    <EmbeddedResource Include="Resources\SDK_VS.ico" />
+    <EmbeddedResource Include="Resources\Server.png" />
+    <EmbeddedResource Include="Resources\Single View 16 h p.png" />
+    <EmbeddedResource Include="Resources\speaker.ico" />
+    <EmbeddedResource Include="Resources\TimeProfile.ico" />
+    <EmbeddedResource Include="Resources\TransactSource.ico" />
+    <EmbeddedResource Include="Resources\User.ico" />
+    <EmbeddedResource Include="Resources\Video Wall 16 n i8.ico" />
+    <EmbeddedResource Include="Resources\View group closed 16 n p.png" />
+    <EmbeddedResource Include="Resources\ViewItem.ico" />
+    <EmbeddedResource Include="Resources\Window 16 h p.png" />
+    <EmbeddedResource Include="Resources\LicensePlateList_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Hardware.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Metadata_device.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\BasicUser.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\GisMapLocation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\alarm-14x14.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AccessControlSystem.png" />
+    <EmbeddedResource Include="Resources\Rule.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AccessControlDoor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Create License Request 16 n i8.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\advanced.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

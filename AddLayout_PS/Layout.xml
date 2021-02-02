@@ -1,0 +1,13 @@
+<ViewLayout>
+  <ViewItems>
+    <ViewItem>
+       <Position><X>0</X><Y>0</Y></Position>
+       <Size><Width>1000</Width><Height>200</Height></Size>
+    </ViewItem>
+    <ViewItem>
+       <Position><X>0</X><Y>200</Y></Position>
+       <Size><Width>1000</Width><Height>800</Height></Size>
+    </ViewItem>
+  </ViewItems>
+</ViewLayout>
+

@@ -1,0 +1,51 @@
+﻿@model SurveillanceCloudSample.Models.HomeModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="@Url.Content("~/Content/css/main.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Content/js/main.js")"></script>
+</head>
+<body>
+    <main>
+        @if ((!(Request.QueryString.GetValues(null)?.Contains("register") ?? false)) && (!(Request.QueryString.AllKeys?.Contains("register") ?? false)))    
+        {
+            using (Html.BeginForm("Login", null, FormMethod.Post))
+            {
+                <h1>Login</h1>
+                @Html.TextBoxFor(m => m.Username, new { placeholder = Html.DisplayNameFor(n => n.Username) })
+                @Html.PasswordFor(m => m.Password, new { placeholder = Html.DisplayNameFor(n => n.Password) })
+                <button>Login</button>
+                if (!string.IsNullOrWhiteSpace(TempData["Error"]?.ToString()))
+                {
+                    @Html.Raw("<b>" + TempData["Error"].ToString() + "</b>")
+                }
+                <a href="?register">Register</a>
+            }
+        }
+        else
+        {
+            using (Html.BeginForm("Register", null, FormMethod.Post))
+            {
+                <h1>Register</h1>
+                @Html.TextBoxFor(m => m.Username, new { placeholder = Html.DisplayNameFor(n => n.Username) })
+                @Html.PasswordFor(m => m.Password, new { placeholder = Html.DisplayNameFor(n => n.Password) })
+                @Html.TextBoxFor(m => m.Code, new { placeholder = Html.DisplayNameFor(n => n.Code) })
+                <button>Register</button>
+                if (!string.IsNullOrWhiteSpace(TempData["Error"]?.ToString()))
+                {
+                    @Html.Raw("<b>" + TempData["Error"].ToString() + "</b>")
+                }
+                <a href="/">Login</a>
+            }
+        }
+    </main>
+    <aside></aside>
+</body>
+</html>

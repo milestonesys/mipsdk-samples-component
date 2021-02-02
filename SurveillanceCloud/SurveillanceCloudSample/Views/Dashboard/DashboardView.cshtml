@@ -1,0 +1,48 @@
+﻿@model SurveillanceCloudSample.Models.DashboardModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="@Url.Content("~/Content/css/main.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Content/js/main.js")"></script>
+</head>
+<body>
+    <section>
+        <header>
+            <h1>Configuration Panel</h1>
+            <a href="/" title="Log out"></a>
+        </header>
+        <div>
+            @{
+                for (int i = 0; i < Model.NumberOfCameras; i++)
+                {
+                    using (Html.BeginForm("AddDevice", "Dashboard", new { cameraId = i }, FormMethod.Post))
+                    {
+                        @Html.TextBox("Name", Model.Cameras[i].Name, new { placeholder = Html.DisplayNameFor(n => n.Cameras[i].Name) })
+                        @Html.TextBox("Address", Model.Cameras[i].Address, new { placeholder = Html.DisplayNameFor(n => n.Cameras[i].Address) })
+                        @Html.TextBox("Username", Model.Cameras[i].Username, new { placeholder = Html.DisplayNameFor(n => n.Cameras[i].Username) })
+                        @Html.Password("Password", Model.Cameras[i].Password, new { placeholder = Html.DisplayNameFor(n => n.Cameras[i].Password) })
+                        <button>Save</button>
+                        if (!string.IsNullOrWhiteSpace(TempData["Error"]?.ToString()) && Request.QueryString.AllKeys.Contains("cameraId") && Request.QueryString["cameraId"] == i.ToString())
+                        {
+                            @Html.Raw("<b>" + TempData["Error"].ToString() + "</b>")
+                        }
+                    }
+                }
+            }
+        </div>
+        <ul>
+            <li>Configure your cameras in the available camera slots.</li>
+            <li>You have to input all parameters for the successful configuration of a camera.</li>
+            <li>To add additional camera slots, you have to buy additional camera licenses.</li>
+        </ul>
+    </section>
+    <aside></aside>
+</body>
+</html>

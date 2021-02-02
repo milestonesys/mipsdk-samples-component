@@ -1,0 +1,115 @@
+﻿<Window x:Class="ImageViewerClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:winformHost="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+        xmlns:winform="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        xmlns:local="clr-namespace:ImageViewerClient"
+        xmlns:platformclient="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+        mc:Ignorable="d"
+        Title="MainWindow" Closed="Window_Closed" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="47"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    
+                </Grid.RowDefinitions>
+                <!--left column-->
+                <Button x:Name="_loginButton" Content="Login (online mode)" Grid.Column="0" Grid.Row="0"  Margin="3" Click="_loginButton_Click" />
+                <Button x:Name="_selectCameraButton" Content="Select Camera" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0"  Margin="3" Click="_selectCameraButton_Click" Visibility="Collapsed"  />
+                <ComboBox x:Name="_streamsComboBox" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="1" Margin="3" VerticalAlignment="Bottom" SelectionChanged="_streamsComboBox_SelectionChanged" IsEnabled="False"/>
+                
+                <!-- right colum-->
+                <Button x:Name="_offlineScpButton" Content="Open .Scp export (Offline)" Grid.Column="1" Grid.Row="0"  Margin="3" Click="_offlineScpButton_Click"/>
+            </Grid>
+            <platformclient:ImageViewerWpfControl x:Name="_imageViewerControl" Grid.Row="1"/>
+            <platformclient:PlaybackWpfUserControl x:Name="_playbackUserControl" Grid.Row="2" Margin="0, 5, 0, 0"/>
+        </Grid>
+        <StackPanel Grid.Column="1">
+            <GroupBox x:Name="groupBox" Header="Mode" Margin="3">
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton x:Name="_liveRadioButton" Content="Live" Checked="_liveRadioButton_Checked" IsEnabled="False"/>
+                    <RadioButton x:Name="_playbackRadioButton" Content="Playback" Checked="_playbackRadioButton_Checked" IsEnabled="False"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox x:Name="groupBox1" Header="Image Viewer Properties" Margin="3">
+                <StackPanel Orientation="Vertical">
+                    <CheckBox x:Name="_digitalZoomCheckBox" Content="Digital Zoom" Margin="3" Click="_digitalZoomCheckBox_Click"/>
+                    <CheckBox x:Name="_maintainAspectRatioCheckBox" Content="Maintain Aspect Ratio" Margin="3" Click="_maintainAspectRatioCheckBox_Click"/>
+                    <CheckBox x:Name="_visibleHeaderCheckBox" Content="Visible Header" Margin="3" Click="_visibleHeaderCheckBox_Click" IsChecked="True"/>
+                    <CheckBox x:Name="_visibleCameraNameCheckBox" Content="Visible Camera Name" Margin="20,3, 3, 3" Click="_visibleCameraNameCheckBox_Click" IsChecked="True"/>
+                    <CheckBox x:Name="_visibleLiveIndicatorCheckBox" Content="Visible Live Indicator" Margin="20,3, 3, 3" Click="_visibleLiveIndicatorCheckBox_Click" IsChecked="True"/>
+                    <CheckBox x:Name="_visibleTimeStampCheckBox" Content="Visible Time Stamp" Margin="20,3, 3, 3" Click="_visibleTimeStampCheckBox_Click" IsChecked="True"/>
+                    <CheckBox x:Name="_adaptiveStreamingCheckBox" Content="Adaptive Streaming" Margin="3" Click="_adaptiveStreamingCheckBox_Click"/>                   
+                </StackPanel>
+            </GroupBox>
+            <GroupBox x:Name="groupBox4" Header="Image Viewer Environment" Margin="3">
+                <StackPanel>
+                    <CheckBox x:Name="_diagnosticsCheckBox" Content="Diagnostics Overlay" Margin="3" Click="_diagnosticsCheckBox_Click"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox x:Name="groupBox2" Header="Playback Controller Properties" Margin="3">
+                <StackPanel>
+                    <RadioButton x:Name="_skipRadioButton" Content="Skip Gaps" Margin="3" Checked="_checkAllRadioButtonsChecked" IsChecked="True"/>
+                    <RadioButton x:Name="_noSkipRadioButton" Content="No Skip" Margin="3" Checked="_checkAllRadioButtonsChecked"/>
+                    <RadioButton x:Name="_stopRadioButton" Content="Stop at Sequence end" Margin="3" Checked="_checkAllRadioButtonsChecked"/>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox x:Name="groupBox3" Header="Playback User Control Properties" Margin="3">
+                <StackPanel>
+                    <CheckBox x:Name="_showTallCheckBox" Content="Show tall" Margin="3" Click="_showTallCheckBox_Click"/>
+                    <CheckBox x:Name="_showSpeedCheckBox" Content="Show Speed in tall" Margin="3" Click="_showSpeedCheckBox_Click"/>
+                    <CheckBox x:Name="_showTimeSpanCheckBox" Content="Show Time Span in tall" Margin="3" Click="_showTimeSpanCheckBox_Click"/>
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="_IpButton" Content="IP" Width="75" Height="23" Margin="3" Click="_IpButton_Click"/>
+            <Button x:Name="_closeButton" Content="Close" Width="75" Height="23" Margin="3" Click="_closeButton_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <StackPanel x:Name="_playbackCommandsStackPanel" Orientation="Horizontal" HorizontalAlignment="Left" Width="auto">
+                <GroupBox Header="Direct Playback Commands" >
+                    <StackPanel Orientation="Horizontal">
+                        <winformHost:WindowsFormsHost x:Name="_winFormsHost">
+                            <winform:DateTimePicker x:Name="_dateTimePicker" Format="Time" Width="184" ValueChanged="_dateTimePicker_ValueChanged" />
+                        </winformHost:WindowsFormsHost>
+                        <Button x:Name="_stopButton" Content="Stop" Width="75" Margin="3" Click="_stopButton_Click"/>
+                        <Button x:Name="_forwardButton" Content="Forward" Width="75" Margin="3" Click="_forwardButton_Click"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox x:Name="groupBox6" Header="Commands to Playback Controller">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="_maxForwardSpeedButton" Content="Maximize forward speed" Margin="3" Click="_maxForwardSpeedButton_Click"/>
+                        <Button x:Name="_maxTimespanButton" Content="Maximize timespan" Grid.Column="1" Margin="3" Click="_maxTimespanButton_Click"/>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+            <Button Content="Lift privacy mask" Width="116" Margin="10,19,0,10" Click="liftPrivacyMask_Click" HorizontalAlignment="Right"/>
+        </StackPanel>
+    </Grid>
+</Window>

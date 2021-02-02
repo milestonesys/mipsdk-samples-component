@@ -1,0 +1,67 @@
+﻿<Window x:Name="FirmwareUpdateWindow" x:Class="ConfigAPIUpdateFirmwareWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="ConfigAPI Firmware update" Height="460" Width="800" WindowStyle="SingleBorderWindow" ResizeMode="CanMinimize" Icon="Resources/update_firmware_16x16.ico" Loaded="FirmwareUpdateWindow_Loaded" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="150"/>
+            <RowDefinition Height="Auto" MinHeight="150"/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="Step 1: Firmware file upload" HorizontalAlignment="Left" Margin="20,5" VerticalAlignment="Top">
+            <Grid x:Name="UploadFileGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" Height="42" Width="640" Margin="5,5,0,0" HorizontalAlignment="Left" FontStyle="Italic" TextWrapping="Wrap">Select the firmware file that will be uploaded
+                    to the Management server. File will be available for 20 minutes by default. Default upload quota is 1GB. To change these parameters edit the Management server configuration file.
+                </TextBlock>
+                <TextBox x:Name="FirmwareFileTextBox" Grid.Column="0" Grid.Row="1" Height="21" TextWrapping="NoWrap" Width="640" Margin="5" />
+                <Button x:Name="BrowseButton" Content="Browse..." Grid.Column="1" Grid.Row="1" Width="75" Height="21" Margin="0,0,5,0" Click="BrowseButton_Click"/>
+                <Button x:Name="UploadButton" Grid.Column="1" Grid.Row="2" Content="Upload" Width="75" Height="21" Margin="0,20,5,15" Click="UploadButton_Click"/>
+                <ProgressBar x:Name="UploadProgressBar" Grid.Column="0" Grid.Row="2" Height="21" Width="350" HorizontalAlignment="Left" Margin="5,20,0,15"></ProgressBar>
+                <TextBlock x:Name="UploadedFileStatusTextBlock" Grid.Column="0" Grid.Row="2" TextWrapping="Wrap" Width="275" HorizontalAlignment="Right" IsEnabled="False" Margin="0,20,5,0">
+                    <Run>Upload result:</Run> <Run Name="UploadedFileStatus" FontWeight="Bold"></Run>
+                </TextBlock>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="Step 2: Firmware update" HorizontalAlignment="Left" Margin="20,5" VerticalAlignment="Top">
+            <Grid x:Name="UpdateFirmwareGrid" Width="734">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" TextWrapping="Wrap" FontStyle="Italic" Margin="5">Use the Id of the uploaded file to initiate Firmware update on the selected hardware. XProtect Expert or Corporate license required.</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="1" Width="120" Margin="5">Uploaded file Id:</TextBlock>
+                <TextBox x:Name="UploadedFileIdTextBox" Grid.Column="1" Grid.Row="1" Width="235" Margin="0,5"/>
+                <TextBlock Grid.Column="0" Grid.Row="2" Width="120" Margin="5">Select hardware:</TextBlock>
+                <Button Name="SelectHardwareButton" Grid.Column="1" Grid.Row="2" Margin="5" Click="SelectHardwareButton_Click">Choose hardware</Button>
+                <TextBlock Grid.Column="0" Grid.Row="3" Width="120" Margin="5">Selected hardware Id:</TextBlock>
+                <TextBox x:Name="SelectedHardwareTextBox" Grid.Column="1" Grid.Row="3" Width="235" Margin="0,5" IsReadOnly="True"/>
+                <TextBlock x:Name="HardwareNameTextBlock" Grid.Column="2" Grid.Row="3" FontStyle="Italic" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Margin="5" Width="241"></TextBlock>
+                <ProgressBar x:Name="FirmwareUpgradeProgress" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Height="21" Margin="5,30,0,15"></ProgressBar>
+                <TextBlock Name="TextBlockUpdateStatus" Grid.Column="2" Grid.Row="4" TextWrapping="Wrap" Margin="10,30,0,0" Width="240">
+                    <Run>Update result:</Run> <Run x:Name="FirmwareUpdateStatus" FontWeight="Bold"></Run>
+                </TextBlock>
+                <Button x:Name="UpdateHardwareButton" Grid.Column="3" Grid.Row="4" Width="100" Height="21" Margin="10,30,0,15" Content="Update firmware" Click="UpdateHardwareButton_Click"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
