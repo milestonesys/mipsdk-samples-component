@@ -27,7 +27,7 @@ namespace ConfigAPIClient.Panels
 
 			_prevValue = textBoxValue.Text;
 
-			textBoxValue.Enabled = property.IsSettable;
+			textBoxValue.ReadOnly = !property.IsSettable;
 
 			HasChanged = false;
 

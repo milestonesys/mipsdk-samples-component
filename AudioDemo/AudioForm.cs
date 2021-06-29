@@ -42,7 +42,8 @@ namespace AudioDemo
         	Uri uri = new Uri(_serverUrlTextBox.Text);
 
         	VideoOS.Platform.SDK.Environment.RemoveAllServers();
-        	VideoOS.Platform.SDK.Environment.AddServer(uri, System.Net.CredentialCache.DefaultNetworkCredentials);
+        	VideoOS.Platform.SDK.Environment.AddServer(_secureOnlyCheckBox.Checked, uri, System.Net.CredentialCache.DefaultNetworkCredentials);
+
 			try
 			{
 				toolStripStatusLabel1.Text = "Connecting ...";

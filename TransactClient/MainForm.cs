@@ -121,7 +121,7 @@ namespace TransactClient
 
         private async Task StopLiveTransactions()
         {
-            // Stop the live uydate task
+            // Stop the live update task
             if (_cts != null)
             {
                 _cts.Cancel();

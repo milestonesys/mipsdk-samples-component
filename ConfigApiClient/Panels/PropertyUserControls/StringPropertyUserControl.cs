@@ -22,7 +22,7 @@ namespace ConfigAPIClient.Panels
                 textBoxValue.PasswordChar = '*';
 			textBoxValue.Text = property.Value??"";
 
-			textBoxValue.Enabled = property.IsSettable;
+            textBoxValue.ReadOnly = !property.IsSettable;
             textBoxValue.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 			_origY = textBoxValue.Left;
 

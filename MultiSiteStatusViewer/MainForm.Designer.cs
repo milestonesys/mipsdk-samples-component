@@ -177,7 +177,7 @@ namespace MultiSiteStatusViewer
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.listBoxChanges);
             this.Name = "MainForm";
-            this.Text = "StatusViewer Application";
+            this.Text = "Multi-site StatusViewer Application";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MediaPlaybackViewer.Properties {
+namespace MediaRGBVideoEnhancementPlayback.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

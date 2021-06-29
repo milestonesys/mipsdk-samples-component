@@ -63,8 +63,8 @@ namespace ConfigAPIClient.Panels
             }
             else
             {
-                vScrollBar1.LargeChange = vScrollBar1.Height / 5;
-                vScrollBar1.SmallChange = vScrollBar1.Height / 10;
+                vScrollBar1.LargeChange = vScrollBar1.Height / 3;
+                vScrollBar1.SmallChange = vScrollBar1.Height / 5;
                 vScrollBar1.Maximum = overrun + vScrollBar1.LargeChange + 30;// panelContent.Height - 1;
                 if (vScrollBar1.Value > vScrollBar1.Maximum)
                 {

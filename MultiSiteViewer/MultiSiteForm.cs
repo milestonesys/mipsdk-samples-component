@@ -77,26 +77,28 @@ namespace MultiSiteViewer
 			SiteAddForm form = new SiteAddForm();
 			if (form.ShowDialog() == DialogResult.OK)
 			{
-                // Line below added to show new property:
-                VideoOS.Platform.SDK.Environment.Properties.LoadSubSitesAfterwards = form.IncludeChildSites;
+				_noChildSites = form.NoChildSites;
 
-			    _noChildSites = form.IncludeNoChildSites;
-
-				VideoOS.Platform.SDK.Environment.AddServer(form.SelectedSiteItem, form.CredentialCache, true);
+				VideoOS.Platform.SDK.Environment.AddServer(form.SecureOnly, form.SelectedSiteItem, form.CredentialCache, !form.SDKLoadedChildSites);
 				TreeNode tn = treeView1.Nodes.Add(form.SelectedSiteItem.Name);
 				tn.Tag = form.SelectedSiteItem;
 
 			    _serverNodes[form.SelectedSiteItem.FQID.ServerId.Id] = tn;
 
 			    CredentialCache cc = form.CredentialCache;
-                if (form.IncludeChildSitesNow)
+                if (form.SampleLoadedChildSites)
                 { 
 					foreach (Item site in form.SelectedSiteItem.GetChildren())
 					{
                         form.AddUriToCache(cc, site);
-						AddSite(site, cc);
+						AddSite(form.SecureOnly, site, cc);
 					}
                     _treeViewCompleted = true;
+                }
+
+				if(form.SDKLoadedChildSites)
+                {
+					RedrawTreeChildren(form.SelectedSiteItem, tn);
                 }
 			}
 		}
@@ -107,15 +109,15 @@ namespace MultiSiteViewer
 		/// <param name="parent"></param>
 		/// <param name="credentialCache"></param>
 		/// <param name="parentTn"></param>
-		private void AddSite(Item parent, CredentialCache credentialCache)
+		private void AddSite(bool secureOnly, Item parent, CredentialCache credentialCache)
 		{
 
-			VideoOS.Platform.SDK.Environment.AddServer(parent, credentialCache);
-            TreeNode tn = treeView1.Nodes.Add(parent.Name);
+			VideoOS.Platform.SDK.Environment.AddServer(secureOnly, parent, credentialCache);
+			TreeNode tn = treeView1.Nodes.Add(parent.Name);
 			tn.Tag = parent;
 			foreach (Item site in parent.GetChildren())
 			{
-				AddSite(site, credentialCache);
+				AddSite(secureOnly, site, credentialCache);
 			}			
 		}
 

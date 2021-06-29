@@ -20,8 +20,8 @@ namespace SurveillanceCloudSampleService.Controllers
 {
     public class ValuesController : ApiController
     {
-        //Dictionary of codes and coresponding number of cameras. You can change the code so it will take the codes from external file or database.
-        //Also you can make codes one time only, so you have differen code for each user.
+        //Dictionary of codes and corresponding number of cameras. You can change the code so it will take the codes from external file or database.
+        //Also you can make codes one time only, so you have different code for each user.
         private Dictionary<string, int> codes = new Dictionary<string, int> { { "1cam", 1 }, { "2cams", 2 }, { "3cams", 3 }, { "4cams", 4 } };
         private List<User> users = new List<User>();
         private SurveillanceSettings settings = null;
@@ -117,7 +117,7 @@ namespace SurveillanceCloudSampleService.Controllers
                                 users = new List<User>();
                             }
 
-                            //The user is successfuly created and setted up in the VMS, so we are adding the User object to the collection and write it to the file.
+                            //The user is successfully created and setted up in the VMS, so we are adding the User object to the collection and write it to the file.
                             users.Add(tmpUser);
                             File.WriteAllText(HttpContext.Current.Server.MapPath("~/data.txt"), JsonConvert.SerializeObject(users, new JsonSerializerSettings() { ContractResolver = new ExcludeCameraUsernameAndPasswordResolver() }));
 
@@ -541,7 +541,7 @@ namespace SurveillanceCloudSampleService.Controllers
             {
                 Debugger.Break();
                 //returning error response
-                throw new Exception("Could not read all nessesery settings from the web.config file.");
+                throw new Exception("Could not read all necessary settings from the web.config file.");
             }
 
             try

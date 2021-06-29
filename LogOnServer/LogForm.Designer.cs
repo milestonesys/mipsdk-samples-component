@@ -1,4 +1,4 @@
-﻿namespace LogMessageToServer
+﻿namespace LogOnServer
 {
 	partial class LogForm
 	{
@@ -99,7 +99,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonSelect1);
             this.Name = "LogForm";
-            this.Text = "Log message to server";
+            this.Text = "Log on server";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnClosing);
             this.ResumeLayout(false);
 

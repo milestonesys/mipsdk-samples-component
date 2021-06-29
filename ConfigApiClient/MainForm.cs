@@ -114,7 +114,12 @@ namespace ConfigAPIClient
                                                            ItemTypes.LicenseDetail,
                                                            ItemTypes.BasicOwnerInformationFolder,
                                                            ItemTypes.BasicOwnerInformation,
-                                                           
+                                                           ItemTypes.ToolOptionFolder,
+                                                           ItemTypes.ToolOption,
+                                                           ItemTypes.ViewGroupFolder,
+                                                           ItemTypes.ViewGroup,
+                                                           ItemTypes.ViewFolder,
+                                                           ItemTypes.View,
                                                        };
 
 
@@ -196,7 +201,7 @@ namespace ConfigAPIClient
         private void DoAfterSelect(TreeNode node)
 		{
             ConfigurationItem item = node.Tag as ConfigurationItem;
-            if (item != null && !item.ChildrenFilled)
+            if (item != null && !item.ChildrenFilled && item.ItemType != ItemTypes.System)
             {
                 
                 item.Children = _configApiClient.GetChildItems(item.Path);
@@ -393,7 +398,8 @@ namespace ConfigAPIClient
                                 childItem.ItemType == ItemTypes.PrivacyMaskFolder ||
                                 childItem.ItemType == ItemTypes.CustomPropertiesFolder ||
                                 childItem.ItemType == ItemTypes.ClientSettingsFolder ||
-                                childItem.ItemType == ItemTypes.PrivacyProtectionFolder
+                                childItem.ItemType == ItemTypes.PrivacyProtectionFolder ||
+                                childItem.ItemType == ItemTypes.HardwareDeviceEventFolder
                                 )
                                 continue;
 

@@ -7,7 +7,7 @@ using VideoOS.Platform.Client;
 using VideoOS.Platform.Messaging;
 using VideoOS.Platform.UI;
 
-namespace VideoViewer
+namespace VideoViewer2Playback
 {
 	public partial class MainForm : Form
 	{
@@ -281,7 +281,7 @@ namespace VideoViewer
 				_selectItem2 = form.SelectedItem;
 				buttonSelect2.Text = _selectItem2.Name;
 
-				// Make sure we have a seperate playback controller for right hand side camera
+				// Make sure we have a separate playback controller for right hand side camera
 				if (_playbackControllerFQID == null)
 					_playbackControllerFQID = ClientControl.Instance.GeneratePlaybackController();
 				_imageViewerControl2 = ClientControl.Instance.GenerateImageViewerControl();
@@ -297,7 +297,7 @@ namespace VideoViewer
 				checkBoxZoom2.Enabled = true;
 
 
-				// Alweays start out in live
+				// Always start out in live
 				mode2InLive = true;
 				EnvironmentManager.Instance.SendMessage(
 					new VideoOS.Platform.Messaging.Message(MessageId.System.ModeChangeCommand, Mode.ClientLive),

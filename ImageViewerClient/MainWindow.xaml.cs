@@ -487,7 +487,7 @@ namespace ImageViewerClient
                 while (true)
                 {
                     VideoOS.Platform.SDK.Environment.RemoveAllServers();
-                    VideoOS.Platform.SDK.Environment.AddServer(fileUri, new System.Net.NetworkCredential("", password));
+                    VideoOS.Platform.SDK.Environment.AddServer(false, fileUri, new System.Net.NetworkCredential("", password));
                     try
                     {
                         VideoOS.Platform.SDK.Environment.Login(fileUri, IntegrationId, IntegrationName, Version, ManufacturerName);

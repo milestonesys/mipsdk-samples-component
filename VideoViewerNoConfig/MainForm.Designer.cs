@@ -1,4 +1,4 @@
-﻿namespace VideoViewer
+﻿namespace VideoViewerNoConfig
 {
 	partial class MainForm
 	{
@@ -59,6 +59,7 @@
             this.buttonMode = new System.Windows.Forms.Button();
             this.buttonOK = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.checkBoxSecureOnly = new System.Windows.Forms.CheckBox();
             this.groupBoxVideo.SuspendLayout();
             this.groupBoxPlayback.SuspendLayout();
             this.SuspendLayout();
@@ -68,6 +69,7 @@
             this.groupBoxVideo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxVideo.Controls.Add(this.checkBoxSecureOnly);
             this.groupBoxVideo.Controls.Add(this.panel2);
             this.groupBoxVideo.Controls.Add(this.comboBoxAudio);
             this.groupBoxVideo.Controls.Add(this.textBoxServer);
@@ -386,6 +388,16 @@
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.OnClose);
             // 
+            // checkBoxSecureOnly
+            // 
+            this.checkBoxSecureOnly.AutoSize = true;
+            this.checkBoxSecureOnly.Location = new System.Drawing.Point(21, 145);
+            this.checkBoxSecureOnly.Name = "checkBoxSecureOnly";
+            this.checkBoxSecureOnly.Size = new System.Drawing.Size(84, 17);
+            this.checkBoxSecureOnly.TabIndex = 12;
+            this.checkBoxSecureOnly.Text = "Secure Only";
+            this.checkBoxSecureOnly.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonOK;
@@ -439,6 +451,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBoxAudio;
         private System.Windows.Forms.Panel panel2;
-	}
+        private System.Windows.Forms.CheckBox checkBoxSecureOnly;
+    }
 }
 

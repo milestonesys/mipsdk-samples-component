@@ -23,6 +23,7 @@ namespace CameraStreamResolution
         static Authorizationmodes _auth;
         static string _user = "";
         static SecureString _securePwd = new SecureString();
+        static bool _secureOnly = true; // change to false to connect to servers older than 2021 R1 or servers not running HTTPS on the Identity/Management Server communication
         static string _camerasearch = "test";
         static Item _camera;
         static AutoResetEvent _resetEvent;
@@ -44,7 +45,7 @@ namespace CameraStreamResolution
             if (args.Length == 5)
             {
                 _url = args[0];
-                if (!_url.StartsWith("http://", true, null)) _url = "http://" + _url;
+                if (!_url.StartsWith("http://", true, null) && !_url.StartsWith("https://", true, null)) _url = "http://" + _url;
                 string auth = args[1];
                 if (auth.StartsWith("B", true, null)) _auth = Authorizationmodes.Basic;
                 if (auth.StartsWith("W", true, null)) _auth = Authorizationmodes.Windows;
@@ -59,7 +60,7 @@ namespace CameraStreamResolution
                 if (args.Length == 3)
                 {
                     _url = args[0];
-                    if (!_url.StartsWith("http://", true, null)) _url = "http://" + _url;
+                    if (!_url.StartsWith("http://", true, null) && !_url.StartsWith("https://", true, null)) _url = "http://" + _url;
                     string auth = args[1];
                     if (auth.StartsWith("D", true, null)) _auth = Authorizationmodes.DefaultWindows;
                     _camerasearch = args[2];
@@ -92,7 +93,7 @@ namespace CameraStreamResolution
         {
             Console.Write("XProtect server (url): ");
             _url = Console.ReadLine();
-            if (!_url.StartsWith("http://", true, null)) _url = "http://" + _url;
+            if (!_url.StartsWith("http://", true, null) && !_url.StartsWith("https://", true, null)) _url = "http://" + _url;
 
             Console.Write("Authentication: Windows Default, Windows or Basic (D/W/B) ");
             string str = Console.ReadLine();
@@ -147,7 +148,7 @@ namespace CameraStreamResolution
                     cc = Util.BuildCredentialCache(uri, _user, _securePwd, "Basic");
                     break;
             }
-            VideoOS.Platform.SDK.Environment.AddServer(uri, cc);
+            VideoOS.Platform.SDK.Environment.AddServer(_secureOnly, uri, cc);
 
             //  This will reuse the Windows credentials you are logged in with
             //    CredentialCache cc = VideoOS.Platform.Login.Util.BuildCredentialCache(uri, "", "", "Negotiate");
@@ -179,7 +180,15 @@ namespace CameraStreamResolution
                 return false;
             }
 
-            Console.WriteLine($"Login succeeded for user: {_user} on server: {uri.ToString()}.");
+            LoginSettings loginSettings = LoginSettingsCache.GetLoginSettings(uri.DnsSafeHost);
+            if (loginSettings == null)
+            {
+                Console.WriteLine($"Login not succeeded for user: {_user} on server: {uri.DnsSafeHost}.");
+                VideoOS.Platform.SDK.Environment.RemoveServer(uri);
+                return false;
+            }
+
+            Console.WriteLine($"Login succeeded for user: {_user} on server: {loginSettings.Uri}.");
             return true;
         }
 
@@ -270,7 +279,7 @@ namespace CameraStreamResolution
         }
 
         /// <summary>
-        /// Getting the resoulution of the default stream by stream ID null
+        /// Getting the resolution of the default stream by stream ID null
         /// </summary>
         static void GetDefaultStream()
         {

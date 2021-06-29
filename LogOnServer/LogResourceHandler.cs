@@ -6,7 +6,7 @@ using System.Text;
 using VideoOS.Platform;
 using VideoOS.Platform.Log;
 
-namespace LogMessageToServer
+namespace LogOnServer
 {
 	internal class LogResourceHandler
 	{

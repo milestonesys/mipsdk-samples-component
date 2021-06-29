@@ -39,7 +39,7 @@
             this.textBoxValue.ForeColor = System.Drawing.Color.Black;
             this.textBoxValue.Location = new System.Drawing.Point(280, 6);
             this.textBoxValue.Name = "textBoxValue";
-            this.textBoxValue.Size = new System.Drawing.Size(215, 20);
+            this.textBoxValue.Size = new System.Drawing.Size(200, 20);
             this.textBoxValue.TabIndex = 1;
             this.textBoxValue.TextChanged += new System.EventHandler(this.OnTextChanged);
             // 

@@ -97,7 +97,7 @@ namespace VideoFileViewer
                         {
                             VideoOS.Platform.SDK.Environment.RemoveAllServers();
                             Uri uri = new Uri("file:\\" + _selectedStoragePath);
-                            VideoOS.Platform.SDK.Environment.AddServer(uri, new System.Net.NetworkCredential("", password)); 
+                            VideoOS.Platform.SDK.Environment.AddServer(false, uri, new System.Net.NetworkCredential("", password)); 
                             try
                             {
                                 VideoOS.Platform.SDK.Environment.Login(uri, IntegrationId, IntegrationName, Version, ManufacturerName);

@@ -28,12 +28,13 @@ namespace StatusSessionConsole
         static void Main(string[] args)
         {
             string server = "http://localhost";
+            bool secureOnly = true; // change to false to connect to servers older than 2021 R1 or servers not running HTTPS on the Identity/Management Server communication
             if (args.Length > 0)
             {
                 server = args[0];
             }
 
-            var recordingServer = GetRecordingServer(server);
+            var recordingServer = GetRecordingServer(server, secureOnly);
             var recordingServerId = recordingServer.FQID;
 
             // Find all cameras connected to the Recording Server
@@ -84,7 +85,7 @@ namespace StatusSessionConsole
                 // Start the session with the Recording Server
                 statusApi.StartSession();
 
-                // Susbcribe to events
+                // Subscribe to events
                 statusApi.SetSubscribedEvents(subscribedEvents);
 
                 // Subscribe to camera found
@@ -154,23 +155,23 @@ namespace StatusSessionConsole
                 e.ErrorNoConnection);
         }
 
-        static Item GetRecordingServer(string hostname)
+        static Item GetRecordingServer(string hostname, bool secureOnly)
         {
             VideoOS.Platform.SDK.Environment.Initialize();
 
             string hostManagementService = hostname;
-            if (hostManagementService.StartsWith("http://") == false)
-                hostManagementService = "http://" + hostManagementService;
+			if (!hostManagementService.StartsWith("http://") && !hostManagementService.StartsWith("https://"))
+				hostManagementService = "http://" + hostManagementService;
 
-            Uri uri = new UriBuilder(hostManagementService).Uri;
-            VideoOS.Platform.SDK.Environment.AddServer(uri, CredentialCache.DefaultNetworkCredentials);
+			Uri uri = new UriBuilder(hostManagementService).Uri;
+            VideoOS.Platform.SDK.Environment.AddServer(secureOnly, uri, CredentialCache.DefaultNetworkCredentials);
 
             // If you need different credentials than the user that runs the sample, please comment out the line above and
             // uncomment the line below and set the approproiate username and password.
-            //VideoOS.Platform.SDK.Environment.AddServer(uri, new NetworkCredential("username", "password"));
+            //VideoOS.Platform.SDK.Environment.AddServer(secureOnly, uri, new NetworkCredential("username", "password"));
 
-			try
-			{
+            try
+            {
 				VideoOS.Platform.SDK.Environment.Login(uri, IntegrationId, IntegrationName, Version, ManufacturerName);
 			}
 			catch (Exception ex)

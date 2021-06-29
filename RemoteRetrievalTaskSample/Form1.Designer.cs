@@ -39,6 +39,10 @@
             this.dtpEndTime = new System.Windows.Forms.DateTimePicker();
             this.txtDevice = new System.Windows.Forms.TextBox();
             this.dataGridTasks = new System.Windows.Forms.DataGridView();
+            this.btnGet = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnSelectCamera = new System.Windows.Forms.Button();
+            this.lblLoginError = new System.Windows.Forms.Label();
             this.Device = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,10 +51,7 @@
             this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Percent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cancel = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.btnGet = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.btnSelectCamera = new System.Windows.Forms.Button();
-            this.lblLoginError = new System.Windows.Forms.Label();
+            this.Cleanup = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridTasks)).BeginInit();
             this.SuspendLayout();
@@ -190,16 +191,58 @@
             this.EndTime,
             this.State,
             this.Percent,
-            this.Cancel});
+            this.Cancel,
+            this.Cleanup});
             this.dataGridTasks.Location = new System.Drawing.Point(13, 185);
             this.dataGridTasks.MultiSelect = false;
             this.dataGridTasks.Name = "dataGridTasks";
             this.dataGridTasks.ReadOnly = true;
             this.dataGridTasks.RowHeadersVisible = false;
             this.dataGridTasks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridTasks.Size = new System.Drawing.Size(802, 364);
+            this.dataGridTasks.Size = new System.Drawing.Size(900, 389);
             this.dataGridTasks.TabIndex = 8;
             this.dataGridTasks.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridTasks_CellClick);
+            // 
+            // btnGet
+            // 
+            this.btnGet.Enabled = false;
+            this.btnGet.Location = new System.Drawing.Point(12, 156);
+            this.btnGet.Name = "btnGet";
+            this.btnGet.Size = new System.Drawing.Size(75, 23);
+            this.btnGet.TabIndex = 9;
+            this.btnGet.Text = "Get tasks";
+            this.btnGet.UseVisualStyleBackColor = true;
+            this.btnGet.Click += new System.EventHandler(this.btnGet_Click);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Enabled = false;
+            this.btnRefresh.Location = new System.Drawing.Point(93, 156);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 10;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // btnSelectCamera
+            // 
+            this.btnSelectCamera.Enabled = false;
+            this.btnSelectCamera.Location = new System.Drawing.Point(12, 93);
+            this.btnSelectCamera.Name = "btnSelectCamera";
+            this.btnSelectCamera.Size = new System.Drawing.Size(275, 23);
+            this.btnSelectCamera.TabIndex = 11;
+            this.btnSelectCamera.Text = "Select Camera ...";
+            this.btnSelectCamera.UseVisualStyleBackColor = true;
+            this.btnSelectCamera.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // lblLoginError
+            // 
+            this.lblLoginError.AutoSize = true;
+            this.lblLoginError.Location = new System.Drawing.Point(12, 48);
+            this.lblLoginError.Name = "lblLoginError";
+            this.lblLoginError.Size = new System.Drawing.Size(0, 13);
+            this.lblLoginError.TabIndex = 12;
             // 
             // Device
             // 
@@ -208,7 +251,7 @@
             this.Device.HeaderText = "Device Name";
             this.Device.Name = "Device";
             this.Device.ReadOnly = true;
-            this.Device.Width = 89;
+            this.Device.Width = 97;
             // 
             // UserName
             // 
@@ -217,7 +260,7 @@
             this.UserName.HeaderText = "User Name";
             this.UserName.Name = "UserName";
             this.UserName.ReadOnly = true;
-            this.UserName.Width = 78;
+            this.UserName.Width = 85;
             // 
             // CreationTime
             // 
@@ -268,52 +311,20 @@
             this.Cancel.Text = "Cancel";
             this.Cancel.UseColumnTextForButtonValue = true;
             // 
-            // btnGet
+            // Cleanup
             // 
-            this.btnGet.Enabled = false;
-            this.btnGet.Location = new System.Drawing.Point(12, 156);
-            this.btnGet.Name = "btnGet";
-            this.btnGet.Size = new System.Drawing.Size(75, 23);
-            this.btnGet.TabIndex = 9;
-            this.btnGet.Text = "Get tasks";
-            this.btnGet.UseVisualStyleBackColor = true;
-            this.btnGet.Click += new System.EventHandler(this.btnGet_Click);
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Enabled = false;
-            this.btnRefresh.Location = new System.Drawing.Point(93, 156);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
-            this.btnRefresh.TabIndex = 10;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
-            // btnSelectCamera
-            // 
-            this.btnSelectCamera.Enabled = false;
-            this.btnSelectCamera.Location = new System.Drawing.Point(12, 93);
-            this.btnSelectCamera.Name = "btnSelectCamera";
-            this.btnSelectCamera.Size = new System.Drawing.Size(275, 23);
-            this.btnSelectCamera.TabIndex = 11;
-            this.btnSelectCamera.Text = "Select Camera ...";
-            this.btnSelectCamera.UseVisualStyleBackColor = true;
-            this.btnSelectCamera.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // lblLoginError
-            // 
-            this.lblLoginError.AutoSize = true;
-            this.lblLoginError.Location = new System.Drawing.Point(12, 48);
-            this.lblLoginError.Name = "lblLoginError";
-            this.lblLoginError.Size = new System.Drawing.Size(0, 13);
-            this.lblLoginError.TabIndex = 12;
+            this.Cleanup.HeaderText = "Cleanup";
+            this.Cleanup.Name = "Cleanup";
+            this.Cleanup.ReadOnly = true;
+            this.Cleanup.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Cleanup.Text = "Cleanup";
+            this.Cleanup.UseColumnTextForButtonValue = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(829, 561);
+            this.ClientSize = new System.Drawing.Size(927, 586);
             this.Controls.Add(this.lblLoginError);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnConnect);
@@ -356,6 +367,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn State;
         private System.Windows.Forms.DataGridViewTextBoxColumn Percent;
         private System.Windows.Forms.DataGridViewButtonColumn Cancel;
+        private System.Windows.Forms.DataGridViewButtonColumn Cleanup;
     }
 }
 

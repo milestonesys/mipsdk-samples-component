@@ -9,7 +9,10 @@ $auth = "Negotiate"
 $definitionXml = Get-Content "LayoutNEW.xml"
 $layoutName = "LayoutPS"
 $layoutDescription = "The best"
-
+$integrationId = "9AFF9E37-7BBF-6999-88CB-6AD4FA4B02B0"
+$integrationName = "Power shell"
+$version = "1.0"
+$manufacturerName = "Sample Manufacturer"
 # method for logging in
 
 function InitAndLogin {
@@ -18,7 +21,7 @@ function InitAndLogin {
 
     [VideoOS.Platform.SDK.Environment]::Initialize()
     [VideoOS.Platform.SDK.Environment]::AddServer($uri, $cc, $true)
-    [VideoOS.Platform.SDK.Environment]::Login($uri);
+	[VideoOS.Platform.SDK.Environment]::Login($uri, $integrationId, $integrationName, $version, $manufacturerName); 
 
     if (![VideoOS.Platform.SDK.Environment]::IsLoggedIn($uri))
     {

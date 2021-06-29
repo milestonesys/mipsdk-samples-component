@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConfigAPIBatch.OAuth;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -7,8 +8,10 @@ using System.Net;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using System.Text;
+using System.Threading.Tasks;
 using System.Xml;
 using VideoOS.ConfigurationAPI;
+using VideoOS.Platform.Login;
 using VideoOS.Platform.Util;
 
 namespace ConfigAPIBatch
@@ -31,6 +34,7 @@ namespace ConfigAPIBatch
         public bool BasicUser { get; set; }
         public String Username { get; set; }
         public String Password { get; set; }
+        public bool SecureOnly { get; set; }
 
         public bool Connected { get; set; }
 
@@ -39,50 +43,88 @@ namespace ConfigAPIBatch
         {
             try
             {
-                string uriString;
-                string address = Serverport == 0 ? ServerAddress : ServerAddress + ":" + Serverport;
-
-                if (BasicUser)
+                
+                bool isOAuth = Task.Run(() => IdpClientProxy.IsOAuthServer(ServerAddress, Serverport)).GetAwaiter().GetResult();
+                if (isOAuth)
                 {
-                    if (Serverport == 80)
-                        address = ServerAddress;
-                    uriString = String.Format("https://{0}/ManagementServer/ConfigurationApiService.svc", address);
+                    _client = CreateOAuthClientProxy(ServerAddress, Serverport, Username, Password, BasicUser);
                 }
                 else
                 {
-                    uriString = String.Format("http://{0}/ManagementServer/ConfigurationApiService.svc", address);
+                    _client = CreateClientProxy(ServerAddress, Serverport, Username, Password, BasicUser);
                 }
-
-                ChannelFactory<IConfigurationService> channel = null;
-
-                Uri uri = new UriBuilder(uriString).Uri;
-                var binding = GetBinding(BasicUser);
-                var spn = SpnFactory.GetSpn(uri);
-                var endpointAddress = new EndpointAddress(uri, EndpointIdentity.CreateSpnIdentity(spn));
-                channel = new ChannelFactory<IConfigurationService>(binding, endpointAddress);
-                 
-                if (BasicUser)
-                {
-                    // Note the domain == [BASIC] 
-                    channel.Credentials.UserName.UserName = "[BASIC]\\" + Username;
-                    channel.Credentials.UserName.Password = Password;
-                    channel.Credentials.ServiceCertificate.SslCertificateAuthentication = new X509ServiceCertificateAuthentication()
-                    {
-                        CertificateValidationMode = X509CertificateValidationMode.None,
-                    };
-                }
-                else
-                {
-                    channel.Credentials.Windows.ClientCredential.UserName = Username;
-                    channel.Credentials.Windows.ClientCredential.Password = Password;
-                }
-                _client = channel.CreateChannel();
-
-                Connected = false;
             }
             catch (EndpointNotFoundException)
             {
             }
+        }
+
+        private IConfigurationService CreateOAuthClientProxy(string address, int serverPort, string username, string password, bool isBasic)
+        {
+            // If the OAuth server is available it uses OAuth version of ServerCommandService.
+            var uri = ConfigApiServiceOAuthHelper.CalculateServiceUrl(address, serverPort);
+            var oauthBinding = ConfigApiServiceOAuthHelper.GetOAuthBinding(serverPort == 443);
+            string spn = SpnFactory.GetSpn(uri);
+            EndpointAddress endpointAddress = new EndpointAddress(uri, EndpointIdentity.CreateSpnIdentity(spn));
+
+            ChannelFactory<IConfigurationService> channel = new ChannelFactory<IConfigurationService>(oauthBinding, endpointAddress);
+            AccessTokenResponse accessToken = null;
+            if(isBasic)
+            {
+                accessToken = Task.Run(() => IdpClientProxy.GetAccessTokenForBasicUserAsync(address, serverPort, username, password)).GetAwaiter().GetResult();
+            }
+            else
+            {
+                string httpScheme = Serverport == 80 ? Uri.UriSchemeHttp : Uri.UriSchemeHttps;
+                Uri serverUri = new UriBuilder(httpScheme, ServerAddress, Serverport).Uri;
+                string authType = BasicUser ? "Basic" : "Negotiate";
+                var credential = Util.BuildNetworkCredential(uri, username, password, authType);
+                accessToken = Task.Run(() => IdpClientProxy.GetAccessTokenForWindowsUserAsync(address, serverPort, credential)).GetAwaiter().GetResult();
+            }
+            channel.Endpoint.EndpointBehaviors.Add(new AddTokenBehavior(accessToken.Access_Token));
+            ConfigApiServiceOAuthHelper.ConfigureEndpoint(channel.Endpoint);
+            return channel.CreateChannel();
+        }
+
+        public IConfigurationService CreateClientProxy(string serverAddress, int serverport, string username, string password, bool isBasic)
+        {
+            string httpScheme = Serverport == 80 ? Uri.UriSchemeHttp : Uri.UriSchemeHttps;
+
+            if (isBasic)
+            {
+                httpScheme = Uri.UriSchemeHttps;
+                Serverport = 443;
+            }
+
+            Uri serverUri = new UriBuilder(httpScheme, ServerAddress, Serverport).Uri;
+
+            string uriString = serverUri.ToString() + "ManagementServer/ConfigurationApiService.svc";
+            ChannelFactory<IConfigurationService> channel = null;
+
+            Uri uri = new UriBuilder(uriString).Uri;
+            var binding = GetBinding(isBasic);
+            var spn = SpnFactory.GetSpn(uri);
+            var endpointAddress = new EndpointAddress(uri, EndpointIdentity.CreateSpnIdentity(spn));
+            channel = new ChannelFactory<IConfigurationService>(binding, endpointAddress);
+
+            ClientTokenHelper clientTokenHelper = new ClientTokenHelper(ServerAddress);
+            channel.Endpoint.Behaviors.Add(new TokenServiceBehavior(clientTokenHelper));
+            
+            if (isBasic)
+            {
+                channel.Credentials.UserName.UserName = "[BASIC]\\" + Username;
+                channel.Credentials.UserName.Password = Password;
+                channel.Credentials.ServiceCertificate.SslCertificateAuthentication = new X509ServiceCertificateAuthentication()
+                {
+                    CertificateValidationMode = X509CertificateValidationMode.None,
+                };
+            }
+            else
+            {
+                channel.Credentials.Windows.ClientCredential.UserName = Username;
+                channel.Credentials.Windows.ClientCredential.Password = Password;
+            }
+            return channel.CreateChannel();
         }
 
         public void Initialize()
@@ -414,6 +456,30 @@ namespace ConfigAPIBatch
             }
         }
         #endregion
+    }
+
+    /// <summary>
+    /// This class assist in adding the login token to the SOAP header
+    /// </summary>
+    public class ClientTokenHelper : TokenHelper
+    {
+        private String _serverAddress;
+        public ClientTokenHelper(string serverAddress)
+        {
+            _serverAddress = serverAddress;
+        }
+        public override string GetToken()
+        {
+            LoginSettings ls = VideoOS.Platform.Login.LoginSettingsCache.GetLoginSettings(_serverAddress);
+            if (ls != null)
+                return ls.Token;
+            return "";
+        }
+        public override bool ValidateToken(string token)
+        {
+            // Not used on client side
+            return true;
+        }
     }
 
 }

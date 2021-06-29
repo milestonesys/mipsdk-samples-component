@@ -258,6 +258,14 @@ namespace ConfigAPIClient.UI
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.BasicOwnerInformation, BasicUserIx);
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.BasicOwnerInformationFolder, FolderIconIx);
 
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.ToolOption, SettingsIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.ToolOptionFolder, FolderIconIx);
+
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.ViewGroup, ViewGroupIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.ViewGroupFolder, FolderIconIx);
+
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.View, ViewIx); 
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.ViewFolder, FolderIconIx);
             }
             catch (Exception ex)
 			{

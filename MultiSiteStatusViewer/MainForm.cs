@@ -228,9 +228,8 @@ namespace MultiSiteStatusViewer
         /// <returns></returns>
         private bool AddServer(ServerObject so)
         {
-            //VideoOS.Platform.SDK.Environment.LoadSiteItem(so.SiteItem.FQID.ServerId.Uri, _credentialCache);
             // try login
-            VideoOS.Platform.SDK.Environment.AddServer(so.SiteItem,_credentialCache);
+            VideoOS.Platform.SDK.Environment.AddServer(so.SecureOnly, so.SiteItem,_credentialCache);
             try
             {
                 VideoOS.Platform.SDK.Environment.Login(so.SiteItem.FQID.ServerId.Uri, IntegrationId, IntegrationName, Version, ManufacturerName);
@@ -457,7 +456,8 @@ namespace MultiSiteStatusViewer
                         {
                             Name = form.SelectedSiteItem.Name,
                             SiteItem = form.SelectedSiteItem,
-                            SitesTreeNode =tn
+                            SitesTreeNode = tn,
+                            SecureOnly = form.SecureOnly
                         });
                     if (form.IncludeChildSites)
                     {
@@ -693,6 +693,8 @@ namespace MultiSiteStatusViewer
                 get;
                 set;
             }
+
+            public bool SecureOnly { get; set; }
 
             public TreeNode SitesTreeNode { get; set; }
             

@@ -139,7 +139,7 @@ namespace MediaPlaybackViewer
                         while (true)
                         {
                             VideoOS.Platform.SDK.Environment.RemoveAllServers();
-                            VideoOS.Platform.SDK.Environment.AddServer(uri, new System.Net.NetworkCredential("", password));
+                            VideoOS.Platform.SDK.Environment.AddServer(false, uri, new System.Net.NetworkCredential("", password));
                             try
                             {
                                 VideoOS.Platform.SDK.Environment.Login(uri, IntegrationId, IntegrationName, Version, ManufacturerName);

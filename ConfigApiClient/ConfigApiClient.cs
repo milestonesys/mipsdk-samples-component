@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConfigAPIClient.OAuth;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -8,6 +9,7 @@ using System.Net;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using VideoOS.ConfigurationAPI;
@@ -48,12 +50,17 @@ namespace ConfigAPIClient
         {
             try
             {
-                string address = Serverport == 0 ? ServerAddress : ServerAddress + ":" + Serverport;
-
-                //TODO: The following code is not working for : BASIC Arcus!
-
-                LoginSettings loginSettings = VideoOS.Platform.Login.LoginSettingsCache.GetLoginSettings(ServerAddress);
-                _client = CreateClientProxy(address, loginSettings);
+                LoginSettings loginSettings = LoginSettingsCache.GetLoginSettings(ServerAddress);
+                bool isOAuth = Task.Run(() => IdpClientProxy.IsOAuthServer(ServerAddress, Serverport)).GetAwaiter().GetResult();
+                if (isOAuth)
+                {
+                    _client = CreateOAuthClientProxy(ServerAddress, Serverport, loginSettings);
+                }
+                else
+                {
+                    
+                    _client = CreateClientProxy(ServerAddress, Serverport, loginSettings);
+                }
                
                 Connected = false;
             }
@@ -62,26 +69,31 @@ namespace ConfigAPIClient
             }
         }
 
-        public IConfigurationService CreateClientProxy(string address, LoginSettings loginSettings)
+        private IConfigurationService CreateOAuthClientProxy(string address, int serverPort, LoginSettings loginSettings)
         {
+            // If the OAuth server is available it uses OAuth version of ServerCommandService.
+            var uri = ConfigApiServiceOAuthHelper.CalculateServiceUrl(address, serverPort);
+            var oauthBinding = ConfigApiServiceOAuthHelper.GetOAuthBinding(serverPort == 443);
+            string spn = SpnFactory.GetSpn(uri);
+            EndpointAddress endpointAddress = new EndpointAddress(uri, EndpointIdentity.CreateSpnIdentity(spn));
+
+            ChannelFactory<IConfigurationService> channel = new ChannelFactory<IConfigurationService>(oauthBinding, endpointAddress);
+            channel.Endpoint.EndpointBehaviors.Add(new AddTokenBehavior(loginSettings.IdentityTokenCache.Token));
+            ConfigApiServiceOAuthHelper.ConfigureEndpoint(channel.Endpoint);
+
+            return channel.CreateChannel();
+        }
+
+        public IConfigurationService CreateClientProxy(string serverAddress, int serverport, LoginSettings loginSettings)
+        {
+            string address = serverport == 0 ? serverAddress : serverAddress + ":" + serverport;
             bool basic = loginSettings != null && loginSettings.IsBasicUser;
 
             string hostName = address;
             string uriString;
-            if (ServerType == ServerTypeEnum.Corporate)
+            if (ServerType == ServerTypeEnum.Corporate && loginSettings != null)
             {
                 uriString = new UriBuilder(loginSettings.UriCorporate).Uri.ToString() + "ManagementServer/ConfigurationApiService.svc";
-
-                /*
-                if (basic)
-                {
-                    if (Serverport == 80)
-                        hostName = ServerAddress;
-                    uriString = String.Format("https://{0}/ManagementServer/ConfigurationApiService.svc", hostName);
-                }
-                else
-                    uriString = String.Format("http://{0}/ManagementServer/ConfigurationApiService.svc", hostName);
-                */
             }
             else
             {

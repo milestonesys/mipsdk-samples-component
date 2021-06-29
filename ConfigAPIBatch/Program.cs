@@ -18,6 +18,7 @@ namespace ConfigAPIBatch
 			client.BasicUser = true;
 			client.Username = "a";
 			client.Password = "a";
+			client.SecureOnly = false;
 
 			try
 			{
@@ -75,14 +76,12 @@ namespace ConfigAPIBatch
 					Console.WriteLine("Hardware: " + item.DisplayName);
 				}
 
-
 				client.Close();
 			}
 			catch (Exception ex)
 			{
 				Trace.WriteLine("Exception: "+ex.Message);
 			}
-
 		}
 
 		private static void FillChildren(ConfigurationItem item)

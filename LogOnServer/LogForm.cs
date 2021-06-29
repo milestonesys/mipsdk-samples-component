@@ -11,7 +11,7 @@ using VideoOS.Platform.Client;
 using VideoOS.Platform.Messaging;
 using VideoOS.Platform.UI;
 
-namespace LogMessageToServer
+namespace LogOnServer
 {
 	public partial class LogForm : Form
 	{

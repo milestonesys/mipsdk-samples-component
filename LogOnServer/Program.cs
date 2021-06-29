@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using VideoOS.Platform.SDK.UI.LoginDialog;
 
-namespace LogMessageToServer
+namespace LogOnServer
 {
 	static class Program
 	{

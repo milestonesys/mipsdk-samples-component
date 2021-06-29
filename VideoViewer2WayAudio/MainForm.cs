@@ -27,7 +27,7 @@ namespace VideoViewer2WayAudio
 
         private bool _fromPCMic = true;
 
-        private bool _fromPCMicInitialised = false;
+        private bool _fromPCMicInitialized = false;
 
         private System.IO.FileStream soundFileStream = null;
 
@@ -41,14 +41,14 @@ namespace VideoViewer2WayAudio
 
             EnvironmentManager.Instance.RegisterReceiver(PlaybackTimeChangedHandler,
                                                          new MessageIdFilter(MessageId.SmartClient.PlaybackCurrentTimeIndication));
-            //Initialise dialog components
+            //Initialize dialog components
             checkBoxAudio.Enabled = false;
             checkBoxAudio.Checked = true;
             checkBoxSpeaker.Enabled = false;
             progressBarMeter.Visible = false;
             checkBoxSpeaker.Checked = true;
-            this.rb_pc_mic.Checked = _fromPCMic;
-            this.rb_from_file.Checked = !_fromPCMic;
+            rb_pc_mic.Checked = _fromPCMic;
+            rb_from_file.Checked = !_fromPCMic;
             onCheckedChanged_Speaker(this.checkBoxSpeaker, null);
             openFileDialog1.DefaultExt = "wav";
             openFileDialog1.Filter = "WAV sound files (*.wav)|*.wav";
@@ -69,23 +69,23 @@ namespace VideoViewer2WayAudio
 
 
 
-        private void InitialisePCMicToSpeaker()
+        private void InitializePCMicToSpeaker()
         {
-            if (!_fromPCMicInitialised)
+            if (!_fromPCMicInitialized)
             {
                 _outgoingSpeakerController.Close(0);
                 var audioRecorder = ClientControl.Instance.GeneratePcAudioRecorder();
                 audioRecorder.OutgoingAudioWaveFormatSamplesPerSecond = Int32.Parse(comboBoxSampleRate.SelectedItem.ToString());
                 _outgoingSpeakerController.Init(audioRecorder);
                 _outgoingSpeakerController.Connect(_related1Speaker.FQID,0);
-                _fromPCMicInitialised = true;
+                _fromPCMicInitialized = true;
             }
         }
 
 
         private void InitialiseAudioStreamToSpeaker(System.IO.Stream stream, bool initFromFile)
         {
-            _fromPCMicInitialised = false; //If you shift to mic later, then I have to reinitialise the _outgoingSpeakerController
+            _fromPCMicInitialized = false; //If you shift to mic later, then I have to reinitialize the _outgoingSpeakerController
             _outgoingSpeakerController.Close(0);
             try
             {
@@ -95,7 +95,7 @@ namespace VideoViewer2WayAudio
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Initialisation of speaker failed. Cause: "+ex.Message);
+                MessageBox.Show("Initialization of speaker failed. Cause: "+ex.Message);
                 return;
             }
             progressBarMeter.Visible = true;
@@ -178,7 +178,7 @@ namespace VideoViewer2WayAudio
                 List<Item> related = _selectItem1.GetRelated();
 
                 _outgoingSpeakerController.Close(0);
-                _fromPCMicInitialised = false;
+                _fromPCMicInitialized = false;
                 _outgoingSpeakerController.OutgoingAudioErrorText = "";
 
                 if (related != null)
@@ -203,7 +203,7 @@ namespace VideoViewer2WayAudio
                             this.rb_from_file.Checked = !_fromPCMic;
 
                             if (this.rb_pc_mic.Checked && _related1Speaker != null)
-                                BeginInvoke(new MethodInvoker(delegate() { InitialisePCMicToSpeaker(); }));
+                                BeginInvoke(new MethodInvoker(delegate() { InitializePCMicToSpeaker(); }));
 
                         }
                     }
@@ -311,7 +311,7 @@ namespace VideoViewer2WayAudio
         private void OnMouseDownTalk(object sender, MouseEventArgs e)
         {
             progressBarMeter.Visible = true;
-            if (!_fromPCMicInitialised)
+            if (!_fromPCMicInitialized)
                 return;
 
             _outgoingSpeakerController.TransmitStart();
@@ -319,7 +319,7 @@ namespace VideoViewer2WayAudio
 
         private void OnMouseUpTalk(object sender, MouseEventArgs e)
         {
-            if (!_fromPCMicInitialised)
+            if (!_fromPCMicInitialized)
                 return;
             _outgoingSpeakerController.TransmitStop();
             progressBarMeter.Visible = false;
@@ -375,7 +375,7 @@ namespace VideoViewer2WayAudio
             this.labelSampleRate.Enabled = !this.rb_from_file.Checked;
 
             if (this.rb_pc_mic.Checked)
-                BeginInvoke(new MethodInvoker(delegate() { InitialisePCMicToSpeaker(); }));
+                BeginInvoke(new MethodInvoker(delegate() { InitializePCMicToSpeaker(); }));
 
         }
 
@@ -428,7 +428,7 @@ namespace VideoViewer2WayAudio
             {
                 if (_outgoingSpeakerController != null)
                     _outgoingSpeakerController.Close(0);
-                _fromPCMicInitialised = false; //Need to be reinitialized
+                _fromPCMicInitialized = false; //Need to be reinitialized
                 progressBarMeter.Visible = false;
                 this.buttonTalk.Enabled = false;	//TEST
                 this.btn_Select_WAV_File.Enabled = false;
@@ -445,7 +445,7 @@ namespace VideoViewer2WayAudio
                 this.rb_pc_mic.Enabled = true;
                 progressBarMeter.Visible = false;
                 if (this.rb_pc_mic.Checked && _related1Speaker != null)
-                    BeginInvoke(new MethodInvoker(delegate() { InitialisePCMicToSpeaker(); }));
+                    BeginInvoke(new MethodInvoker(delegate() { InitializePCMicToSpeaker(); }));
                 this.comboBoxSampleRate.Enabled = true;
                 labelSampleRate.Enabled = true;
             }
@@ -454,9 +454,9 @@ namespace VideoViewer2WayAudio
         private void comboBoxSampleRate_SelectedValueChanged(object sender, EventArgs e)
         {
             // we changed recording sample rate, we need to reinitialize outgoing speaker
-            _fromPCMicInitialised = false;
+            _fromPCMicInitialized = false;
             if (this.rb_pc_mic.Checked && _related1Speaker != null)
-                BeginInvoke(new MethodInvoker(delegate () { InitialisePCMicToSpeaker(); }));
+                BeginInvoke(new MethodInvoker(delegate () { InitializePCMicToSpeaker(); }));
         }
     }
 

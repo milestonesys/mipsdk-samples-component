@@ -27,7 +27,6 @@ namespace ConfigUpdated
             VideoOS.Platform.SDK.UI.Environment.Initialize();		// Initialize ActiveX references, e.g. usage of ImageViewerActiveX etc
 
             DialogLoginForm loginForm = new DialogLoginForm(SetLoginResult, IntegrationId, IntegrationName, Version, ManufacturerName);
-            loginForm.ServerConfiguration = DialogLoginForm.ServerConfigurationEnum.AllServersIndividually;
 
             Application.Run(loginForm);								// Show and complete the form and login to server
             if (Connected)

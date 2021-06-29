@@ -35,11 +35,11 @@ namespace StatusDemoConsole
 			string hostManagementService = "http://localhost";
             if (args.GetLength(0) > 0)
                 hostManagementService = args[0];
-			if (hostManagementService.StartsWith("http://") == false)
+			if (!hostManagementService.StartsWith("http://") && !hostManagementService.StartsWith("https://"))
 				hostManagementService = "http://" + hostManagementService;
-
+			bool secureOnly = true; // change to false to connect to servers older than 2021 R1 or servers not running HTTPS on the Identity/Management Server communication
         	Uri uri = new UriBuilder(hostManagementService).Uri;
-        	VideoOS.Platform.SDK.Environment.AddServer(uri, CredentialCache.DefaultNetworkCredentials);
+        	VideoOS.Platform.SDK.Environment.AddServer(secureOnly, uri, CredentialCache.DefaultNetworkCredentials);
 			try
 			{
 				VideoOS.Platform.SDK.Environment.Login(uri, IntegrationId, IntegrationName, Version, ManufacturerName);

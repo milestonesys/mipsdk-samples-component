@@ -47,6 +47,10 @@ namespace MultiSiteStatusViewer
 			}
 		}
 
+		internal bool SecureOnly
+        {
+			get { return secureOnlyCheckBox.Checked; }
+        }
 
 		// Add a given URI to the CredentialCache
 		private void AddUriToCache(CredentialCache cc, Item item)
@@ -121,7 +125,7 @@ namespace MultiSiteStatusViewer
 			String username = radioButtonCurrent.Checked ? "" : textBoxUsername.Text;
 			_credentialCache = VideoOS.Platform.Login.Util.BuildCredentialCache(uri, username, textBoxPassword.Text,
 			                                                                      authorization);
-			Item siteItem = VideoOS.Platform.SDK.Environment.LoadSiteItem(uri, _credentialCache);
+			Item siteItem = VideoOS.Platform.SDK.Environment.LoadSiteItem(secureOnlyCheckBox.Checked, uri, _credentialCache);
 
 			treeViewSites.Nodes.Clear();
 			if (siteItem==null)

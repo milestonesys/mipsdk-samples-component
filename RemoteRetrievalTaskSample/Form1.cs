@@ -78,22 +78,26 @@ namespace RemoteRetrievalTaskSample
 
 		private void btnGet_Click(object sender, EventArgs e)
 		{
-			lblRetrieveError.Text = string.Empty;
-			try
-			{
-				_tasks = _manager.GetTasks();
-				dataGridTasks.AutoGenerateColumns = false;
-				dataGridTasks.DataSource = _tasks;
-			}
-			catch (InvalidOperationException ex)
-			{
-				// Not logged in.
-				lblRetrieveError.Text = ex.Message;
-			}
-			
+            GetTasks();
 		}
 
-		private void btnRefresh_Click(object sender, EventArgs e)
+        private void GetTasks()
+        {
+            lblRetrieveError.Text = string.Empty;
+            try
+            {
+                _tasks = _manager.GetTasks();
+                dataGridTasks.AutoGenerateColumns = false;
+                dataGridTasks.DataSource = _tasks;
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Not logged in.
+                lblRetrieveError.Text = ex.Message;
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
 		{
 			lblRetrieveError.Text = string.Empty;
 			try
@@ -110,12 +114,21 @@ namespace RemoteRetrievalTaskSample
 
 		private void dataGridTasks_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
-			if (e.RowIndex < 0 || e.ColumnIndex != dataGridTasks.Columns["Cancel"].Index) {
+			if (e.RowIndex < 0)
+            {
 				return;
 			}
 			try
 			{
-				_tasks[e.RowIndex].Stop();
+                if (e.ColumnIndex == dataGridTasks.Columns["Cancel"].Index)
+                {
+                    _tasks[e.RowIndex].Stop();
+                }
+                else if (e.ColumnIndex == dataGridTasks.Columns["Cleanup"].Index)
+                {
+                    _tasks[e.RowIndex].Cleanup();
+                    GetTasks();
+                }
 			}
 			catch (UnauthorizedAccessException ex)
 			{

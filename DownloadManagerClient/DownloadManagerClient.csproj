@@ -8,8 +8,8 @@
     <ProjectGuid>{27B099B3-B288-4250-BB57-0CFCE4BE2C4D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyDownloadManagerClient</RootNamespace>
-    <AssemblyName>MyDownloadManagerClient</AssemblyName>
+    <RootNamespace>DownloadManagerClient</RootNamespace>
+    <AssemblyName>DownloadManagerClient</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>

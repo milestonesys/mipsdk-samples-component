@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("VideoViewer")]
+[assembly: AssemblyTitle("MediaRGBVideoEnhancementLive")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("VideoViewer")]
+[assembly: AssemblyProduct("MediaRGBVideoEnhancementLive")]
 [assembly: AssemblyCopyright("Copyright © Milestone Systems 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

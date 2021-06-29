@@ -9,7 +9,7 @@ using VideoOS.Platform.Messaging;
 using VideoOS.Platform.SDK;
 using VideoOS.Platform.UI;
 
-namespace VideoViewer
+namespace VideoViewerNoConfig
 {
 	public partial class MainForm : Form
 	{
@@ -65,23 +65,16 @@ namespace VideoViewer
 				_imageViewerControl1 = null;
 			}
 
-            /*
-            if (_userContext != null)
-            {
-                VideoOS.Platform.SDK.MultiEnvironment.Logout(_userContext);
-                _userContext = null;
-            }*/
-
             try
             {
                 if (_userContext == null)
                 {
-                    _userContext = VideoOS.Platform.SDK.MultiEnvironment.CreateSingleServerUserContext(textBoxUser.Text,
+                    _userContext = VideoOS.Platform.SDK.MultiEnvironment.CreateSingleServerUserContext(checkBoxSecureOnly.Checked, textBoxUser.Text,
                         textBoxPassword.Text, checkBoxAd.Checked, new UriBuilder(textBoxServer.Text).Uri);
-                    VideoOS.Platform.SDK.MultiEnvironment.LoginUserContext(_userContext, false, false);
-                }
+					VideoOS.Platform.SDK.MultiEnvironment.LoginUserContext(_userContext, false, false);
+				}
 
-                if (comboBox1.SelectedIndex == 0 || comboBox1.SelectedIndex > comboBox1.Items.Count)
+				if (comboBox1.SelectedIndex == 0 || comboBox1.SelectedIndex > comboBox1.Items.Count)
                     return;
                 string name = comboBox1.Items[comboBox1.SelectedIndex].ToString();
                 string xml = File.ReadAllText(name);
@@ -112,14 +105,30 @@ namespace VideoViewer
                 _imageViewerControl1.PlaybackControllerFQID = _playbackFQID;
                 _imageViewerControl1.ConnectResponseEvent += _imageViewerControl1_ConnectResponseEvent;
                 _imageViewerControl1.EnableDigitalZoom = checkBoxDigitalZoom.Checked;
-            }
+				EnableCredentialControls(false);
+
+			}
             catch (Exception ex)
             {
-                MessageBox.Show("Unable to login - " + ex.Message);
+				if (_userContext != null)
+				{
+					VideoOS.Platform.SDK.MultiEnvironment.Logout(_userContext);
+					_userContext = null;
+				}
+				MessageBox.Show("Unable to login - " + ex.Message);
             }
         }
 
-        void _imageViewerControl1_ConnectResponseEvent(object sender, ConnectResponseEventEventArgs e)
+		private void EnableCredentialControls(bool value)
+		{
+			textBoxServer.Enabled = value;
+			textBoxUser.Enabled = value;
+			textBoxPassword.Enabled = value;
+			checkBoxAd.Enabled = value;
+			checkBoxSecureOnly.Enabled = value;
+		}
+
+		void _imageViewerControl1_ConnectResponseEvent(object sender, ConnectResponseEventEventArgs e)
         {
             //We like to start in Live mode
             SetMode(Mode.ClientLive);
@@ -310,7 +319,7 @@ namespace VideoViewer
             {
                 if (_userContext == null)
                 {
-                    _userContext = VideoOS.Platform.SDK.MultiEnvironment.CreateSingleServerUserContext(textBoxUser.Text,
+                    _userContext = VideoOS.Platform.SDK.MultiEnvironment.CreateSingleServerUserContext(checkBoxSecureOnly.Checked, textBoxUser.Text,
                         textBoxPassword.Text, checkBoxAd.Checked, new UriBuilder(textBoxServer.Text).Uri);
                     VideoOS.Platform.SDK.MultiEnvironment.LoginUserContext(_userContext, false, false);
                 }

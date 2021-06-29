@@ -54,8 +54,7 @@ namespace MultiUserEnvironment
             {
                 Uri uri = new UriBuilder(textBoxUri.Text).Uri;
 
-                VideoOS.Platform.SDK.MultiUserEnvironment.Properties.LoadSubSitesAfterwards = true;
-                VideoOS.Platform.SDK.MultiUserEnvironment.InitializeUsingUserContext(uri, textBoxUserMain.Text, textBoxPasswordMain.Text, true, true);          // General initialize for multi user Environment.  Always required
+                VideoOS.Platform.SDK.MultiUserEnvironment.InitializeUsingUserContext(checkBoxSecureOnly.Checked, uri, textBoxUserMain.Text, textBoxPasswordMain.Text, usingAd: true, masterOnly: false);          // General initialize for multi user Environment.  Always required
 
                 if (VideoOS.Platform.SDK.MultiUserEnvironment.InitializeLoggedIn == false)
                 {

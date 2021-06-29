@@ -92,7 +92,7 @@ namespace PTZandPresets
             PtzPreset ptzPreset = ptzPresetFolder.PtzPresets.FirstOrDefault();
             if (ptzPreset != null)
             {
-                // If for a preset the DevicePresetInteranlId is not blank the preset is imported from device.
+                // If for a preset the DevicePresetInternalId is not blank the preset is imported from device.
                 result = ptzPreset.DevicePresetInternalId == "";
             }
             return result;
@@ -132,15 +132,15 @@ namespace PTZandPresets
         private void ListSequences()
         {
             VideoOS.Platform.Data.SequenceDataSource ds = new VideoOS.Platform.Data.SequenceDataSource(_camera);
-            List<object> sdlist = ds.GetData(DateTime.Now, TimeSpan.FromHours(8), 25, TimeSpan.FromHours(0), 0);
-            if (sdlist == null || sdlist.Count == 0)
+            List<object> dslist = ds.GetData(DateTime.Now, TimeSpan.FromHours(8), 25, TimeSpan.FromHours(0), 0);
+            if (dslist == null || dslist.Count == 0)
             {
                 comboBoxSequences.Items.Add("No sequences in the last 8 hours");
             }
             else
             {
                 comboBoxSequences.DisplayMember = "StartDateTime";
-                foreach (VideoOS.Platform.Data.SequenceData sd in sdlist)
+                foreach (VideoOS.Platform.Data.SequenceData sd in dslist)
                 {
                     comboBoxSequences.Items.Add(sd.EventSequence);
                 }

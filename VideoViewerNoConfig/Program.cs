@@ -8,7 +8,7 @@ using VideoOS.Platform;
 using VideoOS.Platform.SDK.Multicast;
 using VideoOS.Platform.SDK.UI.LoginDialog;
 
-namespace VideoViewer
+namespace VideoViewerNoConfig
 {
 	static class Program
 	{

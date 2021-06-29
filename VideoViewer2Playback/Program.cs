@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using VideoOS.Platform;
 using VideoOS.Platform.SDK.UI.LoginDialog;
 
-namespace VideoViewer
+namespace VideoViewer2Playback
 {
 	static class Program
 	{
@@ -31,7 +31,7 @@ namespace VideoViewer
 			EnvironmentManager.Instance.TraceFunctionCalls = true;
 
 			DialogLoginForm loginForm = new DialogLoginForm(SetLoginResult, IntegrationId, IntegrationName, Version, ManufacturerName);
-			//loginForm.AutoLogin = false;				// Can overrride the tick mark
+			//loginForm.AutoLogin = false;				// Can override the tick mark
 			//loginForm.LoginLogoImage = someImage;		// Could add my own image here
 			Application.Run(loginForm);
 			if (Connected)

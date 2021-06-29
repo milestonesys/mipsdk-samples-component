@@ -28,14 +28,14 @@ namespace VideoViewer
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 
-			VideoOS.Platform.SDK.Environment.Initialize();		// Initialize the standalone Environment
+			VideoOS.Platform.SDK.Environment.Initialize();		// Initialize the standalone environment
 			VideoOS.Platform.SDK.UI.Environment.Initialize();
             VideoOS.Platform.SDK.Environment.Properties.ConfigurationRefreshIntervalInMs = 5000;
 
             EnvironmentManager.Instance.TraceFunctionCalls = true;
 
 			DialogLoginForm loginForm = new DialogLoginForm(SetLoginResult, IntegrationId, IntegrationName, Version, ManufacturerName);
-			//loginForm.AutoLogin = false;				// Can overrride the tick mark
+			//loginForm.AutoLogin = false;				// Can override the tick mark
 			//loginForm.LoginLogoImage = someImage;		// Could add my own image here
 			Application.Run(loginForm);
 			if (Connected)

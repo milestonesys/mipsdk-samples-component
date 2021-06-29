@@ -33,14 +33,8 @@ namespace ConfigAPIClient.Panels.PropertyUserControls
 
             if (property.ValueTypeInfos == null)
             {
-                MessageBox.Show("ValueTypeInfos cannot be null for SeperatorType, key=" + property.Key);
                 button1.Enabled = false;
-                //throw new ArgumentException("ValueTypeInfos cannot be null for SeperatorType, key=" + property.Key);
             }
-
-
-            //WeGotFocus += FocusHandling;
-
         }
 
         private void button1_Click(object sender, EventArgs e)

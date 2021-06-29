@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MyDownloadManagerClient")]
+[assembly: AssemblyTitle("DownloadManagerClient")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Milestone")]
-[assembly: AssemblyProduct("MyDownloadManagerClient")]
+[assembly: AssemblyProduct("DownloadManagerClient")]
 [assembly: AssemblyCopyright("Copyright © Milestone 2009")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

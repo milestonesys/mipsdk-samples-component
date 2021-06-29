@@ -32,6 +32,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textBoxUsername = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.secureOnlyCheckBox = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxServer = new System.Windows.Forms.TextBox();
             this.radioButtonCurrent = new System.Windows.Forms.RadioButton();
@@ -42,8 +43,8 @@
             this.buttonValidate = new System.Windows.Forms.Button();
             this.treeViewSites = new System.Windows.Forms.TreeView();
             this.buttonOK = new System.Windows.Forms.Button();
-            this.checkBoxChildren = new System.Windows.Forms.RadioButton();
-            this.checkBoxNow = new System.Windows.Forms.RadioButton();
+            this.radioButtonSDKLoadedChildSites = new System.Windows.Forms.RadioButton();
+            this.radioButtonSampleLoadedChildSites = new System.Windows.Forms.RadioButton();
             this.radioButtonIncludeNone = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +61,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(351, 366);
+            this.buttonCancel.Location = new System.Drawing.Point(351, 397);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 5;
@@ -79,6 +80,7 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.secureOnlyCheckBox);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.textBoxServer);
             this.groupBox1.Controls.Add(this.radioButtonCurrent);
@@ -90,10 +92,22 @@
             this.groupBox1.Controls.Add(this.textBoxUsername);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(414, 142);
+            this.groupBox1.Size = new System.Drawing.Size(414, 164);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Server address and credentials";
+            // 
+            // secureOnlyCheckBox
+            // 
+            this.secureOnlyCheckBox.AutoSize = true;
+            this.secureOnlyCheckBox.Checked = true;
+            this.secureOnlyCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.secureOnlyCheckBox.Location = new System.Drawing.Point(81, 132);
+            this.secureOnlyCheckBox.Name = "secureOnlyCheckBox";
+            this.secureOnlyCheckBox.Size = new System.Drawing.Size(82, 17);
+            this.secureOnlyCheckBox.TabIndex = 12;
+            this.secureOnlyCheckBox.Text = "Secure only";
+            this.secureOnlyCheckBox.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
@@ -163,7 +177,7 @@
             // 
             // buttonValidate
             // 
-            this.buttonValidate.Location = new System.Drawing.Point(93, 160);
+            this.buttonValidate.Location = new System.Drawing.Point(93, 182);
             this.buttonValidate.Name = "buttonValidate";
             this.buttonValidate.Size = new System.Drawing.Size(180, 23);
             this.buttonValidate.TabIndex = 1;
@@ -176,9 +190,9 @@
             this.treeViewSites.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.treeViewSites.Location = new System.Drawing.Point(13, 189);
+            this.treeViewSites.Location = new System.Drawing.Point(13, 211);
             this.treeViewSites.Name = "treeViewSites";
-            this.treeViewSites.Size = new System.Drawing.Size(413, 127);
+            this.treeViewSites.Size = new System.Drawing.Size(413, 136);
             this.treeViewSites.TabIndex = 2;
             this.treeViewSites.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.AfterSelect);
             // 
@@ -186,7 +200,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.Enabled = false;
-            this.buttonOK.Location = new System.Drawing.Point(207, 366);
+            this.buttonOK.Location = new System.Drawing.Point(207, 397);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(132, 23);
             this.buttonOK.TabIndex = 4;
@@ -194,54 +208,55 @@
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
-            // checkBoxChildren
+            // radioButtonSDKLoadedChildSites
             // 
-            this.checkBoxChildren.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxChildren.AutoSize = true;
-            this.checkBoxChildren.Location = new System.Drawing.Point(12, 353);
-            this.checkBoxChildren.Name = "checkBoxChildren";
-            this.checkBoxChildren.Size = new System.Drawing.Size(151, 17);
-            this.checkBoxChildren.TabIndex = 3;
-            this.checkBoxChildren.Text = "Delay include all child sites";
-            this.checkBoxChildren.UseVisualStyleBackColor = true;
+            this.radioButtonSDKLoadedChildSites.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.radioButtonSDKLoadedChildSites.AutoSize = true;
+            this.radioButtonSDKLoadedChildSites.Location = new System.Drawing.Point(11, 386);
+            this.radioButtonSDKLoadedChildSites.Name = "radioButtonSDKLoadedChildSites";
+            this.radioButtonSDKLoadedChildSites.Size = new System.Drawing.Size(137, 17);
+            this.radioButtonSDKLoadedChildSites.TabIndex = 3;
+            this.radioButtonSDKLoadedChildSites.Text = "SDK loads all child sites";
+            this.radioButtonSDKLoadedChildSites.UseVisualStyleBackColor = true;
             // 
-            // checkBoxNow
+            // radioButtonSampleLoadedChildSites
             // 
-            this.checkBoxNow.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoxNow.AutoSize = true;
-            this.checkBoxNow.Checked = true;
-            this.checkBoxNow.Location = new System.Drawing.Point(12, 331);
-            this.checkBoxNow.Name = "checkBoxNow";
-            this.checkBoxNow.Size = new System.Drawing.Size(145, 17);
-            this.checkBoxNow.TabIndex = 6;
-            this.checkBoxNow.Text = "Include all child sites now";
-            this.checkBoxNow.UseVisualStyleBackColor = true;
+            this.radioButtonSampleLoadedChildSites.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.radioButtonSampleLoadedChildSites.AutoSize = true;
+            this.radioButtonSampleLoadedChildSites.Checked = true;
+            this.radioButtonSampleLoadedChildSites.Location = new System.Drawing.Point(11, 363);
+            this.radioButtonSampleLoadedChildSites.Name = "radioButtonSampleLoadedChildSites";
+            this.radioButtonSampleLoadedChildSites.Size = new System.Drawing.Size(150, 17);
+            this.radioButtonSampleLoadedChildSites.TabIndex = 6;
+            this.radioButtonSampleLoadedChildSites.TabStop = true;
+            this.radioButtonSampleLoadedChildSites.Text = "Sample loads all child sites";
+            this.radioButtonSampleLoadedChildSites.UseVisualStyleBackColor = true;
             // 
             // radioButtonIncludeNone
             // 
             this.radioButtonIncludeNone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonIncludeNone.AutoSize = true;
-            this.radioButtonIncludeNone.Location = new System.Drawing.Point(12, 374);
+            this.radioButtonIncludeNone.Location = new System.Drawing.Point(11, 409);
             this.radioButtonIncludeNone.Name = "radioButtonIncludeNone";
-            this.radioButtonIncludeNone.Size = new System.Drawing.Size(160, 17);
+            this.radioButtonIncludeNone.Size = new System.Drawing.Size(149, 17);
             this.radioButtonIncludeNone.TabIndex = 7;
-            this.radioButtonIncludeNone.Text = "Do no include any child sites";
+            this.radioButtonIncludeNone.Text = "Do not load any child sites";
             this.radioButtonIncludeNone.UseVisualStyleBackColor = true;
             // 
             // SiteAddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(438, 401);
+            this.ClientSize = new System.Drawing.Size(438, 432);
             this.Controls.Add(this.radioButtonIncludeNone);
-            this.Controls.Add(this.checkBoxNow);
-            this.Controls.Add(this.checkBoxChildren);
+            this.Controls.Add(this.radioButtonSampleLoadedChildSites);
+            this.Controls.Add(this.radioButtonSDKLoadedChildSites);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.treeViewSites);
             this.Controls.Add(this.buttonValidate);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonCancel);
-            this.MinimumSize = new System.Drawing.Size(300, 300);
+            this.MinimumSize = new System.Drawing.Size(295, 284);
             this.Name = "SiteAddForm";
             this.Text = "Site add form";
             this.groupBox1.ResumeLayout(false);
@@ -267,8 +282,9 @@
 		private System.Windows.Forms.Button buttonOK;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox textBoxServer;
-		private System.Windows.Forms.RadioButton checkBoxChildren;
-        private System.Windows.Forms.RadioButton checkBoxNow;
+		private System.Windows.Forms.RadioButton radioButtonSDKLoadedChildSites;
+        private System.Windows.Forms.RadioButton radioButtonSampleLoadedChildSites;
         private System.Windows.Forms.RadioButton radioButtonIncludeNone;
-	}
+        private System.Windows.Forms.CheckBox secureOnlyCheckBox;
+    }
 }

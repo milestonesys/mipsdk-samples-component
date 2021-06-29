@@ -40,6 +40,7 @@ namespace AudioDemo
             this._connectButton = new System.Windows.Forms.Button();
             this._serverUrlTextBox = new System.Windows.Forms.TextBox();
             this._serverUrlLabel = new System.Windows.Forms.Label();
+            this._secureOnlyCheckBox = new System.Windows.Forms.CheckBox();
             this._panel.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this._audioDevicesGroupBox.SuspendLayout();
@@ -48,6 +49,7 @@ namespace AudioDemo
             // 
             // _panel
             // 
+            this._panel.Controls.Add(this._secureOnlyCheckBox);
             this._panel.Controls.Add(this.statusStrip1);
             this._panel.Controls.Add(this._audioDevicesGroupBox);
             this._panel.Controls.Add(this._connectionLabel);
@@ -57,14 +59,14 @@ namespace AudioDemo
             this._panel.Dock = System.Windows.Forms.DockStyle.Fill;
             this._panel.Location = new System.Drawing.Point(0, 0);
             this._panel.Name = "_panel";
-            this._panel.Size = new System.Drawing.Size(286, 185);
+            this._panel.Size = new System.Drawing.Size(286, 200);
             this._panel.TabIndex = 2;
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 163);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 178);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(286, 22);
             this.statusStrip1.TabIndex = 8;
@@ -83,7 +85,7 @@ namespace AudioDemo
             this._audioDevicesGroupBox.Controls.Add(this._volumeTrackBar);
             this._audioDevicesGroupBox.Controls.Add(this._muteCheckBox);
             this._audioDevicesGroupBox.Enabled = false;
-            this._audioDevicesGroupBox.Location = new System.Drawing.Point(6, 59);
+            this._audioDevicesGroupBox.Location = new System.Drawing.Point(6, 74);
             this._audioDevicesGroupBox.Name = "_audioDevicesGroupBox";
             this._audioDevicesGroupBox.Size = new System.Drawing.Size(271, 101);
             this._audioDevicesGroupBox.TabIndex = 6;
@@ -156,12 +158,24 @@ namespace AudioDemo
             this._serverUrlLabel.TabIndex = 0;
             this._serverUrlLabel.Text = "Server Url:";
             // 
+            // _secureOnlyCheckBox
+            // 
+            this._secureOnlyCheckBox.AutoSize = true;
+            this._secureOnlyCheckBox.Checked = true;
+            this._secureOnlyCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this._secureOnlyCheckBox.Location = new System.Drawing.Point(6, 49);
+            this._secureOnlyCheckBox.Name = "_secureOnlyCheckBox";
+            this._secureOnlyCheckBox.Size = new System.Drawing.Size(82, 17);
+            this._secureOnlyCheckBox.TabIndex = 9;
+            this._secureOnlyCheckBox.Text = "Secure only";
+            this._secureOnlyCheckBox.UseVisualStyleBackColor = true;
+            // 
             // AudioForm
             // 
             this.AcceptButton = this._connectButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(286, 185);
+            this.ClientSize = new System.Drawing.Size(286, 200);
             this.Controls.Add(this._panel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -194,6 +208,7 @@ namespace AudioDemo
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
 		private System.Windows.Forms.Button buttonSelect;
+        private System.Windows.Forms.CheckBox _secureOnlyCheckBox;
     }
 }
 

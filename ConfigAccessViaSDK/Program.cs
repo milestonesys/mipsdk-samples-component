@@ -28,9 +28,6 @@ namespace ConfigAccessViaSDK
             VideoOS.Platform.EnvironmentManager.Instance.EnvironmentOptions["UsePing"] = "No";
 
             DialogLoginForm loginForm = new DialogLoginForm(SetLoginResult, IntegrationId, IntegrationName, Version, ManufacturerName);
-            //loginForm.ServerConfiguration = DialogLoginForm.ServerConfigurationEnum.MasterAndSlaves;
-            loginForm.ServerConfiguration = DialogLoginForm.ServerConfigurationEnum.AllServersIndividually;
-            //loginForm.ServerConfiguration = DialogLoginForm.ServerConfigurationEnum.MasterOnly;
             VideoOS.Platform.SDK.Environment.Properties.ConfigurationRefreshIntervalInMs = 5000;
 			Application.Run(loginForm);
 

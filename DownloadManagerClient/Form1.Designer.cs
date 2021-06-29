@@ -160,7 +160,7 @@
             this.Controls.Add(this._installerPathLabel);
             this.Controls.Add(this._addButton);
             this.Name = "Form1";
-            this.Text = "My Download Manager Client";
+            this.Text = "Download Manager Client";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -311,7 +311,7 @@ namespace VideoViewer
                         System.IO.File.Exists(System.IO.Path.Combine(_selectedStoragePath, "archives_cache.xml")))
                     {
                         var uri = new Uri("file:\\" + _selectedStoragePath);
-                        VideoOS.Platform.SDK.Environment.AddServer(uri, System.Net.CredentialCache.DefaultNetworkCredentials);
+                        VideoOS.Platform.SDK.Environment.AddServer(false, uri, System.Net.CredentialCache.DefaultNetworkCredentials);
 
                         VideoOS.Platform.SDK.Environment.LoadConfiguration(uri);
                     }

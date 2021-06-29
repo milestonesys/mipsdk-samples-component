@@ -14,10 +14,9 @@ namespace SystemStatusClientConsole
         {
             // supply three parameters to make the sample work: the hostname of the XPCO Management Server and the username and password
             // of the account that will login to the system.
-
-            if (args.Length != 3)
+            if (args.Length != 3 && args.Length != 4)
             {
-                Console.WriteLine("You must supply exactly three parameters: Hostname of XPCO Management Server, username and password");
+                Console.WriteLine("You must supply exactly three or four parameters: Hostname of XPCO Management Server, username and password, and optionally secureOnly (true or false)");
                 Environment.Exit(1);
             }
 
@@ -25,14 +24,22 @@ namespace SystemStatusClientConsole
             var serverUri = uriBuilder.Uri;
             var userName = args[1];
             var password = args[2];
+            var secureOnly = false;
+            if(args.Length == 4)
+            {
+                if(bool.TryParse(args[3], out bool s))
+                {
+                    secureOnly = s;
+                }
+            }
 
             MultiEnvironment.InitializeUsingUserContext();
 
             // Remember to set the boolean parameter to true or false depending in whether the user is in AD.
-            var userContext = MultiEnvironment.CreateSingleServerUserContext(userName, password, true, serverUri);
+            var userContext = MultiEnvironment.CreateSingleServerUserContext(secureOnly, userName, password, true, serverUri);
 
-            bool loginSuceeded = MultiEnvironment.LoginUserContext(userContext);
-            if (loginSuceeded == false)
+            bool loginSucceeded = MultiEnvironment.LoginUserContext(userContext);
+            if (loginSucceeded == false)
             {
                 Console.WriteLine("Failed to login to: " + serverUri);
                 Console.WriteLine("");
@@ -58,14 +65,14 @@ namespace SystemStatusClientConsole
 
 
             // Register for particular events. Feel free to add identifiers for other events.
-            // IMPORTANT: The sessions must be started using the CreateAndStartSessions() method before you can subsribe to any events.
+            // IMPORTANT: The sessions must be started using the CreateAndStartSessions() method before you can subscribe to any events.
             multiSession.SetSubscribedEventsOnCreatedSessions(new HashSet<Guid>
                 {
                     KnownStatusEvents.MotionStarted,
                     KnownStatusEvents.MotionStopped
                 });
 
-            // Subscribe to recieve notification when the configuration has changed.
+            // Subscribe to receive notification when the configuration has changed.
             multiSession.SubscribeToConfigurationChanges(true);
 
             // Subscribe to state changes on all devices of type camera.

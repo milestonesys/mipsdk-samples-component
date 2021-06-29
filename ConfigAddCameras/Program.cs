@@ -23,6 +23,7 @@ namespace ConfigAddCameras
         static Authorizationmodes _auth;
         static string _user = "username";
         static string _pass = "password";
+        static bool _secureOnly = true; // change to false to connect to servers older than 2021 R1 or servers not running HTTPS on the Identity/Management Server communication
         static string _cvsFile = @"c:\test\test.txt";
 
         private static readonly Guid IntegrationId = new Guid("67D9C3E8-11DD-4444-A5A2-6056FC5DD5B7");
@@ -37,7 +38,7 @@ namespace ConfigAddCameras
             if (args.Length == 5)
             {
                 _url = args[0];
-                if (!_url.StartsWith("http://", true, null)) _url = "http://" + _url;
+                if (!_url.StartsWith("http://", true, null) && !_url.StartsWith("https://", true, null)) _url = "http://" + _url;
                 string auth = args[1];
                 if (auth.StartsWith("B", true, null)) _auth = Authorizationmodes.Basic;
                 if (auth.StartsWith("W", true, null)) _auth = Authorizationmodes.Windows;
@@ -51,7 +52,7 @@ namespace ConfigAddCameras
                 if (args.Length == 3)
                 {
                     _url = args[0];
-                    if (!_url.StartsWith("http://", true, null)) _url = "http://" + _url;
+                    if (!_url.StartsWith("http://", true, null) && !_url.StartsWith("https://", true, null)) _url = "http://" + _url;
                     string auth = args[1];
                     if (auth.StartsWith("D", true, null)) _auth = Authorizationmodes.DefaultWindows;
                     _cvsFile = args[2];
@@ -103,7 +104,7 @@ namespace ConfigAddCameras
             Console.Write("XProtect server (url): ");
             _url = Console.ReadLine();
             
-            if (!_url.StartsWith("http://", true, null)) _url = "http://" + _url;
+            if (!_url.StartsWith("http://", true, null) && !_url.StartsWith("https://", true, null)) _url = "http://" + _url;
             Console.Write("Authentication: Windows Default, Windows or Basic (D/W/B) ");
             string str = Console.ReadLine().ToUpper();
             if (str != null)
@@ -136,31 +137,17 @@ namespace ConfigAddCameras
             {
                 case Authorizationmodes.DefaultWindows:
                     nc = CredentialCache.DefaultNetworkCredentials;
-                    VideoOS.Platform.SDK.Environment.AddServer(uri, nc);
+                    VideoOS.Platform.SDK.Environment.AddServer(_secureOnly, uri, nc);
                     break;
                 case Authorizationmodes.Windows:
                     nc = new NetworkCredential(_user, _pass);
-                    VideoOS.Platform.SDK.Environment.AddServer(uri, nc);
+                    VideoOS.Platform.SDK.Environment.AddServer(_secureOnly, uri, nc);
                     break;
                 case Authorizationmodes.Basic:
                     CredentialCache cc = VideoOS.Platform.Login.Util.BuildCredentialCache(uri, _user, _pass, "Basic");
-                    VideoOS.Platform.SDK.Environment.AddServer(uri, cc);
+                    VideoOS.Platform.SDK.Environment.AddServer(_secureOnly, uri, cc);
                     break;
             }
-
-            //  This will reuse the Windows credentials you are logged in with
-            //NetworkCredential nc = System.Net.CredentialCache.DefaultNetworkCredentials;
-
-            //  This will use specific Windows credentials
-            //NetworkCredential nc = new NetworkCredential("test", "M1le!st0n3123");
-
-            //  You need this to apply Enterprise "basic" credentials. 
-            //  Below, do AddServer(uri, cc) instead of AddServer(uri, nc)
-            //CredentialCache cc = VideoOS.Platform.Login.Util.BuildCredentialCache(uri, "test", "test", "Basic");
-
-            //  As an alternative, the BuildCredentialCache can aslo build credential for Windows login ..
-            //CredentialCache cc = VideoOS.Platform.Login.Util.BuildCredentialCache(uri, "dksr-sup-cpfed1\\test", "M1le!st0n3123", "Negotiate");
-
 
             try
             {

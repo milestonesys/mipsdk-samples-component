@@ -54,7 +54,7 @@ namespace StatusViewer
 			
 			_messageCommunication.ConnectionStateChangedEvent += new EventHandler(_messageCommunication_ConnectionStateChangedEvent);
 			// Build Top TreeNode 
-            // GetItems will always return the Mgmt Server as the single top-node - we are using System-defined hierarchy so that in XPCO you can see recording servers
+            // GetItems will always return the Management Server as the single top-node - we are using System-defined hierarchy so that in XPCO you can see recording servers
 			Item server = Configuration.Instance.GetItems(ItemHierarchy.SystemDefined)[0];
 			TreeNode tn = new TreeNode(server.Name)
 			              	{

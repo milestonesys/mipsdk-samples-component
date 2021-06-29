@@ -53,6 +53,7 @@ namespace MultiUserEnvironment
             this.textBoxUserName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBoxUserContext2 = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.panelVideo2 = new System.Windows.Forms.Panel();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -66,7 +67,7 @@ namespace MultiUserEnvironment
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.listBox3 = new System.Windows.Forms.ListBox();
-            this.button4 = new System.Windows.Forms.Button();
+            this.checkBoxSecureOnly = new System.Windows.Forms.CheckBox();
             this.groupBoxServer.SuspendLayout();
             this.groupBoxUserContext1.SuspendLayout();
             this.panelVideo.SuspendLayout();
@@ -91,6 +92,7 @@ namespace MultiUserEnvironment
             // 
             // groupBoxServer
             // 
+            this.groupBoxServer.Controls.Add(this.checkBoxSecureOnly);
             this.groupBoxServer.Controls.Add(this.textBoxPasswordMain);
             this.groupBoxServer.Controls.Add(this.buttonSave);
             this.groupBoxServer.Controls.Add(this.label6);
@@ -100,14 +102,14 @@ namespace MultiUserEnvironment
             this.groupBoxServer.Controls.Add(this.label1);
             this.groupBoxServer.Location = new System.Drawing.Point(13, 13);
             this.groupBoxServer.Name = "groupBoxServer";
-            this.groupBoxServer.Size = new System.Drawing.Size(415, 112);
+            this.groupBoxServer.Size = new System.Drawing.Size(415, 120);
             this.groupBoxServer.TabIndex = 0;
             this.groupBoxServer.TabStop = false;
             this.groupBoxServer.Text = "Logon Server";
             // 
             // textBoxPasswordMain
             // 
-            this.textBoxPasswordMain.Location = new System.Drawing.Point(121, 77);
+            this.textBoxPasswordMain.Location = new System.Drawing.Point(121, 71);
             this.textBoxPasswordMain.Name = "textBoxPasswordMain";
             this.textBoxPasswordMain.PasswordChar = '*';
             this.textBoxPasswordMain.Size = new System.Drawing.Size(100, 20);
@@ -116,7 +118,7 @@ namespace MultiUserEnvironment
             // buttonSave
             // 
             this.buttonSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSave.Location = new System.Drawing.Point(337, 25);
+            this.buttonSave.Location = new System.Drawing.Point(336, 18);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(67, 23);
             this.buttonSave.TabIndex = 2;
@@ -127,7 +129,7 @@ namespace MultiUserEnvironment
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(18, 54);
+            this.label6.Location = new System.Drawing.Point(18, 48);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(58, 13);
             this.label6.TabIndex = 8;
@@ -135,7 +137,7 @@ namespace MultiUserEnvironment
             // 
             // textBoxUserMain
             // 
-            this.textBoxUserMain.Location = new System.Drawing.Point(121, 52);
+            this.textBoxUserMain.Location = new System.Drawing.Point(121, 45);
             this.textBoxUserMain.Name = "textBoxUserMain";
             this.textBoxUserMain.Size = new System.Drawing.Size(100, 20);
             this.textBoxUserMain.TabIndex = 9;
@@ -144,7 +146,7 @@ namespace MultiUserEnvironment
             // 
             this.textBoxUri.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxUri.Location = new System.Drawing.Point(122, 26);
+            this.textBoxUri.Location = new System.Drawing.Point(121, 19);
             this.textBoxUri.Name = "textBoxUri";
             this.textBoxUri.Size = new System.Drawing.Size(203, 20);
             this.textBoxUri.TabIndex = 1;
@@ -153,7 +155,7 @@ namespace MultiUserEnvironment
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(18, 78);
+            this.label7.Location = new System.Drawing.Point(18, 74);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(56, 13);
             this.label7.TabIndex = 11;
@@ -162,7 +164,7 @@ namespace MultiUserEnvironment
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 29);
+            this.label1.Location = new System.Drawing.Point(18, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(81, 13);
             this.label1.TabIndex = 0;
@@ -182,7 +184,7 @@ namespace MultiUserEnvironment
             this.groupBoxUserContext1.Controls.Add(this.textBoxUserName);
             this.groupBoxUserContext1.Controls.Add(this.label3);
             this.groupBoxUserContext1.Enabled = false;
-            this.groupBoxUserContext1.Location = new System.Drawing.Point(13, 131);
+            this.groupBoxUserContext1.Location = new System.Drawing.Point(13, 139);
             this.groupBoxUserContext1.Name = "groupBoxUserContext1";
             this.groupBoxUserContext1.Size = new System.Drawing.Size(415, 383);
             this.groupBoxUserContext1.TabIndex = 1;
@@ -336,12 +338,23 @@ namespace MultiUserEnvironment
             this.groupBoxUserContext2.Controls.Add(this.label4);
             this.groupBoxUserContext2.Controls.Add(this.label5);
             this.groupBoxUserContext2.Enabled = false;
-            this.groupBoxUserContext2.Location = new System.Drawing.Point(434, 131);
+            this.groupBoxUserContext2.Location = new System.Drawing.Point(434, 139);
             this.groupBoxUserContext2.Name = "groupBoxUserContext2";
             this.groupBoxUserContext2.Size = new System.Drawing.Size(415, 383);
             this.groupBoxUserContext2.TabIndex = 2;
             this.groupBoxUserContext2.TabStop = false;
             this.groupBoxUserContext2.Text = "User 2 context";
+            // 
+            // button4
+            // 
+            this.button4.Enabled = false;
+            this.button4.Location = new System.Drawing.Point(165, 73);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 9;
+            this.button4.Text = "Logout";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.OnLogoutUC2);
             // 
             // panelVideo2
             // 
@@ -476,16 +489,17 @@ namespace MultiUserEnvironment
             this.listBox3.Size = new System.Drawing.Size(379, 108);
             this.listBox3.TabIndex = 4;
             // 
-            // button4
+            // checkBoxSecureOnly
             // 
-            this.button4.Enabled = false;
-            this.button4.Location = new System.Drawing.Point(165, 73);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 9;
-            this.button4.Text = "Logout";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.OnLogoutUC2);
+            this.checkBoxSecureOnly.AutoSize = true;
+            this.checkBoxSecureOnly.Checked = true;
+            this.checkBoxSecureOnly.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxSecureOnly.Location = new System.Drawing.Point(121, 97);
+            this.checkBoxSecureOnly.Name = "checkBoxSecureOnly";
+            this.checkBoxSecureOnly.Size = new System.Drawing.Size(82, 17);
+            this.checkBoxSecureOnly.TabIndex = 12;
+            this.checkBoxSecureOnly.Text = "Secure only";
+            this.checkBoxSecureOnly.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -557,5 +571,6 @@ namespace MultiUserEnvironment
         private System.Windows.Forms.ListBox listBox3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.CheckBox checkBoxSecureOnly;
     }
 }

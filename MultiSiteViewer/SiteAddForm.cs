@@ -19,18 +19,20 @@ namespace MultiSiteViewer
 		}
 
 		#region Properties to be used when adding server(s)
-
-		internal bool IncludeChildSites
+        //Child sites being loaded by SDK, by MasterOnly set to false
+		internal bool SDKLoadedChildSites
 		{
-			get { return checkBoxChildren.Checked; }
+			get { return radioButtonSDKLoadedChildSites.Checked; }
 		}
 
-	    internal bool IncludeChildSitesNow
+        //Child sites loaded one, by one by the sample
+        internal bool SampleLoadedChildSites
 	    {
-            get { return checkBoxNow.Checked; }
+            get { return radioButtonSampleLoadedChildSites.Checked; }
 	    }
 
-	    internal bool IncludeNoChildSites
+        //Child sites not loaded
+	    internal bool NoChildSites
 	    {
             get { return radioButtonIncludeNone.Checked; }
 	    }
@@ -57,6 +59,11 @@ namespace MultiSiteViewer
 			}
 		}
 
+        internal bool SecureOnly
+        {
+            get => secureOnlyCheckBox.Checked;
+        }
+
 		// Add a given URI to the CredentialCache
 		internal void AddUriToCache(CredentialCache cc, Item item)
 		{
@@ -81,7 +88,7 @@ namespace MultiSiteViewer
 			}
 
             
-			if (IncludeChildSites)
+			if (SDKLoadedChildSites)
 			{
 				foreach (Item child in item.GetChildren())
 				{
@@ -131,7 +138,7 @@ namespace MultiSiteViewer
 			String username = radioButtonCurrent.Checked ? "" : textBoxUsername.Text;
 			_credentialCache = VideoOS.Platform.Login.Util.BuildCredentialCache(uri, username, textBoxPassword.Text,
 			                                                                      authorization);
-			Item siteItem = VideoOS.Platform.SDK.Environment.LoadSiteItem(uri, _credentialCache);
+			Item siteItem = VideoOS.Platform.SDK.Environment.LoadSiteItem(secureOnlyCheckBox.Checked, uri, _credentialCache);
 
 			treeViewSites.Nodes.Clear();
 			if (siteItem==null)

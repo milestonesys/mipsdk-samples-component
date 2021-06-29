@@ -23,10 +23,10 @@ namespace LibraryEventGenerator
             Application.SetCompatibleTextRenderingDefault(false);
 
         	VideoOS.Platform.SDK.Environment.Initialize();
-			//VideoOS.Platform.SDK.UI.Environment.Initialize();				// Initialize the UI and reference to ImageVewerActiveX			
+			//VideoOS.Platform.SDK.UI.Environment.Initialize();				// Initialize the UI
 
 			DialogLoginForm loginForm = new DialogLoginForm(SetLoginResult, IntegrationId, IntegrationName, Version, ManufacturerName);
-			//loginForm.AutoLogin = false;				// Can overrride the tick mark
+			//loginForm.AutoLogin = false;				// Can override the tick mark
 			//loginForm.LoginLogoImage = someImage;		// Could add my own image here
 			Application.Run(loginForm);
 			if (Connected)
