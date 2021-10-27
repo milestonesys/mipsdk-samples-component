@@ -113,7 +113,6 @@ namespace MetadataPlaybackViewer
                 {
                     string filename = openFileDialog.FileName;
                     if (filename.ToLower().EndsWith("cache.xml") ||
-                        filename.ToLower().EndsWith("archives_cache.xml") ||
                         filename.ToLower().EndsWith("scp"))
                     {
                         if (filename.ToLower().EndsWith("scp"))
@@ -156,7 +155,7 @@ namespace MetadataPlaybackViewer
                     }
                     else
                     {
-                        MessageBox.Show("Only cache.xml, archives_cache.xml or .SCP files can be selected.");
+                        MessageBox.Show("Only cache.xml or .SCP files can be selected.");
                     }
                 }
             }

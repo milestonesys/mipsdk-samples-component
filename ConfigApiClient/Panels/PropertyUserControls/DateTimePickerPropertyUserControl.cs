@@ -34,8 +34,14 @@ namespace ConfigAPIClient.Panels
                 wasUnspecified = dateTime.Kind == DateTimeKind.Unspecified;
                 if (dateTime.Kind == DateTimeKind.Utc)
                     dateTime = dateTime.ToLocalTime();
-                dateTimePicker1.Value = dateTime;
-                dateTimePicker2.Value = dateTime;
+                try
+                {
+                    dateTimePicker1.Value = dateTime;
+                    dateTimePicker2.Value = dateTime;
+                } catch 
+                {
+
+                }
             }
             else
             {

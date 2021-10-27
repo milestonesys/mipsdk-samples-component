@@ -29,7 +29,9 @@ namespace ConfigAPIClient.Panels
 
             labelOfProperty.Text = property.DisplayName;
             string[] parts = !string.IsNullOrEmpty(property.Value)? property.Value.Split(';'): new string[0];
-            button1.Text = string.Format("{0} selected. Modify ...", parts.Length);
+            button1.Text = property.IsSettable ?
+                string.Format("{0} selected. Modify ...", parts.Length) :
+                "View ...";
 		}
 
 		internal override int LeftIndent
@@ -49,7 +51,9 @@ namespace ConfigAPIClient.Panels
             if (form.ShowDialog() == DialogResult.OK)
             {
                 string[] parts = !string.IsNullOrEmpty(Property.Value) ? Property.Value.Split(';') : new string[0];
-                button1.Text = string.Format("{0} selected. Modify ...", parts.Length);
+                button1.Text = base.Property.IsSettable ? 
+                    string.Format("{0} selected. Modify ...", parts.Length) :
+                    "View ...";
                 form.Dispose();
             }
             this.Show();

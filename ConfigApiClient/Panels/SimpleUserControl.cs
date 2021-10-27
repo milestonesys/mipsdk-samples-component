@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -40,7 +41,7 @@ namespace ConfigAPIClient.Panels
 
         private void InitalizeUI(string propertyToFocus = null)
         {
-            buttonSave.Enabled = (_item.ItemCategory != ItemCategories.Group);
+            buttonSave.Enabled = (_item.ItemCategory == ItemCategories.Item);
 
             scrollPanel1.Clear();
             _originalName = _item.DisplayName;
@@ -120,43 +121,15 @@ namespace ConfigAPIClient.Panels
                 }
             }
 
-            if (_showChildren && _item.Children != null)
+            if (_showChildren && _item.Children != null && _item.Children.Any())
             {
                 int leftOffset = Constants.LeftIndentChildControl;
-                foreach (ConfigurationItem child in _item.Children)
+                if (ShowAsDropDown())
                 {
-                    if (MainForm._navItemTypes.Contains(child.ItemType))    // Do not repeat what is on the navigation tree
-                        continue;
-
-                    if ((child.Children == null || child.Children.Length == 0) && child.EnableProperty != null)
-                    {
-                        UserControl uc = new PropertyEnableUserControl(child, ValueChangedHandler, leftOffset, _configApiClient, null);
-                        uc.Width = scrollPanel1.Width;
-                        uc.Location = new Point(leftOffset, top);
-                        uc.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                        top += uc.Height;
-                        scrollPanel1.Add(uc);
-                    }
-                    else
-                    {
-                        UserControl uc = new PropertyListUserControl(child, ValueChangedHandler, leftOffset, _configApiClient, null);
-                        uc.Width = scrollPanel1.Width;
-                        uc.Location = new Point(leftOffset, top);
-                        uc.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-                        top += uc.Height;
-                        scrollPanel1.Add(uc);
-                    }
-
-                    if (_item.ItemCategory == ItemCategories.Group)
-                    {
-                        // Add save button on individual items as group can not be saved
-                        Button b = new Button() { Text = "Save", Tag = child, UseVisualStyleBackColor = true };
-                        b.Size = new System.Drawing.Size(75, 24);
-                        b.Location = new Point(10, top);
-                        top += b.Height + 10;
-                        b.Click += PerformItemSave;
-                        scrollPanel1.Add(b);
-                    }
+                    ShowDropDown(leftOffset, top);
+                } else
+                {
+                    ShowAllChildren(leftOffset, top);
                 }
             }
 
@@ -164,9 +137,112 @@ namespace ConfigAPIClient.Panels
                 scrollPanel1.ScrollToTop();
         }
 
-		void ValueChangedHandler(object sender, EventArgs e)
+        private bool ShowAsDropDown()
+        {
+            // Check all of same itemType
+            string itemType = _item.Children[0].ItemType;
+            foreach (var c in _item.Children)
+            {
+                if (c.ItemType != itemType)
+                    return false;
+                if (c.ItemCategory != ItemCategories.Item)
+                    return false;
+            }
+            return true;
+        }
+
+        private GroupBox groupBox = null;
+        private void ShowDropDown(int leftOffset, int top)
+        {
+            ComboBox c = new ComboBox()
+            {
+                Left = leftOffset + 8,
+                Top = top,
+                Width = 500,
+                DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList,
+            };
+            c.SelectedIndexChanged += new EventHandler(this.OnItemSelected);
+
+            scrollPanel1.Add(c);
+            foreach (var child in _item.Children)
+            {
+                c.Items.Add(new TagItem(child));
+            }
+            top += 24;
+            groupBox = new GroupBox()
+            {
+                Left = leftOffset + 20,
+                Top = top + 20,
+                Width = this.Width - 80,
+                Height = 800,
+                Text = "",
+                Anchor = ((AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right))),
+            };
+            scrollPanel1.Add(groupBox);
+        }
+
+        private void OnItemSelected(object sender, EventArgs e)
+        {
+            groupBox.Controls.Clear();
+            ConfigurationItem item = ((sender as ComboBox).SelectedItem as TagItem)?.Item;
+            if (item != null)
+            {
+                groupBox.Text = item.DisplayName;
+                var uc = new SimpleUserControl(item, true, _configApiClient);
+                uc.Top = 16;
+                uc.Left = 16;
+                uc.Height = 780;
+                uc.Margin = new Padding(20);
+                uc.Dock = DockStyle.Fill;
+                uc.Anchor = AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                groupBox.Controls.Add(uc);
+            }
+        }
+
+        private void ShowAllChildren(int leftOffset, int top)
+        {
+            foreach (ConfigurationItem child in _item.Children)
+            {
+                if (MainForm._navItemTypes.Contains(child.ItemType))    // Do not repeat what is on the navigation tree
+                    continue;
+
+                if ((child.Children == null || child.Children.Length == 0) && child.EnableProperty != null)
+                {
+                    UserControl uc = new PropertyEnableUserControl(child, ValueChangedHandler, leftOffset, _configApiClient, null);
+                    uc.Width = scrollPanel1.Width;
+                    uc.Location = new Point(leftOffset, top);
+                    uc.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    top += uc.Height;
+                    scrollPanel1.Add(uc);
+                }
+                else
+                {
+                    UserControl uc = new PropertyListUserControl(child, ValueChangedHandler, leftOffset, _configApiClient, null);
+                    uc.Width = scrollPanel1.Width;
+                    uc.Location = new Point(leftOffset, top);
+                    uc.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                    top += uc.Height;
+                    scrollPanel1.Add(uc);
+                }
+
+                if (_item.ItemCategory == ItemCategories.Group)
+                {
+                    // Add save button on individual items as group can not be saved
+                    Button b = new Button() { Text = "Save", Tag = child, UseVisualStyleBackColor = true };
+                    b.Size = new System.Drawing.Size(75, 24);
+                    b.Location = new Point(10, top);
+                    top += b.Height + 10;
+                    b.Click += PerformItemSave;
+                    scrollPanel1.Add(b);
+                }
+            }
+        }
+
+        void ValueChangedHandler(object sender, EventArgs e)
 		{
-			if (_item.ItemCategory != ItemCategories.Group)
+			if (_item.ItemCategory == ItemCategories.Item)
                 buttonSave.Enabled = true;
             if (_privacyMaskUserControl != null)
                 _privacyMaskUserControl.Refresh();
@@ -215,6 +291,8 @@ namespace ConfigAPIClient.Panels
                     MessageBox.Show("Unable to perform action:" + ex.Message);
                 }
             }
+
+            _item = _configApiClient.GetItem(_item.Path);
 
             InitalizeUI();
             MainForm.UpdateTree();
@@ -329,4 +407,17 @@ namespace ConfigAPIClient.Panels
 		}
 
 	}
+
+    internal class TagItem
+    {
+        internal ConfigurationItem Item { get; set; }
+        internal TagItem(ConfigurationItem item)
+        {
+            Item = item;
+        }
+        public override string ToString()
+        {
+            return Item.DisplayName;
+        }
+    }
 }

@@ -27,8 +27,10 @@ namespace ConfigAPIClient.Panels
 			_prevValue = textBoxValue.Text;
 
 			textBoxValue.ReadOnly = !property.IsSettable;
+            if (!property.IsSettable)
+                textBoxValue.ForeColor = Color.Gray;
 
-			HasChanged = false;
+            HasChanged = false;
 
 			if (property.ValueTypeInfos != null)
 			{

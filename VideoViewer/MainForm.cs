@@ -307,8 +307,7 @@ namespace VideoViewer
                 if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
                 {
                     _selectedStoragePath = folderBrowserDialog1.SelectedPath;
-                    if (System.IO.File.Exists(System.IO.Path.Combine(_selectedStoragePath, "cache.xml")) ||
-                        System.IO.File.Exists(System.IO.Path.Combine(_selectedStoragePath, "archives_cache.xml")))
+                    if (System.IO.File.Exists(System.IO.Path.Combine(_selectedStoragePath, "cache.xml")))
                     {
                         var uri = new Uri("file:\\" + _selectedStoragePath);
                         VideoOS.Platform.SDK.Environment.AddServer(false, uri, System.Net.CredentialCache.DefaultNetworkCredentials);
@@ -317,7 +316,7 @@ namespace VideoViewer
                     }
                     else
                     {
-                        MessageBox.Show("No cache.xml or archives_cache.xml file were found in selected folder.");
+                        MessageBox.Show("No cache.xml file was found in the selected folder.");
                     }
                 }
             }

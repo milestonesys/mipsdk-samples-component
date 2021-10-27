@@ -38,10 +38,10 @@ coupon code, to:
 
 ## Using
 
--   VideoOS.ConfigurationAPI
+-   VideoOS.Platform.ConfigurationItems
 -   ASP.NET Web API 2
 -   ASP.NET MVC
--   NuGet packages
+-   3rd party NuGet packages
 
 </div>
 
@@ -51,19 +51,11 @@ coupon code, to:
 
 This solution requires the following:
 
--   Milestone XProtect Corporate 2016 R1 or higher
-
--   At least one recording server
-
--   Visual Studio 17 or higher
-
-</div>
-
 <div class="section level2">
 
 ## Environment
 
--   None
+-   Standalone
 
 </div>
 
@@ -185,8 +177,10 @@ to the first camera group created.
     ~~~ xml
     <VMSSettings>
         <Address>
+          <add key="SecureOnly" value="true" />
+          <add key="Scheme" value="https" />
           <add key="Ip" value="localhost"/>
-          <add key="Port" value="80"/>
+          <add key="Port" value="443"/>
         </Address>
         <Credentials>
           <add key="Username" value="SurveillanceCloud"/>
@@ -200,7 +194,7 @@ to the first camera group created.
       </VMSSettings>
     ~~~
 
-    Replace the **Ip**, **Port**, **Username**, and **Password** fields
+    Replace the **SecureOnly**, **Scheme**, **Ip**, **Port**, **Username**, and **Password** fields
     as needed.
 
     Select **Authtype** \"Digest\" to use Windows authentication. Set
@@ -224,14 +218,24 @@ to the first camera group created.
 2.  Open the `SurveillanceCloudSample.sln` solution file with Visual
     Studio.
 
-3.  Set the `SurveillanceCloudSample` and
+3.  The `SurveillanceCloudSampleService` project depends on classes from 
+    `VideoOS.Platform.dll` and `VideoOS.Platform.SDK.dll`. Unfortunately,
+    IIS is not compatible with some of the extra files includes through
+    the `VideoOS.Platform` NuGet packages and thus the project instead
+    contains direct references as well as a post-build step for copying
+    some dlls. These all rely on the MIP SDK being installed in the default
+    location. If the MIP SDK is not installed or not in the default folder
+    the references and post-build step needs to be updated to use the correct
+    location.
+
+4.  Set the `SurveillanceCloudSample` and
     `SurveillanceCloudSampleService` projects as startup projects. To do
     this, in the **Solution Explorer** window, right click on the
     Solution and select **Set StartUp Projects**.
 
     ![](SurveillanceCloud_002.jpg)
 
-4.  Select the **Multiple startup projects** option and set the
+5.  Select the **Multiple startup projects** option and set the
     **Action** of `SurveillanceCloudSample` and
     `SurveillanceCloudSampleService` projects to **Start**.
 
@@ -239,16 +243,16 @@ to the first camera group created.
 
     ![](SurveillanceCloud_003.jpg)
 
-5.  Right-click **SurveillanceCloudSampleService** and select
+6.  Right-click **SurveillanceCloudSampleService** and select
     **Properties**.
 
-6.  In the **SurveillanceCloudSampleService** window, select **Web**. On
+7.  In the **SurveillanceCloudSampleService** window, select **Web**. On
     this page, under **Start Action**, select **Don\'t open a page. Wait
     for a request from an external application**.
 
-7.  Save.
+8.  Save.
 
-8.  Run the sample using the **Run** button or by pressing F5.
+9.  Run the sample using the **Run** button or by pressing F5.
 
 The Login page opens in the web browser.
 

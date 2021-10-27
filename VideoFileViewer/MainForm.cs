@@ -88,8 +88,7 @@ namespace VideoFileViewer
                 if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
                 {
                     _selectedStoragePath = folderBrowserDialog1.SelectedPath;
-                    if (File.Exists(Path.Combine(_selectedStoragePath, "cache.xml")) ||
-                        File.Exists(Path.Combine(_selectedStoragePath, "archives_cache.xml")))
+                    if (File.Exists(Path.Combine(_selectedStoragePath, "cache.xml")))
                     {
                         bool done = false;
                         string password = "";
@@ -119,7 +118,7 @@ namespace VideoFileViewer
                     }
                     else
                     {
-                        MessageBox.Show("No cache.xml or archives_cache.xml file were found in selected folder.");
+                        MessageBox.Show("No cache.xml file was found in the selected folder.");
                     }
                 }
             }

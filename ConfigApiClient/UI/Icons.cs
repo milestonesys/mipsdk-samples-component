@@ -59,6 +59,10 @@ namespace ConfigAPIClient.UI
         public static int RuleIconIx = 36;
         public static int LicenseIconIx = 37;
         public static int SettingsIx = 38;
+        public static int MulticastIx = 39;
+        public static int FailoverGroupIx = 40;
+        public static int FailoverServerIx = 41;
+        public static int ClientProfileIx = 42;
 
         public static Dictionary<String, int> ObjectTypeToIndex = new Dictionary<string, int>();
 
@@ -121,6 +125,12 @@ namespace ConfigAPIClient.UI
                 IconList.Images.Add(new Bitmap(assembly.GetManifestResourceStream(ProjectName + ".Resources.Rule.ico")));
                 IconList.Images.Add(new Bitmap(assembly.GetManifestResourceStream(ProjectName + ".Resources.Create License Request 16 n i8.ico")));
                 IconList.Images.Add(new Bitmap(assembly.GetManifestResourceStream(ProjectName + ".Resources.advanced.ico")));
+
+                IconList.Images.Add(new Bitmap(assembly.GetManifestResourceStream(ProjectName + ".Resources.Multicast 16 h i8.ico")));
+
+                IconList.Images.Add(new Bitmap(assembly.GetManifestResourceStream(ProjectName + ".Resources.Failover Group 16 n i8.ico")));
+                IconList.Images.Add(new Bitmap(assembly.GetManifestResourceStream(ProjectName + ".Resources.Failover Server 16 n i8.ico")));
+                IconList.Images.Add(new Bitmap(assembly.GetManifestResourceStream(ProjectName + ".Resources.User.ico")));
 
                 for (int ix = 0; ix < IconList.Images.Count; ix++)
 				{
@@ -266,6 +276,23 @@ namespace ConfigAPIClient.UI
 
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.View, ViewIx); 
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.ViewFolder, FolderIconIx);
+
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.RecordingServerMulticast, MulticastIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.RecordingServerMulticastFolder, FolderIconIx);
+
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.HardwarePtzSettingsFolder, FolderIconIx);
+
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.FailoverGroupFolder, FolderIconIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.FailoverGroup, FailoverGroupIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.FailoverRecorder, FailoverServerIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.FailoverRecorderFolder, FolderIconIx);
+
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.ClientProfile, ClientProfileIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.ClientProfileFolder, FolderIconIx);
+
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.RecordingServerFailover, FailoverServerIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.RecordingServerFailoverFolder, FolderIconIx);
+
             }
             catch (Exception ex)
 			{

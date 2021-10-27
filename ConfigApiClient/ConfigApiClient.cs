@@ -51,17 +51,14 @@ namespace ConfigAPIClient
             try
             {
                 LoginSettings loginSettings = LoginSettingsCache.GetLoginSettings(ServerAddress);
-                bool isOAuth = Task.Run(() => IdpClientProxy.IsOAuthServer(ServerAddress, Serverport)).GetAwaiter().GetResult();
-                if (isOAuth)
+                if (loginSettings.IsOAuthConnection)
                 {
                     _client = CreateOAuthClientProxy(ServerAddress, Serverport, loginSettings);
                 }
                 else
                 {
-                    
                     _client = CreateClientProxy(ServerAddress, Serverport, loginSettings);
                 }
-               
                 Connected = false;
             }
             catch (EndpointNotFoundException)
@@ -194,7 +191,8 @@ namespace ConfigAPIClient
                 {
                     if (child.ItemType.StartsWith(itemtype)
                         || ((child.ItemType == ItemTypes.StorageFolder || child.ItemType == ItemTypes.Storage) && itemtype == ItemTypes.ArchiveStorage)
-                        || (child.ItemType == ItemTypes.HardwareFolder || child.ItemType == ItemTypes.Hardware))
+                        || (child.ItemType == ItemTypes.HardwareFolder || child.ItemType == ItemTypes.Hardware) ||
+                        (child.ItemType.StartsWith(ItemTypes.Camera) && itemtype == ItemTypes.PatrollingProfile))
                     {
                         result.Add(child);
                         continue;
@@ -236,6 +234,9 @@ namespace ConfigAPIClient
                         break;
                     case ItemTypes.ArchiveStorage:
                         item = _client.GetItem("/RecordingServerFolder");
+                        break;
+                    case ItemTypes.FailoverRecorder:
+                        item = _client.GetItem("/"+ItemTypes.FailoverGroupFolder);
                         break;
                     default:
                         item = _client.GetItem("/"); 
@@ -281,7 +282,8 @@ namespace ConfigAPIClient
                         {
                             if (child.ItemType == ItemTypes.RecordingServer && itemtype != ItemTypes.HardwareDriver
                                 || child.ItemType == ItemTypes.MIPKind && itemtype == ItemTypes.MIPItem
-                                || child.ItemType == ItemTypes.VideoWall &&(itemtype == ItemTypes.Monitor || itemtype == ItemTypes.VideoWallPreset))
+                                || child.ItemType == ItemTypes.VideoWall &&(itemtype == ItemTypes.Monitor || itemtype == ItemTypes.VideoWallPreset)
+                                || child.ItemType == ItemTypes.FailoverGroup && itemtype == ItemTypes.FailoverRecorder)
                             {
                                 result.Add(child);
                                 continue;
@@ -565,7 +567,7 @@ namespace ConfigAPIClient
         }
         public override string GetToken()
         {
-            LoginSettings ls = VideoOS.Platform.Login.LoginSettingsCache.GetLoginSettings(_serverAddress);
+            LoginSettings ls = LoginSettingsCache.GetLoginSettings(_serverAddress);
             if (ls!=null)
                 return ls.Token;
             return "";

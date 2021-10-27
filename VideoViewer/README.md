@@ -22,7 +22,20 @@ sequence, and the other camera will follow.
 
 The digital zoom feature can be enabled and disabled by a checkmark.
 
-![Video Viewer](videoviewer.jpg)
+The Adaptive Streaming feature can be enabled and disabled by a checkmark, 
+if enabled the streaming will be done from the stream that best fits the 
+presented size. An appropriate camera setup is required, this means 
+configure the test camera with two streams in different resolutions.
+
+The Lift privacy mask button can be used to test liftable masks. An appropriate 
+camera setup is required. As a minimum configure one test camera with a liftable mask.
+
+The Open Exported DB button can be used to test the scenario that you
+open an exported database instead of being connected to a live system. 
+After pressing the button navigate to the folder in the
+export that includes the cache.xml/archives_cache.xml files.
+
+![Video Viewer](videoviewer.PNG)
 
 ## The sample demonstrates
 
@@ -32,6 +45,8 @@ The digital zoom feature can be enabled and disabled by a checkmark.
 -   Digital zoom
 -   Use the ItemPickerForm dialog to select cameras
 -   Message system to control playback operations
+-   Adaptive streaming
+-	Opening offline footage
 
 ## Using
 

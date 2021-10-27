@@ -120,6 +120,14 @@ namespace ConfigAPIClient
                                                            ItemTypes.ViewGroup,
                                                            ItemTypes.ViewFolder,
                                                            ItemTypes.View,
+                                                           ItemTypes.RecordingServerMulticastFolder,
+                                                           ItemTypes.RecordingServerMulticast,
+                                                           ItemTypes.FailoverGroupFolder,
+                                                           ItemTypes.FailoverGroup,
+                                                           ItemTypes.FailoverRecorderFolder,
+                                                           ItemTypes.FailoverRecorder,
+                                                           ItemTypes.ClientProfileFolder,
+                                                           ItemTypes.RecordingServerFailoverFolder
                                                        };
 
 
@@ -161,7 +169,6 @@ namespace ConfigAPIClient
 
 		private void OnLogon()
 		{
-
             treeView.ImageList = UI.Icons.IconListBlack;
 
 		    _configApiClient = new ConfigApiClient();
@@ -177,8 +184,6 @@ namespace ConfigAPIClient
                 toolStripStatusLabel1.Text = "Error logging on";
 
             UpdateTreeView();
-
-            //VideoOS.Platform.SDK.Environment.LoadConfiguration(new Uri("http://localhost"));
 		}
 
 
@@ -203,7 +208,6 @@ namespace ConfigAPIClient
             ConfigurationItem item = node.Tag as ConfigurationItem;
             if (item != null && !item.ChildrenFilled && item.ItemType != ItemTypes.System)
             {
-                
                 item.Children = _configApiClient.GetChildItems(item.Path);
                 item.ChildrenFilled = true;
                 node.Nodes.Clear();
@@ -283,6 +287,7 @@ namespace ConfigAPIClient
                     case VideoOS.ConfigurationAPI.ItemTypes.InputEvent:
                     case VideoOS.ConfigurationAPI.ItemTypes.Output:
                     case VideoOS.ConfigurationAPI.ItemTypes.Metadata:
+                    case ItemTypes.ClientProfile:
                         panelMain.Controls.Add(new TabUserControl(item, _configApiClient) { Dock = DockStyle.Fill });
                         break;
                     default:
@@ -359,10 +364,11 @@ namespace ConfigAPIClient
 						SelectedImageIndex = UI.Icons.GetImageIndex(childItem.ItemType)
 					};
                     serverTn.Nodes.Add(tn);
-					//xxx AddChildren(tn, childItem);
 				}
+                if (!sortTreeToolStripMenuItem.Checked)
+                    treeView.TreeViewNodeSorter = null;
                 treeView.Sort();
-				treeView.ExpandAll();                
+                treeView.ExpandAll();                
 			}
 
 			catch (Exception ex)
@@ -399,7 +405,8 @@ namespace ConfigAPIClient
                                 childItem.ItemType == ItemTypes.CustomPropertiesFolder ||
                                 childItem.ItemType == ItemTypes.ClientSettingsFolder ||
                                 childItem.ItemType == ItemTypes.PrivacyProtectionFolder ||
-                                childItem.ItemType == ItemTypes.HardwareDeviceEventFolder
+                                childItem.ItemType == ItemTypes.HardwareDeviceEventFolder ||
+                                childItem.ItemType == ItemTypes.PatrollingProfileFolder 
                                 )
                                 continue;
 

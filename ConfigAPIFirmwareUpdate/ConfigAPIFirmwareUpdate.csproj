@@ -95,7 +95,6 @@
   <ItemGroup>
     <Compile Include="OAuth\AddTokenBehavior.cs" />
     <Compile Include="OAuth\ConfigApiServiceOAuthHelper.cs" />
-    <Compile Include="OAuth\IdpClientProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -322,24 +322,26 @@ namespace BookmarkCreator
             #endregion
 
             #region Update Bookmark1
-            Console.WriteLine("Updating the bookmark just fetched using BookmarkUpdate");
-            newbookmarkFetched.Description = "Now I have updated the description of this bookmark";
-            Bookmark newbookmark1 = BookmarkService.Instance.BookmarkUpdate(newbookmarkFetched);
             if (newbookmarkFetched != null)
             {
-                Console.WriteLine("-> Result =");
-                Console.WriteLine("     Id  ={0} ", newbookmarkFetched.BookmarkFQID.ToString());
-                Console.WriteLine("     Name={0} ", newbookmarkFetched.Header);
-                Console.WriteLine("     Desc={0} ", newbookmarkFetched.Description);
-                Console.WriteLine("     user={0} ", newbookmarkFetched.User);
-                Console.WriteLine("     Device={0} Start={1} Stop={2}  ", newbookmarkFetched.GetDeviceItem().FQID.ObjectId, newbookmarkFetched.TimeBegin, newbookmarkFetched.TimeEnd);
+                Console.WriteLine("Updating the bookmark just fetched using BookmarkUpdate");
+                newbookmarkFetched.Description = "Now I have updated the description of this bookmark";
+                Bookmark newbookmarkFetchedUpdated = BookmarkService.Instance.BookmarkUpdate(newbookmarkFetched);
+                if (newbookmarkFetchedUpdated != null)
+                {
+                    Console.WriteLine("-> Result =");
+                    Console.WriteLine("     Id  ={0} ", newbookmarkFetchedUpdated.BookmarkFQID.ToString());
+                    Console.WriteLine("     Name={0} ", newbookmarkFetchedUpdated.Header);
+                    Console.WriteLine("     Desc={0} ", newbookmarkFetchedUpdated.Description);
+                    Console.WriteLine("     user={0} ", newbookmarkFetchedUpdated.User);
+                    Console.WriteLine("     Device={0} Start={1} Stop={2}  ", newbookmarkFetchedUpdated.GetDeviceItem().FQID.ObjectId, newbookmarkFetchedUpdated.TimeBegin, newbookmarkFetchedUpdated.TimeEnd);
+                }
+                else
+                {
+                    Console.WriteLine("Sorry. Failed to update the bookmark");
+                }
+                Console.WriteLine("");
             }
-            else
-            {
-                Console.WriteLine("Sorry. Failed to update the bookmark");
-            }
-            Console.WriteLine("");
-
             #endregion
 
             #region Deleting bookmarks

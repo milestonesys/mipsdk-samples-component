@@ -42,8 +42,7 @@ namespace ConfigAPIUpdateFirmwareWPF
             try
             {
                 LoginSettings loginSettings = LoginSettingsCache.GetLoginSettings(ServerAddress);
-                bool isOAuth = Task.Run(() => IdpClientProxy.IsOAuthServer(ServerAddress, ServerPort)).GetAwaiter().GetResult();
-                if (isOAuth)
+                if (loginSettings.IsOAuthConnection)
                 {
                     _client = CreateOAuthClientProxy(ServerAddress, ServerPort, loginSettings);
                 }

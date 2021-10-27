@@ -26,6 +26,9 @@ namespace ConfigAPIClient.Panels
             textBoxValue.Anchor = AnchorStyles.Left | AnchorStyles.Right;
 			_origY = textBoxValue.Left;
 
+            if (!property.IsSettable)
+                textBoxValue.ForeColor = Color.Gray;
+
 			HasChanged = false;
             WeGotFocus += FocusHandling;
         }

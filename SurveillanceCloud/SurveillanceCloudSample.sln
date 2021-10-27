@@ -1,7 +1,7 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SurveillanceCloudSample", "SurveillanceCloudSample\SurveillanceCloudSample.csproj", "{C5A65DF4-378F-4A98-9750-CD5725308AB6}"
 EndProject
@@ -19,10 +19,10 @@ Global
 		{C5A65DF4-378F-4A98-9750-CD5725308AB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5A65DF4-378F-4A98-9750-CD5725308AB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5A65DF4-378F-4A98-9750-CD5725308AB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{46C37B79-7423-422C-9433-5E154F1E15FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46C37B79-7423-422C-9433-5E154F1E15FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46C37B79-7423-422C-9433-5E154F1E15FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46C37B79-7423-422C-9433-5E154F1E15FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46C37B79-7423-422C-9433-5E154F1E15FA}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{46C37B79-7423-422C-9433-5E154F1E15FA}.Debug|Any CPU.Build.0 = Debug|x64
+		{46C37B79-7423-422C-9433-5E154F1E15FA}.Release|Any CPU.ActiveCfg = Release|x64
+		{46C37B79-7423-422C-9433-5E154F1E15FA}.Release|Any CPU.Build.0 = Release|x64
 		{F8196ED6-6F44-4B28-A8EB-4950D218FF2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F8196ED6-6F44-4B28-A8EB-4950D218FF2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8196ED6-6F44-4B28-A8EB-4950D218FF2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -31,5 +31,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2687139B-8AE2-4076-8A50-F1FB22415001}
+	EndGlobalSection
 EndGlobal
-

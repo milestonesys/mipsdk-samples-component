@@ -1,5 +1,4 @@
-﻿using Helpers;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using SurveillanceCloudSample.SharedObjects;
 using SurveillanceCloudSampleService.Helpers;
@@ -14,7 +13,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Http;
-using VideoOS.ConfigurationAPI;
+using VideoOS.Platform;
+using VideoOS.Platform.ConfigurationItems;
 
 namespace SurveillanceCloudSampleService.Controllers
 {
@@ -23,9 +23,13 @@ namespace SurveillanceCloudSampleService.Controllers
         //Dictionary of codes and corresponding number of cameras. You can change the code so it will take the codes from external file or database.
         //Also you can make codes one time only, so you have different code for each user.
         private Dictionary<string, int> codes = new Dictionary<string, int> { { "1cam", 1 }, { "2cams", 2 }, { "3cams", 3 }, { "4cams", 4 } };
-        private List<User> users = new List<User>();
+        private List<Objects.User> users = new List<Objects.User>();
         private SurveillanceSettings settings = null;
-        private ConfigAPIClient configApiClient = null;
+
+        private static readonly Guid IntegrationId = new Guid("2B142E14-2082-494D-98C4-40ACB5AEC714");
+        private const string IntegrationName = "Surveillance Cloud";
+        private const string Version = "1.0";
+        private const string ManufacturerName = "Sample Manufacturer";
 
         [HttpPost]
         public IHttpActionResult Register([FromBody]JObject parameters)
@@ -73,7 +77,8 @@ namespace SurveillanceCloudSampleService.Controllers
 
                 //Checking if the entered username is available in the VMS
                 #region Check if user with this username already exists in the VMS
-                if (configApiClient.GetChildItems("/" + ItemTypes.BasicUserFolder).Where(c => c.Properties.Where(p => p.Key == "Name" && p.Value == userName).FirstOrDefault() != null).FirstOrDefault() != null)
+                var basicUserFolder = new BasicUserFolder();
+                if (basicUserFolder.BasicUsers.Any(bu => bu.Name == userName))
                 {
                     //returning error response, because the username is not available in the VMS.
                     return Content(HttpStatusCode.BadRequest, "Username already exists");
@@ -81,43 +86,42 @@ namespace SurveillanceCloudSampleService.Controllers
                 #endregion
 
                 //Creating new user object and setting it's parameters
-                User tmpUser = new User() { Id = (users?.Max(u => (int?)u.Id) ?? 0) + 1, Username = userName, Password = password, NumberOfCameras = codes[code], Cameras = new List<Camera>() };
+                Objects.User tmpUser = new Objects.User() { Id = (users?.Max(u => (int?)u.Id) ?? 0) + 1, Username = userName, Password = password, NumberOfCameras = codes[code], Cameras = new List<SurveillanceCloudSample.SharedObjects.Camera>() };
 
                 //Creating new empty Camera objects. The count depends on the entered code.
                 for (int i = 0; i < tmpUser.NumberOfCameras; i++)
                 {
-                    tmpUser.Cameras.Add(new Camera());
+                    tmpUser.Cameras.Add(new SurveillanceCloudSample.SharedObjects.Camera());
                 }
 
                 #region Create User in VMS
-                ConfigurationItem tmpConfigurationItem = configApiClient.InvokeMethod(configApiClient.GetItem("/" + ItemTypes.BasicUserFolder), "AddBasicUser");
-                tmpConfigurationItem.Properties.Where(p => p.Key == "Name").FirstOrDefault().Value = userName;
-                tmpConfigurationItem.Properties.Where(p => p.Key == "Password").FirstOrDefault().Value = password;
-                ConfigurationItem resultConfigurationItem = configApiClient.InvokeMethod(tmpConfigurationItem, "AddBasicUser");
+                var addTask = basicUserFolder.AddBasicUser(userName, "Created by SurveillanceCloud sample", password);
                 #endregion
-                if (resultConfigurationItem.Properties.FirstOrDefault(p => p.Key == InvokeInfoProperty.State).Value == InvokeInfoStates.Success)
+
+                if (addTask.State == StateEnum.Success)
                 {
-                    string newUserSid = resultConfigurationItem.Properties.Where(p => p.Key == "Sid").FirstOrDefault().Value;
+                    var newUser = new BasicUser(EnvironmentManager.Instance.CurrentSite.ServerId, addTask.Path); // read out newly created user
+
                     #region Create Role in VMS
-                    tmpConfigurationItem = configApiClient.InvokeMethod(configApiClient.GetItem("/" + ItemTypes.RoleFolder), "AddRole");
-                    tmpConfigurationItem.Properties.Where(p => p.Key == "Name").FirstOrDefault().Value = userName;
-                    resultConfigurationItem = configApiClient.InvokeMethod(tmpConfigurationItem, "AddRole");
+                    var roleFolder = new RoleFolder();
+                    var addRole = roleFolder.AddRole(userName, "Created by SurveillanceCloud sample", false, false, true, true, true, string.Empty, string.Empty);
                     #endregion
-                    if (resultConfigurationItem.Properties.FirstOrDefault(p => p.Key == InvokeInfoProperty.State).Value == InvokeInfoStates.Success)
+
+                    if (addRole.State == StateEnum.Success)
                     {
                         #region Assign User to the Role
-                        tmpConfigurationItem = configApiClient.InvokeMethod(configApiClient.GetChildItems(resultConfigurationItem.Path)[0], "AddRoleMember");
-                        tmpConfigurationItem.Properties.Where(p => p.Key == "Sid").FirstOrDefault().Value = newUserSid;
-                        resultConfigurationItem = configApiClient.InvokeMethod(tmpConfigurationItem, "AddRoleMember");
+                        var newRole = new Role(EnvironmentManager.Instance.CurrentSite.ServerId, addRole.Path);
+                        var newRoleMember = newRole.UserFolder.AddRoleMember(newUser.Sid);
                         #endregion
-                        if (resultConfigurationItem.Properties.FirstOrDefault(p => p.Key == InvokeInfoProperty.State).Value == InvokeInfoStates.Success)
+
+                        if (newRoleMember.State == StateEnum.Success)
                         {
                             if (users == null)
                             {
-                                users = new List<User>();
+                                users = new List<Objects.User>();
                             }
 
-                            //The user is successfully created and setted up in the VMS, so we are adding the User object to the collection and write it to the file.
+                            //The user is successfully created and set up in the VMS, so we are adding the User object to the collection and write it to the file.
                             users.Add(tmpUser);
                             File.WriteAllText(HttpContext.Current.Server.MapPath("~/data.txt"), JsonConvert.SerializeObject(users, new JsonSerializerSettings() { ContractResolver = new ExcludeCameraUsernameAndPasswordResolver() }));
 
@@ -143,10 +147,14 @@ namespace SurveillanceCloudSampleService.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (MIPException ex)
+            {
+                return Content(HttpStatusCode.BadRequest, ex.Message);
+            }
+            catch (Exception ex)
             {
                 //returning error response
-                return Content(HttpStatusCode.InternalServerError, "Unknown error");
+                return Content(HttpStatusCode.InternalServerError, "Unknown error: " + ex.Message);
             }
         }
 
@@ -173,7 +181,7 @@ namespace SurveillanceCloudSampleService.Controllers
             try
             {
                 LoginResult o = new LoginResult();
-                User tmpUser;
+                Objects.User tmpUser;
 
                 //Searching for such user
                 if ((tmpUser = users?.Where(u => u.Username == userName && u.Password == password).FirstOrDefault()) != null)
@@ -214,7 +222,7 @@ namespace SurveillanceCloudSampleService.Controllers
             try
             {
                 GetUserCamerasResult o = new GetUserCamerasResult();
-                User tmpUser;
+                Objects.User tmpUser;
 
                 //Getting the user object
                 if ((tmpUser = users?.Where(u => u.Id == userId).FirstOrDefault()) != null)
@@ -223,17 +231,19 @@ namespace SurveillanceCloudSampleService.Controllers
                     o.NumberOfCameras = tmpUser.NumberOfCameras;
                     o.Cameras = tmpUser.Cameras;
 
-                    ConfigurationItem[] recordingServerHardware = configApiClient.GetChildItems(configApiClient.GetChildItems(configApiClient.GetItem("/" + ItemTypes.RecordingServerFolder).Path)[0].Path + "/" + ItemTypes.HardwareFolder);
+                    var recordingServerFolder = new RecordingServerFolder();
+                    var recordingServerHardware = recordingServerFolder.RecordingServers.First().HardwareFolder.Hardwares;
 
                     //Getting each camera's credentials from the VMS
-                    foreach (Camera camera in o.Cameras.Where(c => !string.IsNullOrWhiteSpace(c.Address)))
+                    foreach (SurveillanceCloudSample.SharedObjects.Camera camera in o.Cameras.Where(c => !string.IsNullOrWhiteSpace(c.Address)))
                     {
-                        ConfigurationItem tmpConfigurationItem = recordingServerHardware.Where(c => c.Properties.Where(p => p.Key == "Address" && p.Value.Contains(camera.Address)).FirstOrDefault() != null).FirstOrDefault();
-                        if (tmpConfigurationItem != null)
+                        var cameraHardware = recordingServerHardware.FirstOrDefault(hw => hw.Address.Contains(camera.Address));
+                        if (cameraHardware != null)
                         {
-                            //Filling getted from the VMS camera's credentials to the response
-                            camera.Username = tmpConfigurationItem.Properties.Where(p => p.Key == "UserName").FirstOrDefault()?.Value ?? string.Empty;
-                            camera.Password = configApiClient.InvokeMethod(configApiClient.InvokeMethod(tmpConfigurationItem, "ReadPasswordHardware"), "ReadPasswordHardware").Properties.Where(p => p.Key == "Password").FirstOrDefault()?.Value ?? string.Empty;
+                            // Set camera credentials in response
+                            camera.Username = cameraHardware.UserName;
+                            var readPasswordTask = cameraHardware.ReadPasswordHardware();
+                            camera.Password = readPasswordTask.GetProperty("Password");
                         }
                     }
 
@@ -295,9 +305,7 @@ namespace SurveillanceCloudSampleService.Controllers
                 //Setting the default response status to Problem
                 o.Status = AddDeviceStatus.Problem;
 
-                User tmpUser;
-                ConfigurationItem tmpConfigurationItem;
-                ConfigurationItem resultConfigurationItem;
+                Objects.User tmpUser;
 
                 //Getting the user object
                 if ((tmpUser = users?.Where(u => u.Id == userId).FirstOrDefault()) != null)
@@ -315,20 +323,21 @@ namespace SurveillanceCloudSampleService.Controllers
                         return Content(HttpStatusCode.BadRequest, "The address field cannot be empty");
                     }
 
+                    var recordingServerFolder = new RecordingServerFolder();
                     if (cameraReplace)
                     {
                         #region Removing camera
-                        tmpConfigurationItem = configApiClient.InvokeMethod(configApiClient.GetItem(configApiClient.GetChildItems(configApiClient.GetItem("/" + ItemTypes.RecordingServerFolder).Path)[0].Path + "/" + ItemTypes.HardwareFolder), "DeleteHardware");
-                        tmpConfigurationItem.Properties.Where(p => p.Key == "ItemSelection").FirstOrDefault().Value = configApiClient.GetChildItems(configApiClient.GetItem(configApiClient.GetChildItems(configApiClient.GetItem("/" + ItemTypes.RecordingServerFolder).Path)[0].Path + "/" + ItemTypes.HardwareFolder).Path).Where(h => h.Properties.Where(p => p.Key == "Address" && p.Value.Contains(cameraAddress)).FirstOrDefault() != null).FirstOrDefault().Path;
-                        resultConfigurationItem = configApiClient.InvokeMethod(tmpConfigurationItem, "DeleteHardware");
-                        if (resultConfigurationItem.Properties.FirstOrDefault(p => p.Key == InvokeInfoProperty.State).Value != InvokeInfoStates.Error)
+                        var recordingServerHardwareFolder = recordingServerFolder.RecordingServers.First().HardwareFolder;
+                        var hardwareWithCamera = recordingServerHardwareFolder.Hardwares.FirstOrDefault(hw => hw.Address.Contains(cameraAddress));
+                        var deleteHardwareResult = recordingServerHardwareFolder.DeleteHardware(hardwareWithCamera.Path);
+                        if (deleteHardwareResult.State != StateEnum.Error)
                         {
                             do
                             {
-                                tmpConfigurationItem = configApiClient.GetItem(resultConfigurationItem.Properties.Where(p => p.Key == "Path").FirstOrDefault().Value);
+                                deleteHardwareResult.UpdateState();
                             }
-                            while ((tmpConfigurationItem.Properties.FirstOrDefault(p => p.Key == "Progress")?.Value ?? "0") != "100");
-                            if (tmpConfigurationItem.Properties.FirstOrDefault(p => p.Key == InvokeInfoProperty.State).Value != InvokeInfoStates.Success)
+                            while (deleteHardwareResult.Progress != 100);
+                            if (deleteHardwareResult.State != StateEnum.Success)
                             {
                                 //returning error response
                                 return Content(HttpStatusCode.BadRequest, "Error removing the old camera");
@@ -342,7 +351,7 @@ namespace SurveillanceCloudSampleService.Controllers
                         #endregion
                     }
 
-                    //If deleting the camera is the only thing we need to do, we just updating the User object and serializing it in the file
+                    //If deleting the camera is the only thing we need to do, we just update the User object and seriale it in the file
                     if (string.IsNullOrWhiteSpace(ipAddress))
                     {
                         tmpUser.Cameras[cameraId.Value].Address = null;
@@ -358,87 +367,85 @@ namespace SurveillanceCloudSampleService.Controllers
                     #region Searching for hardware driver
                     //Trying the default credentials, if we don't provide such
                     bool useDefaultCredentials = string.IsNullOrWhiteSpace(userName) && string.IsNullOrWhiteSpace(password);
-                    tmpConfigurationItem = configApiClient.InvokeMethod(configApiClient.GetChildItems(configApiClient.GetItem("/" + ItemTypes.RecordingServerFolder).Path)[0], "HardwareScan");
-                    tmpConfigurationItem.Properties.Where(p => p.Key == "HardwareAddress").FirstOrDefault().Value = ipAddress;
-                    tmpConfigurationItem.Properties.Where(p => p.Key == "UseDefaultCredentials").FirstOrDefault().Value = useDefaultCredentials.ToString();
-                    if (!useDefaultCredentials)
-                    {
-                        tmpConfigurationItem.Properties.Where(p => p.Key == "UserName").FirstOrDefault().Value = userName;
-                        tmpConfigurationItem.Properties.Where(p => p.Key == "Password").FirstOrDefault().Value = password;
-                    }
-                    resultConfigurationItem = configApiClient.InvokeMethod(tmpConfigurationItem, "HardwareScan");
+                    var hardwareScanTask = recordingServerFolder.RecordingServers.First().HardwareScan(ipAddress, string.Empty, useDefaultCredentials ? string.Empty : userName, useDefaultCredentials ? string.Empty : password, useDefaultCredentials);
                     #endregion
-                    if (resultConfigurationItem.Properties.FirstOrDefault(p => p.Key == InvokeInfoProperty.State).Value != InvokeInfoStates.Error)
+                    if (hardwareScanTask.State != StateEnum.Error)
                     {
                         do
                         {
-                            tmpConfigurationItem = configApiClient.GetItem(resultConfigurationItem.Properties.Where(p => p.Key == "Path").FirstOrDefault().Value);
-                        }
-                        while ((tmpConfigurationItem.Properties.FirstOrDefault(p => p.Key == "Progress")?.Value ?? "0") != "100");
+                            hardwareScanTask.UpdateState();
+                        } while (hardwareScanTask.Progress != 100);
 
-                        if (tmpConfigurationItem.Properties.FirstOrDefault(p => p.Key == InvokeInfoProperty.State).Value == InvokeInfoStates.Success)
+                        if (hardwareScanTask.State == StateEnum.Success)
                         {
                             #region Adding Hardware
-                            resultConfigurationItem = configApiClient.InvokeMethod(configApiClient.GetChildItems(configApiClient.GetItem("/" + ItemTypes.RecordingServerFolder).Path)[0], "AddHardware");
-
-                            resultConfigurationItem.Properties.Where(p => p.Key == "HardwareAddress").FirstOrDefault().Value = tmpConfigurationItem.Properties.FirstOrDefault(p => p.Key == "HardwareAddress").Value;
-                            resultConfigurationItem.Properties.Where(p => p.Key == "UserName").FirstOrDefault().Value = tmpConfigurationItem.Properties.FirstOrDefault(p => p.Key == "UserName").Value;
-                            resultConfigurationItem.Properties.Where(p => p.Key == "Password").FirstOrDefault().Value = tmpConfigurationItem.Properties.FirstOrDefault(p => p.Key == "Password").Value;
-                            resultConfigurationItem.Properties.Where(p => p.Key == "HardwareDriverPath").FirstOrDefault().Value = tmpConfigurationItem.Properties.FirstOrDefault(p => p.Key == "HardwareDriverPath").Value;
-                            tmpConfigurationItem = configApiClient.InvokeMethod(resultConfigurationItem, "AddHardware");
+                            var addHardwareTask = recordingServerFolder.RecordingServers.First().AddHardware(hardwareScanTask.GetProperty("HardwareAddress"), hardwareScanTask.GetProperty("HardwareDriverPath"), hardwareScanTask.GetProperty("UserName"), hardwareScanTask.GetProperty("Password"));
                             #endregion
 
                             do
                             {
-                                resultConfigurationItem = configApiClient.GetItem(tmpConfigurationItem.Properties.Where(p => p.Key == "Path").FirstOrDefault().Value);
-                            }
-                            while ((resultConfigurationItem.Properties.FirstOrDefault(p => p.Key == "Progress")?.Value ?? "0") != "100");
+                                addHardwareTask.UpdateState();
+                            } while (addHardwareTask.Progress != 100);
 
-                            if (resultConfigurationItem.Properties.FirstOrDefault(p => p.Key == InvokeInfoProperty.State).Value == InvokeInfoStates.Success)
+                            if (addHardwareTask.State == StateEnum.Success)
                             {
                                 #region Enable Hardware
-                                resultConfigurationItem = configApiClient.GetItem(resultConfigurationItem.Properties.FirstOrDefault(p => p.Key == "Path").Value);
-                                resultConfigurationItem.EnableProperty.Enabled = true;
-                                var result = configApiClient.SetItem(resultConfigurationItem);
+                                var hardware = new Hardware(EnvironmentManager.Instance.CurrentSite.ServerId, addHardwareTask.Path);
+                                hardware.Enabled = true;
+                                var saveOk = true;
+                                try
+                                {
+                                    hardware.Save();
+                                }
+                                catch (Exception)
+                                {
+                                    saveOk = false;
+                                }
                                 #endregion
-                                if (result.ValidatedOk)
+                                if (saveOk)
                                 {
                                     //If there is no camera-group already then create one
-                                    if (configApiClient.GetChildItems("/" + ItemTypes.CameraGroupFolder).Length == 0)
+                                    var cameraGroupFolder = new CameraGroupFolder();
+                                    if (!cameraGroupFolder.CameraGroups.Any())
                                     {
-                                        var cameraGroupItem = configApiClient.GetItem("/" + ItemTypes.CameraGroupFolder);
-                                        cameraGroupItem.Properties = new Property[] { new Property { Key = "GroupName", DisplayName = "SurveillanceCloud", IsSettable = true, Value = "SurveillanceCloud" }, new Property { Key = "GroupDescription", DisplayName = "Camera(s) for SurveillanceCloud", IsSettable = true, Value = "Camera(s) for SurveillanceCloud" } };
-                                        cameraGroupItem.ItemCategory = ItemCategories.Item;
-                                        cameraGroupItem.ItemType = ItemTypes.InvokeInfo;
-                                        configApiClient.InvokeMethod(cameraGroupItem, "AddDeviceGroup");
+                                        cameraGroupFolder.AddDeviceGroup("SurveillanceCloud", "Camera(s) for SurveillanceCloud");
                                     }
 
                                     #region Enable the cameras, adding to first available camera group and adding to role
-                                    foreach (var configItem in configApiClient.GetChildItems(resultConfigurationItem.Path + "/" + ItemTypes.CameraFolder))
+                                    foreach (var camera in hardware.CameraFolder.Cameras)
                                     {
                                         #region Enable camera
-                                        configItem.EnableProperty.Enabled = true;
-                                        configItem.Properties.FirstOrDefault(p => p.Key == "Name").Value = string.IsNullOrWhiteSpace(cameraName) ? configItem.DisplayName : cameraName;
-                                        result = configApiClient.SetItem(configItem);
+                                        camera.Enabled = true;
+                                        camera.Name = string.IsNullOrWhiteSpace(cameraName) ? camera.DisplayName : cameraName;
+                                        saveOk = true;
+                                        try
+                                        {
+                                            camera.Save();
+                                        }
+                                        catch
+                                        {
+                                            saveOk = false;
+                                        }
                                         #endregion
-                                        if (result.ValidatedOk)
+                                        if (saveOk)
                                         {
                                             #region Adding the camera to the first available camera group
-                                            tmpConfigurationItem = configApiClient.InvokeMethod(configApiClient.GetItem(configApiClient.GetChildItems("/" + ItemTypes.CameraGroupFolder)[0].Path + "/" + ItemTypes.CameraFolder), "AddDeviceGroupMember");
-                                            tmpConfigurationItem.Properties.Where(p => p.Key == "ItemSelection").FirstOrDefault().Value = configItem.Path;
-                                            tmpConfigurationItem = configApiClient.InvokeMethod(tmpConfigurationItem, "AddDeviceGroupMember");
+                                            var addDeviceGroupMemberTask = cameraGroupFolder.CameraGroups.First().CameraFolder.AddDeviceGroupMember(camera.Path);
                                             #endregion
-                                            if (tmpConfigurationItem.Properties.FirstOrDefault(p => p.Key == InvokeInfoProperty.State).Value == InvokeInfoStates.Success)
+                                            if (addDeviceGroupMemberTask.State == StateEnum.Success)
                                             {
                                                 #region Adding the camera to the role
-                                                tmpConfigurationItem = configApiClient.InvokeMethod(configItem, "ChangeSecurityPermissions");
-                                                tmpConfigurationItem.Properties.Where(p => p.Key == "UserPath").FirstOrDefault().Value = configApiClient.GetChildItems("/" + ItemTypes.RoleFolder).Where(i => i.ItemType == ItemTypes.Role && i.Properties.Where(p => p.Key == "Name" && p.Value == tmpUser.Username).FirstOrDefault() != null).FirstOrDefault().Path;
-                                                resultConfigurationItem = configApiClient.InvokeMethod(tmpConfigurationItem, "ChangeSecurityPermissions");
-                                                resultConfigurationItem.Properties.Where(p => p.Key == "GENERIC_READ").FirstOrDefault().Value = true.ToString();
-                                                resultConfigurationItem.Properties.Where(p => p.Key == "VIEW_LIVE").FirstOrDefault().Value = true.ToString();
-                                                resultConfigurationItem.Properties.Where(p => p.Key == "PLAYBACK").FirstOrDefault().Value = true.ToString();
-                                                resultConfigurationItem = configApiClient.InvokeMethod(resultConfigurationItem, "ChangeSecurityPermissions");
-                                                #endregion
+                                                var roleFolder = new RoleFolder();
+                                                var role = roleFolder.Roles.FirstOrDefault(r => r.Name == tmpUser.Username);
+                                                if (role != null)
+                                                {
+                                                    var changeSecurityPermissionsTask = camera.ChangeSecurityPermissions(role.Path); // TODO: should this be user[SID] instead?
+                                                    changeSecurityPermissionsTask.SetProperty("GENERIC_READ", true.ToString());
+                                                    changeSecurityPermissionsTask.SetProperty("VIEW_LIVE", true.ToString());
+                                                    changeSecurityPermissionsTask.SetProperty("PLAYBACK", true.ToString());
+                                                    changeSecurityPermissionsTask.ExecuteDefault();
+                                                    #endregion
+                                                }
                                             }
                                             else
                                             {
@@ -510,7 +517,7 @@ namespace SurveillanceCloudSampleService.Controllers
             {
                 try
                 {
-                    users = JsonConvert.DeserializeObject<List<User>>(File.ReadAllText(HttpContext.Current.Server.MapPath("~/data.txt")));
+                    users = JsonConvert.DeserializeObject<List<Objects.User>>(File.ReadAllText(HttpContext.Current.Server.MapPath("~/data.txt")));
                 }
                 catch
                 {
@@ -525,6 +532,8 @@ namespace SurveillanceCloudSampleService.Controllers
                 settings = new SurveillanceSettings();
 
                 //Setting connection parameters to the settings object
+                settings.SecureOnly = bool.Parse(settingsCollection["SecureOnly"]);
+                settings.SurveillanceScheme = settingsCollection["Scheme"];
                 settings.SurveillanceAddress = settingsCollection["Ip"];
                 settings.SurveillancePort = int.Parse(settingsCollection["Port"]);
 
@@ -546,15 +555,8 @@ namespace SurveillanceCloudSampleService.Controllers
 
             try
             {
-                //Initializing the ConfigAPIClient object
-                configApiClient = new ConfigAPIClient();
-                configApiClient.ServerAddress = settings.SurveillanceAddress;
-                configApiClient.Serverport = settings.SurveillancePort;
-                configApiClient.BasicUser = !settings.IsAdUser;
-                configApiClient.Username = settings.Username;
-                configApiClient.Password = settings.Password;
-
-                configApiClient.Initialize();
+                VideoOS.Platform.SDK.Environment.Initialize();
+                Login(settings.SecureOnly, new UriBuilder(settings.SurveillanceScheme, settings.SurveillanceAddress, settings.SurveillancePort).Uri, settings.IsAdUser, settings.Username, settings.Password);
             }
             catch
             {
@@ -562,6 +564,24 @@ namespace SurveillanceCloudSampleService.Controllers
                 //returning error response
                 throw new Exception("Could not connect to the VMS Server. Check your settings");
             }
+        }
+
+        /// <summary>
+        /// Login routine 
+        /// </summary>
+        /// <returns></returns> True if successfully logged in
+        static private void Login(bool secureOnly, Uri uri, bool isAduser, string userName, string password)
+        {
+            if (isAduser)
+            {
+                VideoOS.Platform.SDK.Environment.AddServer(secureOnly, uri, new NetworkCredential(userName, password));
+            }
+            else
+            {
+                VideoOS.Platform.SDK.Environment.AddServer(secureOnly, uri, VideoOS.Platform.Login.Util.BuildCredentialCache(uri, userName, password, "Basic"));
+            }
+
+            VideoOS.Platform.SDK.Environment.Login(uri, IntegrationId, IntegrationName, Version, ManufacturerName);
         }
     }
 }

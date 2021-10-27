@@ -68,8 +68,8 @@ namespace ConfigAPIClient.Panels
                         child.Children = _configApiClient.GetChildItems(child.Path); 
                     }
 
-                    if (child.Children.Length == 1 && child.ItemType != ItemTypes.PtzPresetFolder)
-                    {
+                    if (child.Children.Length == 1 && child.ItemType != ItemTypes.PtzPresetFolder && child.ItemType != ItemTypes.PatrollingProfileFolder)
+                    { 
                         GenerateTab(child.Children[0]);
                     }
                     else
@@ -112,7 +112,8 @@ namespace ConfigAPIClient.Panels
 				{
 					if (!tabItem.ChildrenFilled)
 					{
-						tabItem.Children = _configApiClient.GetChildItems(tabItem.Path);						
+						tabItem.Children = _configApiClient.GetChildItems(tabItem.Path);
+                        tabItem.ChildrenFilled = true;
 					}
 
                     //if (tabItem.ItemType == ItemTypes.CustomPropertiesFolder)
