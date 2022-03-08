@@ -18,7 +18,7 @@ coupon code, to:
 
 -   Add a Basic user account and a corresponding role with limited
     rights
--   Add delete or replace a limited number of camera devices in their
+-   Add, delete or replace a limited number of camera devices in their
     account, and give access to live and recorded video to those cameras
     through Smart, Mobile, and Web clients
 

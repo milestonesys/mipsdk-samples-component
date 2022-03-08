@@ -19,9 +19,8 @@ id, and a set of working credentials and server address.
 
 The `vmsServer` and `vmsServerPort` is usually something the user types in,
 while the `vmsRecorderUri` is found in the configuration for the specific
-camera, either in the response from the `GetConfiguration()` method on the
-ServerCommandService SOAP service or in `SystemInfo.xml` (`SystemInfo.xml`
-is deprecated).
+camera in the response from the `GetConfiguration()` method on the
+ServerCommandService SOAP service.
 
 ~~~ cpp
 // GUID for the camera: CHANGE TO YOUR GUID
@@ -76,3 +75,7 @@ on the console output.
 ## Visual Studio C++ project
 
 - [MediaLiveServiceJPEG.vcxproj](javascript:openLink('..\\\\ComponentSamples\\\\MediaLiveServiceJPEG\\\\MediaLiveServiceJPEG.vcxproj');)
+
+ *Note* - Windows SDK 10 is required for this project to build. Install it through Visual studios "Get Tools And Features", choose "Desktop Development with C++" 
+
+ *Note* - If you want to run this sample in debug configuration, you have to change the referenced NuGet package. To do this, select "Manage NuGet Packages" from the project right-click menu in Visual Studio, uninstall the MilestoneSystems.VideoOS.Platform.SDK-CPP package and install the MilestoneSystems.VideoOS.Platform.SDK-CPP.Debug package instead. 

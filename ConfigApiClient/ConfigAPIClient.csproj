@@ -151,6 +151,12 @@
     <Compile Include="Panels\CustomPropertiesUserControl.Designer.cs">
       <DependentUpon>CustomPropertiesUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Panels\PropertyUserControls\ArrayPropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\ArrayPropertyUserControl.Designer.cs">
+      <DependentUpon>ArrayPropertyUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Panels\TaskUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -335,6 +341,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\CustomPropertiesUserControl.resx">
       <DependentUpon>CustomPropertiesUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\ArrayPropertyUserControl.resx">
+      <DependentUpon>ArrayPropertyUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\TaskUserControl.resx">
       <DependentUpon>TaskUserControl.cs</DependentUpon>
@@ -530,6 +539,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Failover Group 16 n i8.ico" />
     <EmbeddedResource Include="Resources\Failover Server 16 n i8.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\User_External_SSO_16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

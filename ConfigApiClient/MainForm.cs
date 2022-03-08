@@ -220,6 +220,9 @@ namespace ConfigAPIClient
             }
             if (item != null)
             {
+                if (item.ItemType == "Role")
+                    item = _configApiClient.GetItem(item.Path);     //Re-read to get profiles filled.
+
                 toolStripStatusLabel1.Text = item.Path;
                 UpdateSidePanel(item);
             }

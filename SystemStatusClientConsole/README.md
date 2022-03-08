@@ -42,7 +42,7 @@ the application is running.
 -   How to use the client to get status information on all cameras in
     the system
 -   How to subscribe to specific events across all Recording Servers
--   How to use the MultuEnvironment to log in
+-   How to use the MultiEnvironment to log in
 
 ## Using
 

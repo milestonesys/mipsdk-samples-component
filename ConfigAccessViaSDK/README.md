@@ -23,7 +23,7 @@ finds, it will ask for the children belonging to that item.
 -   Access to Milestone-owned configuration, for example, servers and
     cameras groups
 -   A simple drill down of all Items via the Item.GetChildren() method.
--   Able to launch the ItemPicker dialog to select one or more cameras
+-   Launching the ItemPicker dialog to select one or more cameras
     from the loaded configuration.
 
 ## Using

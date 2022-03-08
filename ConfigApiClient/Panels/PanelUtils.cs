@@ -53,6 +53,10 @@ namespace ConfigAPIClient.Panels
                                 uc = new SeperatorPropertyUserControl(property);
                                 break;
 
+                            case ValueTypes.Array:
+                                uc = new ArrayPropertyUserControl(property);
+                                break;
+
                             case ValueTypes.ProgressType:
                             case ValueTypes.StringType:
                             default:

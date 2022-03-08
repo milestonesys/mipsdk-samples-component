@@ -62,9 +62,6 @@ namespace ConfigAddCameras
                     GetLoginParams();
                 }
             }
-
-
-
             
             if (LoginUsingCurrentCredentials())
             {

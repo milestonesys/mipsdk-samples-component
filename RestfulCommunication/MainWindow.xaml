@@ -1,0 +1,100 @@
+﻿<Window x:Class="RestfulCommunication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="RestFul Communication" Height="960" Width="850">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <ComboBox 
+            Name="cboRequests" 
+            MinWidth="200" 
+            MinHeight="25" 
+            Grid.Row="0"
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left" 
+            Margin="10,10,0,10"
+            SelectionChanged="cboRequests_SelectionChanged">
+        </ComboBox>
+        <TextBox 
+            Name="txtUrl" 
+            MinWidth="790" 
+            Height="25" 
+            Grid.Row="1"
+            Margin="10,10,0,10" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left" 
+            KeyDown="OnKeyDownHandler"/>
+        <Button 
+            Name="btnSendGetRequest" 
+            Width="80" 
+            Height="25" 
+            Grid.Row="2"
+            Content="Send Request" 
+            Click="btnSendRequest_ClickAsync"
+            Margin="10,10,0,10" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left"/>
+        <Label 
+            Content="Request body"
+            VerticalAlignment="Top" 
+            Grid.Row="3"
+            HorizontalAlignment="Center"/>
+        <TextBox
+            Name="txtInput"
+            TextWrapping="Wrap"
+            AcceptsReturn="True"
+            VerticalScrollBarVisibility="Visible"
+            Height="150"
+            MinWidth="790"
+            Grid.Row="4"
+            Margin="10,0,10,10"/>
+        <Label 
+            Content="Response"
+            VerticalAlignment="Top" 
+            Grid.Row="5"
+            HorizontalAlignment="Center"/>
+        <TextBox
+            Name="txtOutput"
+            TextWrapping="Wrap"
+            AcceptsReturn="True"
+            VerticalScrollBarVisibility="Visible"            
+            MinHeight="500"
+            MinWidth="790"
+            Grid.Row="6"
+            Margin="10,0,10,10"/>
+        <TextBlock      
+            Name="lblWarning"
+            MinHeight="50"
+            MinWidth="100"
+            Grid.Row="6"
+            Text=""
+            TextWrapping="WrapWithOverflow"
+            FontSize="18"
+            Margin="20,0,20,20"
+            VerticalAlignment="Bottom"
+            />
+        <Button 
+            Name="btnClose" 
+            Width="80" 
+            Height="25" 
+            Grid.Row="7"
+            Content="Close" 
+            Click="OnClose"
+            Margin="0,10,9,10" 
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Right"/>
+    </Grid>
+</Window>

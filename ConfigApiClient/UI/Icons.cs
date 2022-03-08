@@ -293,6 +293,9 @@ namespace ConfigAPIClient.UI
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.RecordingServerFailover, FailoverServerIx);
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.RecordingServerFailoverFolder, FolderIconIx);
 
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.ClaimFolder, FolderIconIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.LoginProviderFolder, FolderIconIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.RegisteredClaimFolder, FolderIconIx);
             }
             catch (Exception ex)
 			{

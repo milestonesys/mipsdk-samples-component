@@ -20,7 +20,7 @@ MatrixServer, port set to 12345, password set to \"password\" and type
 set to Smart Client/Remote Client.
 
 After this application is started, matrix commands can be fired from
-Smart Client or via event configuration.
+Smart Client (Send to Matrix option in the camera toolbar) or via event configuration.
 
 ![](MatrixServer.png)
 

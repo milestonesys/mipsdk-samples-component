@@ -8,7 +8,7 @@ title: Export Sample
 
 # Export Sample
 
-This sample shows how to export video and audio stored in XProtect
+This sample shows how to export video and related audio and metadata stored in XProtect
 systems.
 
 ![Export Sample](ExportSample.jpg)

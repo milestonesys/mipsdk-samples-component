@@ -47,16 +47,16 @@ namespace ExportSample
             string destPath = _path;
 
             // Get the related audio devices
-            var audioSources = new Item[0];
+            var audioSources = new List<Item>();
+            var metadataSources = new List<Item>();
             if (checkBoxRelated.Checked)
             {
-                List<Item> allAudioSources = new List<Item>();
                 foreach (var camera in _cameraItems)
                 {
-                    allAudioSources.AddRange(camera.GetRelated()
+                    audioSources.AddRange(camera.GetRelated()
                         .Where(x => x.FQID.Kind == Kind.Microphone || x.FQID.Kind == Kind.Speaker));
+                    metadataSources.AddRange(camera.GetRelated().Where(x => x.FQID.Kind == Kind.Metadata));
                 }
-                audioSources = allAudioSources.ToArray();
             }
             
             
@@ -124,7 +124,7 @@ namespace ExportSample
                     MessageBox.Show("Please enter password to encrypt with.", "Enter Password");
                     return;
                 }
-                _exporter = new DBExporter(true)
+                var dbExporter = new DBExporter(true)
                 {
                     Encryption = checkBoxEncrypt.Checked,
                     EncryptionStrength = EncryptionStrength.AES128,
@@ -133,14 +133,14 @@ namespace ExportSample
                     PreventReExport = checkBoxReExport.Checked,
                     IncludeBookmarks = checkBoxIncludeBookmark.Checked
                 };
+                dbExporter.MetadataList.AddRange(metadataSources);
+
+                _exporter = dbExporter;
             }
 
             _exporter.Init();
             _exporter.Path = destPath;
-            foreach (var camera in _cameraItems)
-            {
-                _exporter.CameraList.Add(camera);
-            }
+            _exporter.CameraList.AddRange(_cameraItems);
             _exporter.AudioList.AddRange(audioSources); 
 
             try

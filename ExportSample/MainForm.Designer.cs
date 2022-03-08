@@ -60,7 +60,6 @@ namespace ExportSample
             this.checkBoxEncrypt = new System.Windows.Forms.CheckBox();
             this.checkBoxSign = new System.Windows.Forms.CheckBox();
             this.buttonCameraAdd = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
             this.radioButtonAVI = new System.Windows.Forms.RadioButton();
             this.checkBoxRelated = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -76,10 +75,9 @@ namespace ExportSample
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.Location = new System.Drawing.Point(408, 834);
-            this.buttonClose.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonClose.Location = new System.Drawing.Point(306, 678);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(100, 28);
+            this.buttonClose.Size = new System.Drawing.Size(75, 23);
             this.buttonClose.TabIndex = 0;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -88,28 +86,25 @@ namespace ExportSample
             // dateTimePickerEnd
             // 
             this.dateTimePickerEnd.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerEnd.Location = new System.Drawing.Point(164, 52);
-            this.dateTimePickerEnd.Margin = new System.Windows.Forms.Padding(4);
+            this.dateTimePickerEnd.Location = new System.Drawing.Point(123, 42);
             this.dateTimePickerEnd.Name = "dateTimePickerEnd";
-            this.dateTimePickerEnd.Size = new System.Drawing.Size(332, 22);
+            this.dateTimePickerEnd.Size = new System.Drawing.Size(250, 20);
             this.dateTimePickerEnd.TabIndex = 6;
             // 
             // dateTimePickerStart
             // 
             this.dateTimePickerStart.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerStart.Location = new System.Drawing.Point(164, 18);
-            this.dateTimePickerStart.Margin = new System.Windows.Forms.Padding(4);
+            this.dateTimePickerStart.Location = new System.Drawing.Point(123, 15);
             this.dateTimePickerStart.Name = "dateTimePickerStart";
-            this.dateTimePickerStart.Size = new System.Drawing.Size(332, 22);
+            this.dateTimePickerStart.Size = new System.Drawing.Size(250, 20);
             this.dateTimePickerStart.TabIndex = 5;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(8, 23);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(6, 19);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(102, 17);
+            this.label5.Size = new System.Drawing.Size(77, 13);
             this.label5.TabIndex = 4;
             this.label5.Text = "Export interval:";
             // 
@@ -120,21 +115,18 @@ namespace ExportSample
             this.groupBox2.Controls.Add(this.dateTimePickerStart);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Location = new System.Drawing.Point(11, 629);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Location = new System.Drawing.Point(8, 511);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(507, 128);
+            this.groupBox2.Size = new System.Drawing.Size(380, 104);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Export Selection";
             // 
             // buttonDestination
             // 
-            this.buttonDestination.Location = new System.Drawing.Point(164, 89);
-            this.buttonDestination.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonDestination.Location = new System.Drawing.Point(123, 72);
             this.buttonDestination.Name = "buttonDestination";
-            this.buttonDestination.Size = new System.Drawing.Size(333, 28);
+            this.buttonDestination.Size = new System.Drawing.Size(250, 23);
             this.buttonDestination.TabIndex = 5;
             this.buttonDestination.Text = "Select...";
             this.buttonDestination.UseVisualStyleBackColor = true;
@@ -143,10 +135,9 @@ namespace ExportSample
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(8, 95);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(6, 77);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(123, 17);
+            this.label3.Size = new System.Drawing.Size(92, 13);
             this.label3.TabIndex = 4;
             this.label3.Text = "Destination folder:";
             // 
@@ -154,10 +145,9 @@ namespace ExportSample
             // 
             this.buttonExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExport.Enabled = false;
-            this.buttonExport.Location = new System.Drawing.Point(135, 834);
-            this.buttonExport.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonExport.Location = new System.Drawing.Point(101, 678);
             this.buttonExport.Name = "buttonExport";
-            this.buttonExport.Size = new System.Drawing.Size(100, 28);
+            this.buttonExport.Size = new System.Drawing.Size(75, 23);
             this.buttonExport.TabIndex = 3;
             this.buttonExport.Text = "Export";
             this.buttonExport.UseVisualStyleBackColor = true;
@@ -165,20 +155,18 @@ namespace ExportSample
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(11, 767);
-            this.progressBar.Margin = new System.Windows.Forms.Padding(4);
+            this.progressBar.Location = new System.Drawing.Point(8, 623);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(507, 28);
+            this.progressBar.Size = new System.Drawing.Size(380, 23);
             this.progressBar.TabIndex = 4;
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.Enabled = false;
-            this.buttonCancel.Location = new System.Drawing.Point(287, 834);
-            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonCancel.Location = new System.Drawing.Point(215, 678);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(100, 28);
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 6;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -186,19 +174,17 @@ namespace ExportSample
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(12, 809);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Location = new System.Drawing.Point(9, 657);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(91, 16);
+            this.label10.Size = new System.Drawing.Size(68, 13);
             this.label10.TabIndex = 9;
             this.label10.Text = "Export result:";
             // 
             // labelError
             // 
-            this.labelError.Location = new System.Drawing.Point(139, 809);
-            this.labelError.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelError.Location = new System.Drawing.Point(104, 657);
             this.labelError.Name = "labelError";
-            this.labelError.Size = new System.Drawing.Size(373, 16);
+            this.labelError.Size = new System.Drawing.Size(280, 13);
             this.labelError.TabIndex = 10;
             // 
             // tabPageVideo
@@ -212,34 +198,31 @@ namespace ExportSample
             this.tabPageVideo.Controls.Add(this.radioButtonMKV);
             this.tabPageVideo.Controls.Add(this.groupBoxDbSettings);
             this.tabPageVideo.Controls.Add(this.buttonCameraAdd);
-            this.tabPageVideo.Controls.Add(this.label2);
             this.tabPageVideo.Controls.Add(this.radioButtonAVI);
             this.tabPageVideo.Controls.Add(this.checkBoxRelated);
             this.tabPageVideo.Controls.Add(this.label4);
             this.tabPageVideo.Controls.Add(this.radioButtonDB);
-            this.tabPageVideo.Location = new System.Drawing.Point(4, 25);
-            this.tabPageVideo.Margin = new System.Windows.Forms.Padding(4);
+            this.tabPageVideo.Location = new System.Drawing.Point(4, 22);
             this.tabPageVideo.Name = "tabPageVideo";
-            this.tabPageVideo.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPageVideo.Size = new System.Drawing.Size(501, 577);
+            this.tabPageVideo.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageVideo.Size = new System.Drawing.Size(374, 466);
             this.tabPageVideo.TabIndex = 0;
             this.tabPageVideo.Text = "Export Video";
             // 
             // listBoxCameras
             // 
             this.listBoxCameras.FormattingEnabled = true;
-            this.listBoxCameras.ItemHeight = 16;
-            this.listBoxCameras.Location = new System.Drawing.Point(178, 38);
+            this.listBoxCameras.Location = new System.Drawing.Point(134, 31);
+            this.listBoxCameras.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.listBoxCameras.Name = "listBoxCameras";
-            this.listBoxCameras.Size = new System.Drawing.Size(315, 148);
+            this.listBoxCameras.Size = new System.Drawing.Size(237, 121);
             this.listBoxCameras.TabIndex = 15;
             // 
             // buttonRemoveCamera
             // 
-            this.buttonRemoveCamera.Location = new System.Drawing.Point(11, 74);
-            this.buttonRemoveCamera.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonRemoveCamera.Location = new System.Drawing.Point(8, 60);
             this.buttonRemoveCamera.Name = "buttonRemoveCamera";
-            this.buttonRemoveCamera.Size = new System.Drawing.Size(138, 28);
+            this.buttonRemoveCamera.Size = new System.Drawing.Size(104, 23);
             this.buttonRemoveCamera.TabIndex = 14;
             this.buttonRemoveCamera.Text = "Remove Camera";
             this.buttonRemoveCamera.UseVisualStyleBackColor = true;
@@ -252,21 +235,18 @@ namespace ExportSample
             this.groupBox3.Controls.Add(this.comboBoxSampleRate);
             this.groupBox3.Controls.Add(this.textBoxVideoFilename);
             this.groupBox3.Controls.Add(this.comboBoxCodec);
-            this.groupBox3.Location = new System.Drawing.Point(253, 388);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Location = new System.Drawing.Point(190, 315);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(240, 181);
+            this.groupBox3.Size = new System.Drawing.Size(180, 147);
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             // 
             // buttonOverlayImage
             // 
             this.buttonOverlayImage.Enabled = false;
-            this.buttonOverlayImage.Location = new System.Drawing.Point(39, 142);
-            this.buttonOverlayImage.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonOverlayImage.Location = new System.Drawing.Point(29, 115);
             this.buttonOverlayImage.Name = "buttonOverlayImage";
-            this.buttonOverlayImage.Size = new System.Drawing.Size(187, 28);
+            this.buttonOverlayImage.Size = new System.Drawing.Size(140, 23);
             this.buttonOverlayImage.TabIndex = 12;
             this.buttonOverlayImage.Text = "Select...";
             this.buttonOverlayImage.UseVisualStyleBackColor = true;
@@ -276,10 +256,9 @@ namespace ExportSample
             // 
             this.checkBoxIncludeOverlayImage.AutoSize = true;
             this.checkBoxIncludeOverlayImage.Enabled = false;
-            this.checkBoxIncludeOverlayImage.Location = new System.Drawing.Point(13, 117);
-            this.checkBoxIncludeOverlayImage.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxIncludeOverlayImage.Location = new System.Drawing.Point(10, 95);
             this.checkBoxIncludeOverlayImage.Name = "checkBoxIncludeOverlayImage";
-            this.checkBoxIncludeOverlayImage.Size = new System.Drawing.Size(167, 21);
+            this.checkBoxIncludeOverlayImage.Size = new System.Drawing.Size(129, 17);
             this.checkBoxIncludeOverlayImage.TabIndex = 11;
             this.checkBoxIncludeOverlayImage.Text = "Include overlay image";
             this.checkBoxIncludeOverlayImage.UseVisualStyleBackColor = true;
@@ -293,19 +272,17 @@ namespace ExportSample
             "8000",
             "16000",
             "44100"});
-            this.comboBoxSampleRate.Location = new System.Drawing.Point(13, 85);
-            this.comboBoxSampleRate.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxSampleRate.Location = new System.Drawing.Point(10, 69);
             this.comboBoxSampleRate.Name = "comboBoxSampleRate";
-            this.comboBoxSampleRate.Size = new System.Drawing.Size(213, 24);
+            this.comboBoxSampleRate.Size = new System.Drawing.Size(161, 21);
             this.comboBoxSampleRate.TabIndex = 10;
             // 
             // textBoxVideoFilename
             // 
             this.textBoxVideoFilename.Enabled = false;
-            this.textBoxVideoFilename.Location = new System.Drawing.Point(13, 18);
-            this.textBoxVideoFilename.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxVideoFilename.Location = new System.Drawing.Point(10, 15);
             this.textBoxVideoFilename.Name = "textBoxVideoFilename";
-            this.textBoxVideoFilename.Size = new System.Drawing.Size(213, 22);
+            this.textBoxVideoFilename.Size = new System.Drawing.Size(161, 20);
             this.textBoxVideoFilename.TabIndex = 9;
             this.textBoxVideoFilename.Text = "Type your avi file name here ...";
             // 
@@ -314,18 +291,16 @@ namespace ExportSample
             this.comboBoxCodec.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCodec.Enabled = false;
             this.comboBoxCodec.FormattingEnabled = true;
-            this.comboBoxCodec.Location = new System.Drawing.Point(13, 52);
-            this.comboBoxCodec.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBoxCodec.Location = new System.Drawing.Point(10, 42);
             this.comboBoxCodec.Name = "comboBoxCodec";
-            this.comboBoxCodec.Size = new System.Drawing.Size(213, 24);
+            this.comboBoxCodec.Size = new System.Drawing.Size(161, 21);
             this.comboBoxCodec.TabIndex = 10;
             // 
             // _liftPrivacyMask
             // 
-            this._liftPrivacyMask.Location = new System.Drawing.Point(13, 540);
-            this._liftPrivacyMask.Margin = new System.Windows.Forms.Padding(4);
+            this._liftPrivacyMask.Location = new System.Drawing.Point(10, 439);
             this._liftPrivacyMask.Name = "_liftPrivacyMask";
-            this._liftPrivacyMask.Size = new System.Drawing.Size(227, 28);
+            this._liftPrivacyMask.Size = new System.Drawing.Size(170, 23);
             this._liftPrivacyMask.TabIndex = 7;
             this._liftPrivacyMask.Text = "Lift privacy mask";
             this._liftPrivacyMask.UseVisualStyleBackColor = true;
@@ -334,20 +309,18 @@ namespace ExportSample
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 17);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(6, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 17);
+            this.label1.Size = new System.Drawing.Size(46, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Camera:";
             // 
             // radioButtonMKV
             // 
             this.radioButtonMKV.AutoSize = true;
-            this.radioButtonMKV.Location = new System.Drawing.Point(184, 399);
-            this.radioButtonMKV.Margin = new System.Windows.Forms.Padding(4);
+            this.radioButtonMKV.Location = new System.Drawing.Point(138, 324);
             this.radioButtonMKV.Name = "radioButtonMKV";
-            this.radioButtonMKV.Size = new System.Drawing.Size(58, 21);
+            this.radioButtonMKV.Size = new System.Drawing.Size(48, 17);
             this.radioButtonMKV.TabIndex = 11;
             this.radioButtonMKV.Text = "MKV";
             this.radioButtonMKV.UseVisualStyleBackColor = true;
@@ -360,21 +333,18 @@ namespace ExportSample
             this.groupBoxDbSettings.Controls.Add(this.textBoxEncryptPassword);
             this.groupBoxDbSettings.Controls.Add(this.checkBoxEncrypt);
             this.groupBoxDbSettings.Controls.Add(this.checkBoxSign);
-            this.groupBoxDbSettings.Location = new System.Drawing.Point(253, 228);
-            this.groupBoxDbSettings.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBoxDbSettings.Location = new System.Drawing.Point(190, 185);
             this.groupBoxDbSettings.Name = "groupBoxDbSettings";
-            this.groupBoxDbSettings.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBoxDbSettings.Size = new System.Drawing.Size(240, 159);
+            this.groupBoxDbSettings.Size = new System.Drawing.Size(180, 129);
             this.groupBoxDbSettings.TabIndex = 12;
             this.groupBoxDbSettings.TabStop = false;
             // 
             // checkBoxIncludeBookmark
             // 
             this.checkBoxIncludeBookmark.AutoSize = true;
-            this.checkBoxIncludeBookmark.Location = new System.Drawing.Point(13, 129);
-            this.checkBoxIncludeBookmark.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxIncludeBookmark.Location = new System.Drawing.Point(10, 105);
             this.checkBoxIncludeBookmark.Name = "checkBoxIncludeBookmark";
-            this.checkBoxIncludeBookmark.Size = new System.Drawing.Size(148, 21);
+            this.checkBoxIncludeBookmark.Size = new System.Drawing.Size(116, 17);
             this.checkBoxIncludeBookmark.TabIndex = 6;
             this.checkBoxIncludeBookmark.Text = "Include bookmarks";
             this.checkBoxIncludeBookmark.UseVisualStyleBackColor = true;
@@ -382,10 +352,10 @@ namespace ExportSample
             // checkBoxReExport
             // 
             this.checkBoxReExport.AutoSize = true;
-            this.checkBoxReExport.Location = new System.Drawing.Point(13, 102);
-            this.checkBoxReExport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkBoxReExport.Location = new System.Drawing.Point(10, 83);
+            this.checkBoxReExport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkBoxReExport.Name = "checkBoxReExport";
-            this.checkBoxReExport.Size = new System.Drawing.Size(140, 21);
+            this.checkBoxReExport.Size = new System.Drawing.Size(107, 17);
             this.checkBoxReExport.TabIndex = 5;
             this.checkBoxReExport.Text = "Prevent re-export";
             this.checkBoxReExport.UseVisualStyleBackColor = true;
@@ -393,19 +363,17 @@ namespace ExportSample
             // textBoxEncryptPassword
             // 
             this.textBoxEncryptPassword.Enabled = false;
-            this.textBoxEncryptPassword.Location = new System.Drawing.Point(39, 65);
-            this.textBoxEncryptPassword.Margin = new System.Windows.Forms.Padding(4);
+            this.textBoxEncryptPassword.Location = new System.Drawing.Point(29, 53);
             this.textBoxEncryptPassword.Name = "textBoxEncryptPassword";
-            this.textBoxEncryptPassword.Size = new System.Drawing.Size(157, 22);
+            this.textBoxEncryptPassword.Size = new System.Drawing.Size(119, 20);
             this.textBoxEncryptPassword.TabIndex = 4;
             // 
             // checkBoxEncrypt
             // 
             this.checkBoxEncrypt.AutoSize = true;
-            this.checkBoxEncrypt.Location = new System.Drawing.Point(13, 42);
-            this.checkBoxEncrypt.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxEncrypt.Location = new System.Drawing.Point(10, 34);
             this.checkBoxEncrypt.Name = "checkBoxEncrypt";
-            this.checkBoxEncrypt.Size = new System.Drawing.Size(121, 21);
+            this.checkBoxEncrypt.Size = new System.Drawing.Size(94, 17);
             this.checkBoxEncrypt.TabIndex = 3;
             this.checkBoxEncrypt.Text = "Encrypt export";
             this.checkBoxEncrypt.UseVisualStyleBackColor = true;
@@ -414,42 +382,29 @@ namespace ExportSample
             // checkBoxSign
             // 
             this.checkBoxSign.AutoSize = true;
-            this.checkBoxSign.Location = new System.Drawing.Point(13, 17);
-            this.checkBoxSign.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxSign.Location = new System.Drawing.Point(10, 14);
             this.checkBoxSign.Name = "checkBoxSign";
-            this.checkBoxSign.Size = new System.Drawing.Size(101, 21);
+            this.checkBoxSign.Size = new System.Drawing.Size(79, 17);
             this.checkBoxSign.TabIndex = 2;
             this.checkBoxSign.Text = "Sign export";
             this.checkBoxSign.UseVisualStyleBackColor = true;
             // 
             // buttonCameraAdd
             // 
-            this.buttonCameraAdd.Location = new System.Drawing.Point(11, 38);
-            this.buttonCameraAdd.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonCameraAdd.Location = new System.Drawing.Point(8, 31);
             this.buttonCameraAdd.Name = "buttonCameraAdd";
-            this.buttonCameraAdd.Size = new System.Drawing.Size(138, 28);
+            this.buttonCameraAdd.Size = new System.Drawing.Size(104, 23);
             this.buttonCameraAdd.TabIndex = 0;
             this.buttonCameraAdd.Text = "Add Camera";
             this.buttonCameraAdd.UseVisualStyleBackColor = true;
             this.buttonCameraAdd.Click += new System.EventHandler(this.buttonAddCamera_Click);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 202);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 17);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Audio:";
-            // 
             // radioButtonAVI
             // 
             this.radioButtonAVI.AutoSize = true;
-            this.radioButtonAVI.Location = new System.Drawing.Point(121, 399);
-            this.radioButtonAVI.Margin = new System.Windows.Forms.Padding(4);
+            this.radioButtonAVI.Location = new System.Drawing.Point(91, 324);
             this.radioButtonAVI.Name = "radioButtonAVI";
-            this.radioButtonAVI.Size = new System.Drawing.Size(50, 21);
+            this.radioButtonAVI.Size = new System.Drawing.Size(42, 17);
             this.radioButtonAVI.TabIndex = 8;
             this.radioButtonAVI.Text = "AVI";
             this.radioButtonAVI.UseVisualStyleBackColor = true;
@@ -458,21 +413,19 @@ namespace ExportSample
             // checkBoxRelated
             // 
             this.checkBoxRelated.AutoSize = true;
-            this.checkBoxRelated.Location = new System.Drawing.Point(178, 200);
-            this.checkBoxRelated.Margin = new System.Windows.Forms.Padding(4);
+            this.checkBoxRelated.Location = new System.Drawing.Point(134, 162);
             this.checkBoxRelated.Name = "checkBoxRelated";
-            this.checkBoxRelated.Size = new System.Drawing.Size(214, 21);
+            this.checkBoxRelated.Size = new System.Drawing.Size(136, 17);
             this.checkBoxRelated.TabIndex = 2;
-            this.checkBoxRelated.Text = "Include related audio devices";
+            this.checkBoxRelated.Text = "Include related devices";
             this.checkBoxRelated.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 241);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(10, 196);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(96, 17);
+            this.label4.Size = new System.Drawing.Size(72, 13);
             this.label4.TabIndex = 7;
             this.label4.Text = "Export format:";
             // 
@@ -480,10 +433,9 @@ namespace ExportSample
             // 
             this.radioButtonDB.AutoSize = true;
             this.radioButtonDB.Checked = true;
-            this.radioButtonDB.Location = new System.Drawing.Point(121, 239);
-            this.radioButtonDB.Margin = new System.Windows.Forms.Padding(4);
+            this.radioButtonDB.Location = new System.Drawing.Point(91, 194);
             this.radioButtonDB.Name = "radioButtonDB";
-            this.radioButtonDB.Size = new System.Drawing.Size(90, 21);
+            this.radioButtonDB.Size = new System.Drawing.Size(71, 17);
             this.radioButtonDB.TabIndex = 6;
             this.radioButtonDB.TabStop = true;
             this.radioButtonDB.Text = "Database";
@@ -493,18 +445,17 @@ namespace ExportSample
             // tabControlExportSource
             // 
             this.tabControlExportSource.Controls.Add(this.tabPageVideo);
-            this.tabControlExportSource.Location = new System.Drawing.Point(7, 15);
-            this.tabControlExportSource.Margin = new System.Windows.Forms.Padding(4);
+            this.tabControlExportSource.Location = new System.Drawing.Point(5, 12);
             this.tabControlExportSource.Name = "tabControlExportSource";
             this.tabControlExportSource.SelectedIndex = 0;
-            this.tabControlExportSource.Size = new System.Drawing.Size(509, 606);
+            this.tabControlExportSource.Size = new System.Drawing.Size(382, 492);
             this.tabControlExportSource.TabIndex = 8;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(521, 872);
+            this.ClientSize = new System.Drawing.Size(391, 708);
             this.Controls.Add(this.labelError);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.tabControlExportSource);
@@ -514,7 +465,6 @@ namespace ExportSample
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.buttonClose);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";
@@ -562,7 +512,6 @@ namespace ExportSample
         private System.Windows.Forms.CheckBox checkBoxEncrypt;
         private System.Windows.Forms.CheckBox checkBoxSign;
         private System.Windows.Forms.Button buttonCameraAdd;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RadioButton radioButtonAVI;
         private System.Windows.Forms.CheckBox checkBoxRelated;
         private System.Windows.Forms.Label label4;
