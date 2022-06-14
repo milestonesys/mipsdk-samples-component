@@ -232,7 +232,7 @@ namespace CameraStreamResolution
                     if (item.FQID.Kind == Kind.Camera && item.FQID.FolderType == FolderType.No)
                     {
                         // Does the name match the camera name we are looking for? Here we accept a non-perfect match
-                        if (item.Name.Contains(_camerasearch))
+                        if (item.Name.ToLower().Contains(_camerasearch.ToLower()))
                         {
                             // Remember this camera and stop checking.
                             _camera = item;

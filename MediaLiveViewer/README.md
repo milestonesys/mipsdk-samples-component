@@ -32,7 +32,7 @@ The selected properties are being performed on the client side (e.g. the
 PC running this application) while still receiving live frames from the
 XProtect server in original codec and resolution.
 
-The user can select one of the following stream to be displayed:
+The user can select one of the following streams to be displayed:
 
 -   Default stream
 -   Max resolution stream

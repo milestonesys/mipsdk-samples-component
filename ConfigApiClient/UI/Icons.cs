@@ -296,6 +296,11 @@ namespace ConfigAPIClient.UI
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.ClaimFolder, FolderIconIx);
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.LoginProviderFolder, FolderIconIx);
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.RegisteredClaimFolder, FolderIconIx);
+
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.EventTypeGroupFolder, FolderIconIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.EventTypeGroup, CustomEventIconIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.EventTypeFolder, FolderIconIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.EventType, CustomEventIconIx);
             }
             catch (Exception ex)
 			{

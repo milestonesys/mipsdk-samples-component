@@ -106,7 +106,8 @@ namespace ConfigAPIClient
 
             ClientTokenHelper clientTokenHelper = new ClientTokenHelper(ServerAddress);
             channel.Endpoint.Behaviors.Add(new TokenServiceBehavior(clientTokenHelper));
-           
+
+#pragma warning disable CS0618 // Type or member is obsolete
             if (loginSettings != null)
             {
                 if (basic)
@@ -124,6 +125,7 @@ namespace ConfigAPIClient
                     channel.Credentials.Windows.ClientCredential.Password = loginSettings.NetworkCredential.Password;
                 }
             }
+#pragma warning restore CS0618 // Type or member is obsolete
             return channel.CreateChannel();
         }
 

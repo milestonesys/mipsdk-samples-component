@@ -127,7 +127,11 @@ namespace ConfigAPIClient
                                                            ItemTypes.FailoverRecorderFolder,
                                                            ItemTypes.FailoverRecorder,
                                                            ItemTypes.ClientProfileFolder,
-                                                           ItemTypes.RecordingServerFailoverFolder
+                                                           ItemTypes.RecordingServerFailoverFolder,
+                                                           ItemTypes.EventTypeGroupFolder,
+                                                           ItemTypes.EventTypeGroup,
+                                                           ItemTypes.EventTypeFolder,
+                                                           ItemTypes.EventType,
                                                        };
 
 

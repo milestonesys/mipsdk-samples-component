@@ -11,7 +11,7 @@ using System.Windows.Forms;
 // This example program is not built automatically with the SDK installation
 // It will only compile on a computer with the XProtect Download Manager installed
 // You may alternatively copy the 3 DLLs mentioned below to your development machine manually.
-// It will only run 99% ok on a computer without an XProtect Enterprise or Corporate Server installed
+// It will only run 99% ok on a computer without an XProtect VMS installed.
 //
 // If it does not compile for you, do the following in the Solution Explorer window
 // - Remove the three SSCM references, they refer to the default install path
@@ -21,7 +21,7 @@ using System.Windows.Forms;
 //
 // The DLLs are: SSCM.dll, SSCM.Interface.dll and SSCM.Interface.Retriever.dll
 // They are distributed with the XProtect Download Manager, not with the SDK
-// A Download Manager is an integral part of both an Enterprise and a Corporate Server
+// A Download Manager is an integral part of an XProtect VMS.
 // By default it is installed in C:\Program Files\Milestone\XProtect Download Manager
 
 namespace MyDownloadManagerClient

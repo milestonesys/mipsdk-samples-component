@@ -1,6 +1,6 @@
-﻿// StatusSessionConsole. Milestone XProtect MIP SDK sample Program
-// Connects to an XProtect Corporate Management Server to log on and obtain a token plus system information
-// Then connects to one XProtect Corporate Recording Server to pass the token and query status information
+﻿// StatusSessionConsole. MIP SDK sample program
+// Connects to an XProtect Management Server to log on and obtain a token plus system information
+// Then connects to one XProtect Recording Server to pass the token and query status information
 
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace StatusSessionConsole
         private const string Version = "1.0";
         private const string ManufacturerName = "Sample Manufacturer";
 
-        // Take name of XPCO Management Server from command line or use a hardcoded default.
+        // Take name of Management Server from command line or use a hardcoded default.
         // This is the only value you must change to modify this to run on your site.
         static void Main(string[] args)
         {
@@ -185,7 +185,7 @@ namespace StatusSessionConsole
 
             if (EnvironmentManager.Instance.CurrentSite.ServerId.ServerType != ServerId.CorporateManagementServerType)
             {
-                Console.WriteLine("{0} is not an XProtect Corporate Management Server", hostManagementService);
+                Console.WriteLine("{0} is not an XProtect VMS Products Management Server", hostManagementService);
                 Console.WriteLine("");
                 Console.WriteLine("Press any key");
                 Console.ReadKey();
