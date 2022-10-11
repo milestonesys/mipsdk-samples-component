@@ -123,6 +123,7 @@ namespace MultiUserEnvironment
 
 		private void OnLogonUC1(object sender, EventArgs e)
 		{
+			Cursor = Cursors.WaitCursor;
 			try
 			{
 				userContext1 = VideoOS.Platform.SDK.MultiUserEnvironment.CreateUserContext(textBoxUserName.Text, textBoxPassword.Text,
@@ -142,7 +143,8 @@ namespace MultiUserEnvironment
 			{
 				EnvironmentManager.Instance.ExceptionDialog("Logon User 1", ex);				
 			}
-		}
+			Cursor = Cursors.Default;
+        }
 
         private void OnLogoutUC1(object sender, EventArgs e)
         {
@@ -180,12 +182,11 @@ namespace MultiUserEnvironment
 				_jpegLiveSource = new JPEGLiveSource(_selectItem1);
 				try
 				{
-					_jpegLiveSource.Width = pictureBoxRC1.Width;
-					_jpegLiveSource.Height = pictureBoxRC1.Height;
+					_jpegLiveSource.Width = pictureBoxUC1.Width;
+					_jpegLiveSource.Height = pictureBoxUC1.Height;
 					_jpegLiveSource.LiveModeStart = true;
 					_jpegLiveSource.Init();
 					_jpegLiveSource.LiveContentEvent += new EventHandler(JpegLiveSource1LiveNotificationEvent);
-					//_jpegLiveSource.LiveStatusEvent += new EventHandler(JpegLiveStatusNotificationEvent);
 				}
 				catch (Exception ex)
 				{
@@ -216,51 +217,52 @@ namespace MultiUserEnvironment
 					if (args.LiveContent != null)
 					{
 						// Display the received JPEG
-						//labelSize.Text = "" + args.LiveContent.Content.Length;
 
 						int width = args.LiveContent.Width;
 						int height = args.LiveContent.Height;
 
-						MemoryStream ms = new MemoryStream(args.LiveContent.Content);
-						Bitmap newBitmap = new Bitmap(ms);
-						//labelResolution.Text = "" + width + "x" + height;
-						if (newBitmap.Width != pictureBoxRC1.Width || newBitmap.Height != pictureBoxRC1.Height)
+						if (pictureBoxUC1.Width != 0 && pictureBoxUC1.Height != 0)
 						{
-							pictureBoxRC1.Image = new Bitmap(newBitmap, pictureBoxRC1.Size);
+							MemoryStream ms = new MemoryStream(args.LiveContent.Content);
+							Bitmap newBitmap = new Bitmap(ms);
+							//labelResolution.Text = "" + width + "x" + height;
+							if (newBitmap.Width != pictureBoxUC1.Width || newBitmap.Height != pictureBoxUC1.Height)
+							{
+								pictureBoxUC1.Image = new Bitmap(newBitmap, pictureBoxUC1.Size);
+							}
+							else
+							{
+								pictureBoxUC1.Image = newBitmap;
+							}
+							ms.Close();
+							ms.Dispose();
 						}
-						else
-						{
-							pictureBoxRC1.Image = newBitmap;
-						}
-						ms.Close();
-						ms.Dispose();
-
-						//_count++;
-						//labelCount.Text = "" + _count;
 
 						args.LiveContent.Dispose();
 					}
 					else if (args.Exception != null)
 					{
 						// Handle any exceptions occurred inside toolkit or on the communication to the VMS
-                        Bitmap bitmap = new Bitmap(320, 240);
-                        Graphics g = Graphics.FromImage(bitmap);
-                        g.FillRectangle(Brushes.Black, 0, 0, bitmap.Width, bitmap.Height);
-                        if (args.Exception is CommunicationMIPException)
-                        {
-                            g.DrawString("Connection lost to server ...", new Font(FontFamily.GenericMonospace, 12),
-                                         Brushes.White, new PointF(20, pictureBoxRC1.Height / 2 - 20));
-                        }
-                        else
-                        {
-                            g.DrawString(args.Exception.Message, new Font(FontFamily.GenericMonospace, 12),
-                                         Brushes.White, new PointF(20, pictureBoxRC1.Height / 2 - 20));
-                        }
-                        g.Dispose();
-                        pictureBoxRC1.Image = new Bitmap(bitmap, pictureBoxRC1.Size);
-					    bitmap.Dispose();
+						if (pictureBoxUC1.Width != 0 && pictureBoxUC1.Height != 0)
+						{
+							Bitmap bitmap = new Bitmap(320, 240);
+							Graphics g = Graphics.FromImage(bitmap);
+							g.FillRectangle(Brushes.Black, 0, 0, bitmap.Width, bitmap.Height);
+							if (args.Exception is CommunicationMIPException)
+							{
+								g.DrawString("Connection lost to server ...", new Font(FontFamily.GenericMonospace, 12),
+											 Brushes.White, new PointF(20, pictureBoxUC1.Height / 2 - 20));
+							}
+							else
+							{
+								g.DrawString(args.Exception.Message, new Font(FontFamily.GenericMonospace, 12),
+											 Brushes.White, new PointF(20, pictureBoxUC1.Height / 2 - 20));
+							}
+							g.Dispose();
+							pictureBoxUC1.Image = new Bitmap(bitmap, pictureBoxUC1.Size);
+							bitmap.Dispose();
+						}
 					}
-
 				}
 			}
 		}
@@ -269,7 +271,8 @@ namespace MultiUserEnvironment
 		#region User Context 2
 		private void OnLogonUC2(object sender, EventArgs e)
 		{
-			try
+            Cursor = Cursors.WaitCursor;
+            try
 			{
 				userContext2 = VideoOS.Platform.SDK.MultiUserEnvironment.CreateUserContext(textBoxUSerName2.Text, textBoxPassword2.Text,
 																			radioButtonAD2.Checked);
@@ -285,9 +288,10 @@ namespace MultiUserEnvironment
             }
             catch (Exception ex)
 			{
-				EnvironmentManager.Instance.ExceptionDialog("Logon User 1", ex);
+				EnvironmentManager.Instance.ExceptionDialog("Logon User 2", ex);
 			}
-		}
+            Cursor = Cursors.Default;
+        }
 
         private void OnLogoutUC2(object sender, EventArgs e)
         {
@@ -323,8 +327,7 @@ namespace MultiUserEnvironment
 					_jpegLiveSource2.Height = pictureBoxUC2.Height;
 					_jpegLiveSource2.LiveModeStart = true;
 					_jpegLiveSource2.Init();
-					_jpegLiveSource2.LiveContentEvent += new EventHandler(JpegLiveSource1LiveNotificationEvent2);
-					//_jpegLiveSource.LiveStatusEvent += new EventHandler(JpegLiveStatusNotificationEvent);
+					_jpegLiveSource2.LiveContentEvent += new EventHandler(JpegLiveSource2LiveNotificationEvent);
 				}
 				catch (Exception ex)
 				{
@@ -340,12 +343,12 @@ namespace MultiUserEnvironment
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		void JpegLiveSource1LiveNotificationEvent2(object sender, EventArgs e)
+		void JpegLiveSource2LiveNotificationEvent(object sender, EventArgs e)
 		{
 			if (this.InvokeRequired)
 			{
 				// Make sure we execute on the UI thread before updating UI Controls
-				BeginInvoke(new EventHandler(JpegLiveSource1LiveNotificationEvent2), new[] { sender, e });
+				BeginInvoke(new EventHandler(JpegLiveSource2LiveNotificationEvent), new[] { sender, e });
 			}
 			else
 			{
@@ -355,49 +358,49 @@ namespace MultiUserEnvironment
 					if (args.LiveContent != null)
 					{
 						// Display the received JPEG
-						//labelSize.Text = "" + args.LiveContent.Content.Length;
 
 						int width = args.LiveContent.Width;
 						int height = args.LiveContent.Height;
-
-						MemoryStream ms = new MemoryStream(args.LiveContent.Content);
-						Bitmap newBitmap = new Bitmap(ms);
-						//labelResolution.Text = "" + width + "x" + height;
-						if (newBitmap.Width != pictureBoxUC2.Width || newBitmap.Height != pictureBoxUC2.Height)
+						if (pictureBoxUC2.Width != 0 && pictureBoxUC2.Height != 0)
 						{
-							pictureBoxUC2.Image = new Bitmap(newBitmap, pictureBoxUC2.Size);
+							MemoryStream ms = new MemoryStream(args.LiveContent.Content);
+							Bitmap newBitmap = new Bitmap(ms);
+							if (newBitmap.Width != pictureBoxUC2.Width || newBitmap.Height != pictureBoxUC2.Height)
+							{
+								pictureBoxUC2.Image = new Bitmap(newBitmap, pictureBoxUC2.Size);
+							}
+							else
+							{
+								pictureBoxUC2.Image = newBitmap;
+							}
+							ms.Close();
+							ms.Dispose();
 						}
-						else
-						{
-							pictureBoxUC2.Image = newBitmap;
-						}
-						ms.Close();
-						ms.Dispose();
-
-						//_count++;
-						//labelCount.Text = "" + _count;
 
 						args.LiveContent.Dispose();
 					}
 					else if (args.Exception != null)
 					{
 						// Handle any exceptions occurred inside toolkit or on the communication to the VMS
-                        Bitmap bitmap = new Bitmap(320, 240);
-                        Graphics g = Graphics.FromImage(bitmap);
-                        g.FillRectangle(Brushes.Black, 0, 0, bitmap.Width, bitmap.Height);
-                        if (args.Exception is CommunicationMIPException)
-                        {
-                            g.DrawString("Connection lost to server ...", new Font(FontFamily.GenericMonospace, 12),
-                                         Brushes.White, new PointF(20, pictureBoxUC2.Height / 2 - 20));
-                        }
-                        else
-                        {
-                            g.DrawString(args.Exception.Message, new Font(FontFamily.GenericMonospace, 12),
-                                         Brushes.White, new PointF(20, pictureBoxUC2.Height / 2 - 20));
-                        }
-                        g.Dispose();
-                        pictureBoxUC2.Image = new Bitmap(bitmap, pictureBoxUC2.Size);
-                        bitmap.Dispose();
+						if (pictureBoxUC2.Width != 0 && pictureBoxUC2.Height != 0)
+						{
+							Bitmap bitmap = new Bitmap(320, 240);
+							Graphics g = Graphics.FromImage(bitmap);
+							g.FillRectangle(Brushes.Black, 0, 0, bitmap.Width, bitmap.Height);
+							if (args.Exception is CommunicationMIPException)
+							{
+								g.DrawString("Connection lost to server ...", new Font(FontFamily.GenericMonospace, 12),
+											 Brushes.White, new PointF(20, pictureBoxUC2.Height / 2 - 20));
+							}
+							else
+							{
+								g.DrawString(args.Exception.Message, new Font(FontFamily.GenericMonospace, 12),
+											 Brushes.White, new PointF(20, pictureBoxUC2.Height / 2 - 20));
+							}
+							g.Dispose();
+							pictureBoxUC2.Image = new Bitmap(bitmap, pictureBoxUC2.Size);
+							bitmap.Dispose();
+						}
 					}
 
 				}
@@ -431,22 +434,37 @@ namespace MultiUserEnvironment
 
 			Close1();
 
-			_jpegLiveSource = new JPEGLiveSource(_selectItem1);
-			try
-			{
-				_jpegLiveSource.Width = pictureBoxRC1.Width;
-				_jpegLiveSource.Height = pictureBoxRC1.Height;
-				_jpegLiveSource.LiveModeStart = true;
-				_jpegLiveSource.Init();
-				_jpegLiveSource.LiveContentEvent += new EventHandler(JpegLiveSource1LiveNotificationEvent);
-				//_jpegLiveSource.LiveStatusEvent += new EventHandler(JpegLiveStatusNotificationEvent);
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show("Could not Init:" + ex.Message);
-				_jpegLiveSource = null;
-			}
+			Cursor = Cursors.WaitCursor;
+			new System.Threading.Thread(() => InitLiveSource1(pictureBoxUC1.Width, pictureBoxUC1.Height)).Start();
+		}
 
+		private void InitLiveSource1(int width, int height)
+		{
+			string error = null;
+            _jpegLiveSource = new JPEGLiveSource(_selectItem1);
+            try
+            {
+                _jpegLiveSource.Width = width;
+                _jpegLiveSource.Height = height;
+                _jpegLiveSource.LiveModeStart = true;
+                _jpegLiveSource.Init();
+                _jpegLiveSource.LiveContentEvent += new EventHandler(JpegLiveSource1LiveNotificationEvent);
+            }
+            catch (Exception ex)
+            {
+                error = "Could not Init:" + ex.Message;
+                _jpegLiveSource = null;
+            }
+			Invoke(new Action(() => InitCompleted(error)));
+        }
+
+		private void InitCompleted(string errorMessage)
+		{
+			Cursor = Cursors.Default;
+			if (!string.IsNullOrEmpty(errorMessage))
+			{
+				MessageBox.Show(errorMessage);
+			}
 		}
 
 		private void ItemSelected2(Item item)
@@ -456,25 +474,31 @@ namespace MultiUserEnvironment
 
 			Close2();
 
-			_jpegLiveSource2 = new JPEGLiveSource(_selectItem2);
-			try
-			{
-				_jpegLiveSource2.Width = pictureBoxUC2.Width;
-				_jpegLiveSource2.Height = pictureBoxUC2.Height;
-				_jpegLiveSource2.LiveModeStart = true;
-				_jpegLiveSource2.Init();
-				_jpegLiveSource2.LiveContentEvent += new EventHandler(JpegLiveSource1LiveNotificationEvent2);
-				//_jpegLiveSource.LiveStatusEvent += new EventHandler(JpegLiveStatusNotificationEvent);
-			}
-			catch (Exception ex)
-			{
-				MessageBox.Show("Could not Init:" + ex.Message);
-				_jpegLiveSource2 = null;
-			}
+            Cursor = Cursors.WaitCursor;
+            new System.Threading.Thread(() => InitLiveSource2(pictureBoxUC2.Width, pictureBoxUC2.Height)).Start();
+        }
 
-		}
+        private void InitLiveSource2(int width, int height)
+        {
+            string error = null;
+            _jpegLiveSource2 = new JPEGLiveSource(_selectItem2);
+            try
+            {
+                _jpegLiveSource2.Width = width;
+                _jpegLiveSource2.Height = height;
+                _jpegLiveSource2.LiveModeStart = true;
+                _jpegLiveSource2.Init();
+                _jpegLiveSource2.LiveContentEvent += new EventHandler(JpegLiveSource2LiveNotificationEvent);
+            }
+            catch (Exception ex)
+            {
+                error = "Could not Init:" + ex.Message;
+                _jpegLiveSource2 = null;
+            }
+            Invoke(new Action(() => InitCompleted(error)));
+        }
 
-		private void Close1()
+        private void Close1()
 		{
 			if (_jpegLiveSource!=null)
 			{
@@ -489,7 +513,7 @@ namespace MultiUserEnvironment
 		{
 			if (_jpegLiveSource2 != null)
 			{
-				_jpegLiveSource2.LiveContentEvent += new EventHandler(JpegLiveSource1LiveNotificationEvent2);
+				_jpegLiveSource2.LiveContentEvent += new EventHandler(JpegLiveSource2LiveNotificationEvent);
 				_jpegLiveSource2.Close();
 				_jpegLiveSource2 = null;
 			}

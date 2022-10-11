@@ -218,15 +218,15 @@ to the first camera group created.
 2.  Open the `SurveillanceCloudSample.sln` solution file with Visual
     Studio.
 
-3.  The `SurveillanceCloudSampleService` project depends on classes from 
-    `VideoOS.Platform.dll` and `VideoOS.Platform.SDK.dll`. Unfortunately,
-    IIS is not compatible with some of the extra files includes through
-    the `VideoOS.Platform` NuGet packages and thus the project instead
-    contains direct references as well as a post-build step for copying
-    some dlls. These all rely on the MIP SDK being installed in the default
-    location. If the MIP SDK is not installed or not in the default folder
-    the references and post-build step needs to be updated to use the correct
-    location.
+3.  Rebuild the solution in order to ensure the latest NuGet packages has
+    been downloaded. The solution depends on the MilestoneSystems.VideoOS.Platform.SDK
+    which includes C++ DLLs. Some of these DLLs are not supported by IIS Express or
+    IIS. Therefore the bin folder of the SurveillanceCloudSampleService has to be added
+    to the path of environment variables. To do so, go to Start menu and type 
+    "Environment variables". Choose "Edit Environment variables", in the window
+    which opens click on the button named "Environment Variables". In the System Variables
+    find the "Path" variable and add the path of the bin folder. Once done, restart visual
+    studio to ensure the path works. 
 
 4.  Set the `SurveillanceCloudSample` and
     `SurveillanceCloudSampleService` projects as startup projects. To do
@@ -333,7 +333,16 @@ proceed.
 
 ![](SurveillanceCloud_012.jpg)
 
-Open `http://localhost:81` in your web browser.
+10. The solution depends on the MilestoneSystems.VideoOS.Platform.SDK
+    which includes C++ DLLs. Some of these DLLs are not supported by IIS Express or
+    IIS. Therefore the bin folder of the SurveillanceCloudSampleService has to be added
+    to the path of environment variables. To do so, go to Start menu and type 
+    "Environment variables". Choose "Edit Environment variables", in the window
+    which opens click on the button named "Environment Variables". In the System Variables
+    find the "Path" variable and add the path of the bin folder. In some cases, the IIS will 
+    reload the path variables, to be sure the change is used by the IIS, restart the computer.
+
+11. After reboot, Open `http://localhost:81` in your web browser and you are done.
 
 ![](SurveillanceCloud_013.png)
 

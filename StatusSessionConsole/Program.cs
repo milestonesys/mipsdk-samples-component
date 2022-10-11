@@ -15,7 +15,7 @@ namespace StatusSessionConsole
 {
     class Program
     {
-        private static IDictionary<Guid, Item> _cameras;
+        private static IDictionary<Guid, Item> _devices;
         private static IDictionary<Guid, Item> _hardware = new Dictionary<Guid, Item>();
 
         private static readonly Guid IntegrationId = new Guid("FF0B9F27-A2C2-4720-989B-9AB0509BA099");
@@ -37,10 +37,10 @@ namespace StatusSessionConsole
             var recordingServer = GetRecordingServer(server, secureOnly);
             var recordingServerId = recordingServer.FQID;
 
-            // Find all cameras connected to the Recording Server
+            // Find all devices connected to the Recording Server
             List<Item> allItems = recordingServer.GetChildren();
-            _cameras = FindAllCameras(allItems, recordingServerId.ServerId.Id).ToDictionary(item => item.FQID.ObjectId);
-            ISet<Guid> subsribedCameras = new HashSet<Guid>(_cameras.Keys);
+            _devices = FindAllDevices(allItems, recordingServerId.ServerId.Id).ToDictionary(item => item.FQID.ObjectId);
+            ISet<Guid> subscribedDevices = new HashSet<Guid>(_devices.Keys);
 
             SearchResult result;
             List<Item> allUserDefinedEvents = Configuration.Instance.GetItemsBySearch(Kind.TriggerEvent.ToString(), 10, 5, out result);
@@ -73,11 +73,14 @@ namespace StatusSessionConsole
                 // Listen for changes to the connection state
                 statusApi.ConnectionStateChanged += ConnectionStateChangedHandler;
 
-                // Listen to changes to the states of cameras
+                // Listen to changes to the states of devices
                 statusApi.CameraStateChanged += CameraStateChangedHandler;
                 statusApi.HardwareStateChanged += StatusApi_HardwareStateChanged;
-                //statusApi.InputDeviceStateChanged += ...
-                //statusApi.MicrophoneStateChanged += ...
+                statusApi.InputDeviceStateChanged += StatusApi_InputDeviceStateChanged;
+                statusApi.MicrophoneStateChanged += StatusApi_MicrophoneStateChanged;
+                statusApi.SpeakerStateChanged += StatusApi_SpeakerStateChanged;
+                statusApi.MetadataStateChanged += StatusApi_MetadataStateChanged;
+                statusApi.OutputDeviceStateChanged += StatusApi_OutputDeviceStateChanged;
 
                 // Listen to events
                 statusApi.EventFired += EventFiredHandler;
@@ -88,8 +91,8 @@ namespace StatusSessionConsole
                 // Subscribe to events
                 statusApi.SetSubscribedEvents(subscribedEvents);
 
-                // Subscribe to camera found
-                statusApi.SetSubscribedDevicesForStateChanges(subsribedCameras);
+                // Subscribe to devices found
+                statusApi.SetSubscribedDevicesForStateChanges(subscribedDevices);
 
                 // Alternatively, it is possible to subscribe to all devices of a specific kind.
                 //statusApi.AddSubscriptionsToDevicesOfKind(Kind.Camera);
@@ -106,6 +109,59 @@ namespace StatusSessionConsole
             }
 
             Console.WriteLine("Terminating main normally...");
+        }
+
+        private static void StatusApi_OutputDeviceStateChanged(object sender, IODeviceStateChangedEventArgs e)
+        {
+            Console.WriteLine(
+                "{0} - OutputDevice state changes for camera {1}: Started ({2}) NoConnection({3})",
+                e.Time.ToLocalTime(),
+                _devices[e.DeviceId].Name,
+                e.Started,
+                e.ErrorNoConnection);
+        }
+
+        private static void StatusApi_MetadataStateChanged(object sender, MediaStreamDeviceStateChangedEventArgs e)
+        {
+            Console.WriteLine(
+                "{0} - Metadata state changes for {1}: Started ({2}) Recording ({3}) NoConnection({4})",
+                e.Time.ToLocalTime(),
+                _devices[e.DeviceId].Name,
+                e.Started,
+                e.Recording,
+                e.ErrorNoConnection);
+        }
+
+        private static void StatusApi_SpeakerStateChanged(object sender, MediaStreamDeviceStateChangedEventArgs e)
+        {
+            Console.WriteLine(
+                "{0} - Speaker state changes for {1}: Started ({2}) Recording ({3})NoConnection({4})",
+                e.Time.ToLocalTime(),
+                _devices[e.DeviceId].Name,
+                e.Started,
+                e.Recording,
+                e.ErrorNoConnection);
+        }
+
+        private static void StatusApi_MicrophoneStateChanged(object sender, MediaStreamDeviceStateChangedEventArgs e)
+        {
+            Console.WriteLine(
+                "{0} - Microphone state changes for {1}: Started ({2}) Recording ({3}) NoConnection({4})",
+                e.Time.ToLocalTime(),
+                _devices[e.DeviceId].Name,
+                e.Started,
+                e.Recording,
+                e.ErrorNoConnection);
+        }
+
+        private static void StatusApi_InputDeviceStateChanged(object sender, IODeviceStateChangedEventArgs e)
+        {
+            Console.WriteLine(
+                "{0} - InputDevice state changes for {1}: Started ({2})  NoConnection({3})",
+                e.Time.ToLocalTime(),
+                _devices[e.DeviceId].Name,
+                e.Started,
+                e.ErrorNoConnection);
         }
 
         private static void StatusApi_HardwareStateChanged(object sender, HardwareStateChangedEventArgs e)
@@ -127,10 +183,10 @@ namespace StatusSessionConsole
                 e.Time.ToLocalTime(), KnownStatusEvents.GetEventName(e.EventId), sourceName);
             foreach (Guid id in e.DeviceIds)
             {
-                String cameraName = "";
-                Item camera;
-                if (_cameras.TryGetValue(id, out camera)) cameraName = camera.Name;
-                Console.WriteLine(" --- > " + id+ "  - "+cameraName);
+                String deviceName = "";
+                Item device;
+                if (_devices.TryGetValue(id, out device)) deviceName = device.Name;
+                Console.WriteLine(" --- > " + id+ "  - "+deviceName);
             }
             foreach (string k in e.Metadata.Keys)
             {
@@ -146,9 +202,9 @@ namespace StatusSessionConsole
         private static void CameraStateChangedHandler(object sender, CameraStateChangedEventArgs e)
         {
             Console.WriteLine(
-                "{0} - Camera state changes for camera {1}: Started ({2}) Recording ({3}) Motion ({4}) NoConnection({5})",
+                "{0} - Camera state changes for {1}: Started ({2}) Recording ({3}) Motion ({4}) NoConnection({5})",
                 e.Time.ToLocalTime(),
-                _cameras[e.DeviceId].Name,
+                _devices[e.DeviceId].Name,
                 e.Started,
                 e.Recording,
                 e.Motion,
@@ -197,8 +253,6 @@ namespace StatusSessionConsole
             Console.WriteLine("... Token=" + loginSettings.Token);
 
             // Limit this to 1 recording server. Here I select the last one.
-            // If there are XPE servers acting as recording servers, you must filter them away by having an explicit list
-            // With XPE, you don't use the Status API, but the Central API". See the sample "CentralDemo".
             Item serverItem = Configuration.Instance.GetItem(EnvironmentManager.Instance.CurrentSite);
             List<Item> serverItems = serverItem.GetChildren();
             Item recorder = null;
@@ -213,19 +267,20 @@ namespace StatusSessionConsole
             return recorder;
         }
 
-        private static IEnumerable<Item> FindAllCameras(IEnumerable<Item> items, Guid recorderGuid)
+        private static IEnumerable<Item> FindAllDevices(IEnumerable<Item> items, Guid recorderGuid)
         {
             foreach (Item item in items)
             {
-                if (item.FQID.Kind == Kind.Camera && item.FQID.ParentId == recorderGuid && item.FQID.FolderType == FolderType.No)
+                if ((item.FQID.Kind == Kind.Camera || item.FQID.Kind == Kind.Microphone || item.FQID.Kind == Kind.Speaker || item.FQID.Kind == Kind.Metadata || item.FQID.Kind == Kind.InputEvent || item.FQID.Kind == Kind.Output) 
+                    && item.FQID.ParentId == recorderGuid && item.FQID.FolderType == FolderType.No)
                 {
                     yield return item;
                 }
                 else if (item.FQID.FolderType != FolderType.No)
                 {
-                    foreach (var camera in FindAllCameras(item.GetChildren(), recorderGuid))
+                    foreach (var device in FindAllDevices(item.GetChildren(), recorderGuid))
                     {
-                        yield return camera;
+                        yield return device;
                     }
                 }
             }

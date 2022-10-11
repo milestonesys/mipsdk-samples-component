@@ -77,5 +77,3 @@ on the console output.
 - [MediaLiveServiceJPEG.vcxproj](javascript:openLink('..\\\\ComponentSamples\\\\MediaLiveServiceJPEG\\\\MediaLiveServiceJPEG.vcxproj');)
 
  *Note* - Windows SDK 10 is required for this project to build. Install it through Visual studios "Get Tools And Features", choose "Desktop Development with C++" 
-
- *Note* - If you want to run this sample in debug configuration, you have to change the referenced NuGet package. To do this, select "Manage NuGet Packages" from the project right-click menu in Visual Studio, uninstall the MilestoneSystems.VideoOS.Platform.SDK-CPP package and install the MilestoneSystems.VideoOS.Platform.SDK-CPP.Debug package instead. 

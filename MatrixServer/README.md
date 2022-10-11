@@ -16,8 +16,8 @@ action. The notification contains a camera id, but nothing else.
 
 For this sample to work, the Management Client needs to have a matrix
 definition added with an IP address pointing to the machine running the
-MatrixServer, port set to 12345, password set to \"password\" and type
-set to Smart Client/Remote Client.
+MatrixServer, port set to 12345 and password set to \"password\" (on VMS versions prior to 2022 R2 type should be
+set to Smart Client/Remote Client).
 
 After this application is started, matrix commands can be fired from
 Smart Client (Send to Matrix option in the camera toolbar) or via event configuration.

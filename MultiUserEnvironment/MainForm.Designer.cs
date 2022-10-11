@@ -43,7 +43,7 @@ namespace MultiUserEnvironment
             this.panelVideo = new System.Windows.Forms.Panel();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.panelView = new System.Windows.Forms.Panel();
-            this.pictureBoxRC1 = new System.Windows.Forms.PictureBox();
+            this.pictureBoxUC1 = new System.Windows.Forms.PictureBox();
             this.buttonSelect = new System.Windows.Forms.Button();
             this.radioButtonAD = new System.Windows.Forms.RadioButton();
             this.radioButtonBasic = new System.Windows.Forms.RadioButton();
@@ -72,7 +72,7 @@ namespace MultiUserEnvironment
             this.groupBoxUserContext1.SuspendLayout();
             this.panelVideo.SuspendLayout();
             this.panelView.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRC1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUC1)).BeginInit();
             this.groupBoxUserContext2.SuspendLayout();
             this.panelVideo2.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -232,20 +232,20 @@ namespace MultiUserEnvironment
             this.panelView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelView.Controls.Add(this.pictureBoxRC1);
+            this.panelView.Controls.Add(this.pictureBoxUC1);
             this.panelView.Location = new System.Drawing.Point(14, 13);
             this.panelView.Name = "panelView";
             this.panelView.Size = new System.Drawing.Size(200, 156);
             this.panelView.TabIndex = 1;
             // 
-            // pictureBoxRC1
+            // pictureBoxUC1
             // 
-            this.pictureBoxRC1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBoxRC1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxRC1.Name = "pictureBoxRC1";
-            this.pictureBoxRC1.Size = new System.Drawing.Size(200, 156);
-            this.pictureBoxRC1.TabIndex = 0;
-            this.pictureBoxRC1.TabStop = false;
+            this.pictureBoxUC1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBoxUC1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxUC1.Name = "pictureBoxUC1";
+            this.pictureBoxUC1.Size = new System.Drawing.Size(200, 156);
+            this.pictureBoxUC1.TabIndex = 0;
+            this.pictureBoxUC1.TabStop = false;
             // 
             // buttonSelect
             // 
@@ -521,7 +521,7 @@ namespace MultiUserEnvironment
             this.groupBoxUserContext1.PerformLayout();
             this.panelVideo.ResumeLayout(false);
             this.panelView.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRC1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUC1)).EndInit();
             this.groupBoxUserContext2.ResumeLayout(false);
             this.groupBoxUserContext2.PerformLayout();
             this.panelVideo2.ResumeLayout(false);
@@ -549,7 +549,7 @@ namespace MultiUserEnvironment
 		private System.Windows.Forms.Panel panelVideo;
 		private System.Windows.Forms.Button buttonSelect;
 		private System.Windows.Forms.Panel panelView;
-		private System.Windows.Forms.PictureBox pictureBoxRC1;
+		private System.Windows.Forms.PictureBox pictureBoxUC1;
 		private System.Windows.Forms.GroupBox groupBoxUserContext2;
 		private System.Windows.Forms.Panel panelVideo2;
 		private System.Windows.Forms.Panel panel2;

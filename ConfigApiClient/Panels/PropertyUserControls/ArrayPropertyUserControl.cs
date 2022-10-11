@@ -19,7 +19,7 @@ namespace ConfigAPIClient.Panels
 
 			labelOfProperty.Text = property.DisplayName;
 
-            textBoxValue.Text = property.ValueArray.Aggregate((a, b) => a + "," + b);
+            textBoxValue.Text = property.ValueArray.Length == 0? "" : property.ValueArray.Aggregate((a, b) => a + "," + b);
 
             textBoxValue.ReadOnly = !property.IsSettable;
             textBoxValue.Anchor = AnchorStyles.Left | AnchorStyles.Right;

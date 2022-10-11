@@ -15,7 +15,7 @@ namespace AddLayout
         const string Password = "";
         const string Auth = "Negotiate";
         const string DefinitionXmlName = "LayoutNEW.xml";
-        const string LayoutName = "LayoutC";
+        const string LayoutName = "Layout";
         const string LayoutDescription = "The best";
 
         private static readonly Guid IntegrationId = new Guid("7F1B4B62-A6F1-49E4-9C61-D541CC54437B");
