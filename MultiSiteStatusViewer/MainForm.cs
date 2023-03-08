@@ -322,7 +322,7 @@ namespace MultiSiteStatusViewer
             		new EventHandler(MessageConnectionStateChangedEvent);
             }
         }
-        private void AddSiteInfo(Item parent, CredentialCache credentialCache, TreeNode parentTn)
+        private void AddSiteInfo(Item parent, CredentialCache credentialCache, TreeNode parentTn, bool secureOnly)
         {
            if (true)
            {
@@ -341,13 +341,14 @@ namespace MultiSiteStatusViewer
                    tn.Tag = parent;
                    foreach (Item site in parent.GetChildren())
                    {
-                       AddSiteInfo(site, credentialCache, tn);
+                       AddSiteInfo(site, credentialCache, tn, secureOnly);
                    }
                    _dicServerObjects.Add(parent.FQID.ServerId.Id, new ServerObject()
                        {
                            Name = parent.Name,
                            SiteItem = parent,
-                           SitesTreeNode=tn
+                           SitesTreeNode=tn,
+                           SecureOnly = secureOnly
                        });
                }
            }
@@ -463,7 +464,7 @@ namespace MultiSiteStatusViewer
                     {
                         foreach (Item site in form.SelectedSiteItem.GetChildren())
                         {
-                            AddSiteInfo(site, form.CredentialCache, tn);
+                            AddSiteInfo(site, form.CredentialCache, tn, form.SecureOnly);
                         }
                     }
                     treeViewSites.ShowNodeToolTips = true;

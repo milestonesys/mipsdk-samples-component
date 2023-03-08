@@ -9,12 +9,12 @@ namespace ConfigAccessViaSDK
 {
     /// <summary>
     /// This class helps getting the configuration updated for a single site, 
-    /// it is not intended to be used in a MFA setup.
+    /// it is not intended to be used in an MFA setup.
     /// </summary>
     public class ConfigManager
     {
         private MessageCommunication _messageCommunication;
-        private object _systemConfigurationChangedIndicationRefefence;
+        private object _systemConfigurationChangedIndicationReference;
         private Timer _catchUpTimer;
 
         public void Init()
@@ -26,7 +26,7 @@ namespace ConfigAccessViaSDK
                 MessageCommunicationManager.Start(EnvironmentManager.Instance.MasterSite.ServerId);
                 _messageCommunication = MessageCommunicationManager.Get(EnvironmentManager.Instance.MasterSite.ServerId);
 
-                _systemConfigurationChangedIndicationRefefence = _messageCommunication.RegisterCommunicationFilter(SystemConfigChangedHandler2,
+                _systemConfigurationChangedIndicationReference = _messageCommunication.RegisterCommunicationFilter(SystemConfigChangedHandler,
                     new VideoOS.Platform.Messaging.CommunicationIdFilter(MessageId.System.SystemConfigurationChangedIndication));
 
             }
@@ -38,7 +38,7 @@ namespace ConfigAccessViaSDK
 
         public void Close()
         {
-            _messageCommunication.UnRegisterCommunicationFilter(_systemConfigurationChangedIndicationRefefence);
+            _messageCommunication.UnRegisterCommunicationFilter(_systemConfigurationChangedIndicationReference);
             MessageCommunicationManager.Stop(EnvironmentManager.Instance.MasterSite.ServerId);
         }
 
@@ -64,20 +64,20 @@ namespace ConfigAccessViaSDK
         /// <param name="dest"></param>
         /// <param name="source"></param>
         /// <returns></returns>
-        private object SystemConfigChangedHandler2(VideoOS.Platform.Messaging.Message message, FQID dest, FQID source)
+        private object SystemConfigChangedHandler(VideoOS.Platform.Messaging.Message message, FQID dest, FQID source)
         {
-            System.Collections.Generic.List<FQID> fqids = message.Data as System.Collections.Generic.List<FQID>;
+            List<FQID> fqids = message.Data as List<FQID>;
             if (fqids == null)
             {
                 // Start timer, when the detailed info is not available.  
-                _catchUpTimer.Change(TimeSpan.FromSeconds(60), TimeSpan.FromSeconds(60));
+                _catchUpTimer.Change(TimeSpan.FromSeconds(90), TimeSpan.FromSeconds(90));
                 return null;
             }
 
             // Detailed info received - stop catchup timer
             _catchUpTimer.Change(Timeout.Infinite, Timeout.Infinite);     // Disable timer, as we now have the detailed changes
 
-            List<FQID> recorderFQIDList = new List<FQID>();
+            HashSet<FQID> serverFQIDList = new HashSet<FQID>();
             foreach (FQID fqid in fqids)
             {
                 Item item = Configuration.Instance.GetItem(fqid);
@@ -89,21 +89,23 @@ namespace ConfigAccessViaSDK
                         recorderFQID = fqid;
                     else
                         recorderFQID = fqid.GetParent();
-                    if (recorderFQID != null && recorderFQIDList.Contains(recorderFQID) == false)
-                        recorderFQIDList.Add(recorderFQID);
+                    if (recorderFQID != null)
+                        serverFQIDList.Add(recorderFQID);
                 }
                 else
                 {
                     Trace.WriteLine("SystemConfigurationChangedIndication - received -- for: Unknown Item");
+                    // unknown item - we will reload entire configuration
+                    serverFQIDList.Clear();
+                    serverFQIDList.Add(Configuration.Instance.ServerFQID);
+                    break;
                 }
             }
 
-
             Thread reloadThread = new Thread(new ParameterizedThreadStart(ReloadConfigurationThread));
-            reloadThread.Start(recorderFQIDList);
+            reloadThread.Start(serverFQIDList);
             
             return null;
-
         }
 
         /// <summary>
@@ -112,12 +114,12 @@ namespace ConfigAccessViaSDK
         /// <param name="obj"></param>
         private void ReloadConfigurationThread(object obj)
         {
-            List<FQID> recorderFQIDList = obj as List<FQID>;
-            if (recorderFQIDList != null)
+            HashSet<FQID> serverFQIDList = obj as HashSet<FQID>;
+            if (serverFQIDList != null)
             {
                 // Now ask SDK to reload configuration from server, this will issue the "LocalConfigurationChangedIndication"
-                foreach (FQID recorderFQID in recorderFQIDList)
-                    VideoOS.Platform.SDK.Environment.ReloadConfiguration(recorderFQID);                
+                foreach (FQID serverFQID in serverFQIDList)
+                    VideoOS.Platform.SDK.Environment.ReloadConfiguration(serverFQID);                
             }
 
         }

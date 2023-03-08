@@ -24,8 +24,6 @@ namespace MetadataLiveViewer
 			VideoOS.Platform.SDK.Environment.Initialize();		// Initialize the standalone Environment
 			VideoOS.Platform.SDK.Media.Environment.Initialize();		// Initialize the standalone Environment
 
-																// NOTE: This dll requires the application to be in x86 due to the ActiveX
-
 			EnvironmentManager.Instance.TraceFunctionCalls = true;
 
 			var loginForm = new DialogLoginForm(SetLoginResult, IntegrationId, IntegrationName, Version, ManufacturerName);

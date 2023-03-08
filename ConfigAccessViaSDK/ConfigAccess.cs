@@ -19,7 +19,6 @@ namespace ConfigAccessViaSDK
         public ConfigAccess()
 		{
 			InitializeComponent();
-
 		}
 
 		private void OnLoad(object sender, EventArgs e)
@@ -51,8 +50,8 @@ namespace ConfigAccessViaSDK
 
         private object LocalConfigUpdatedHandler(VideoOS.Platform.Messaging.Message message, FQID dest, FQID source)
         {
-            // Update UI - if name changed
-            dumpConfigurationUserControl1.SelectedDevices = dumpConfigurationUserControl1.SelectedDevices;
+            // Update tree view
+            dumpConfigurationUserControl1.FillContentSpecific(checkBox1.Checked ? ItemHierarchy.SystemDefined : ItemHierarchy.UserDefined);
             return null;
         }
 

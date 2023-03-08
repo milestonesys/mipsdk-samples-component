@@ -193,6 +193,7 @@ namespace VideoWallController
                     sendRemoveCamerasButton.Enabled = false;
                     selectCameraRemoveCamerasButton.Text = "Select camera";
                     cameraToRemoveRemoveCamerasListBox.Items.Clear();
+                    _cameraRemoveCamerasFQIDCollection.Clear();
                     break;
                 case "selectMonitorSetLayoutAndCamerasButton":
                     _monitorSetLayoutAndCamerasFQID = SelectItem(Kind.VideoWallMonitor, selectMonitorSetLayoutAndCamerasButton);
@@ -218,7 +219,7 @@ namespace VideoWallController
                     };
                     msg = new VideoOS.Platform.Messaging.Message(MessageId.Control.VideoWallSetLayoutAndCamerasCommand, layoutCamerasData);
                     EnvironmentManager.Instance.SendMessage(msg, _monitorSetLayoutAndCamerasFQID);
-                    _cameraSetLayoutAndCamerasFQIDCollection = new Collection<FQID>();
+                    _cameraSetLayoutAndCamerasFQIDCollection.Clear();
                     selectCameraSetLayoutAndCamerasButton.Text = "Select camera";
                     camerasToShowSetLayoutAndCamerasListBox.Items.Clear();
                     sendSetLayoutAndCamerasButton.Enabled = false;
@@ -275,7 +276,7 @@ namespace VideoWallController
                     };
                     msg = new VideoOS.Platform.Messaging.Message(MessageId.Control.VideoWallSetCamerasCommand, settings);
                     EnvironmentManager.Instance.SendMessage(msg, _monitorSetCamerasFQID);
-                    _cameraSetCamerasFQIDCollection = new Collection<FQID>();
+                    _cameraSetCamerasFQIDCollection.Clear();
                     sendSetCamerasButton.Enabled = false;
                     cameraToShowSetCamerasListBox.Items.Clear();
                     selectCameraSetCamerasButton.Text = "Select camera";

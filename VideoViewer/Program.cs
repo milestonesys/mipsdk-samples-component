@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using VideoOS.Platform;
 using VideoOS.Platform.SDK.UI.LoginDialog;
 
 namespace VideoViewer
 {
-	///
-	/// NOTE: This dll requires the application to be in x86 due to the ActiveX
-	/// 
 	static class Program
 	{
         private static readonly Guid IntegrationId = new Guid("63AE5F55-727D-406B-BA6A-02C23F01D57F");

@@ -28,6 +28,7 @@ namespace ExportSample
 		/// </summary>
 		private void InitializeComponent()
 		{
+            this.components = new System.ComponentModel.Container();
             this.buttonClose = new System.Windows.Forms.Button();
             this.dateTimePickerEnd = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerStart = new System.Windows.Forms.DateTimePicker();
@@ -40,7 +41,7 @@ namespace ExportSample
             this.buttonCancel = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.label10 = new System.Windows.Forms.Label();
-            this.labelError = new System.Windows.Forms.Label();
+            this.resultLabel = new System.Windows.Forms.Label();
             this.tabPageVideo = new System.Windows.Forms.TabPage();
             this.listBoxCameras = new System.Windows.Forms.ListBox();
             this.buttonRemoveCamera = new System.Windows.Forms.Button();
@@ -65,6 +66,7 @@ namespace ExportSample
             this.label4 = new System.Windows.Forms.Label();
             this.radioButtonDB = new System.Windows.Forms.RadioButton();
             this.tabControlExportSource = new System.Windows.Forms.TabControl();
+            this.resultLabelToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox2.SuspendLayout();
             this.tabPageVideo.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -180,12 +182,12 @@ namespace ExportSample
             this.label10.TabIndex = 9;
             this.label10.Text = "Export result:";
             // 
-            // labelError
+            // resultLabel
             // 
-            this.labelError.Location = new System.Drawing.Point(104, 657);
-            this.labelError.Name = "labelError";
-            this.labelError.Size = new System.Drawing.Size(280, 13);
-            this.labelError.TabIndex = 10;
+            this.resultLabel.Location = new System.Drawing.Point(104, 657);
+            this.resultLabel.Name = "resultLabel";
+            this.resultLabel.Size = new System.Drawing.Size(280, 13);
+            this.resultLabel.TabIndex = 10;
             // 
             // tabPageVideo
             // 
@@ -204,7 +206,7 @@ namespace ExportSample
             this.tabPageVideo.Controls.Add(this.radioButtonDB);
             this.tabPageVideo.Location = new System.Drawing.Point(4, 22);
             this.tabPageVideo.Name = "tabPageVideo";
-            this.tabPageVideo.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPageVideo.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageVideo.Size = new System.Drawing.Size(374, 466);
             this.tabPageVideo.TabIndex = 0;
             this.tabPageVideo.Text = "Export Video";
@@ -213,7 +215,7 @@ namespace ExportSample
             // 
             this.listBoxCameras.FormattingEnabled = true;
             this.listBoxCameras.Location = new System.Drawing.Point(134, 31);
-            this.listBoxCameras.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.listBoxCameras.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxCameras.Name = "listBoxCameras";
             this.listBoxCameras.Size = new System.Drawing.Size(237, 121);
             this.listBoxCameras.TabIndex = 15;
@@ -353,7 +355,7 @@ namespace ExportSample
             // 
             this.checkBoxReExport.AutoSize = true;
             this.checkBoxReExport.Location = new System.Drawing.Point(10, 83);
-            this.checkBoxReExport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBoxReExport.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxReExport.Name = "checkBoxReExport";
             this.checkBoxReExport.Size = new System.Drawing.Size(107, 17);
             this.checkBoxReExport.TabIndex = 5;
@@ -456,7 +458,7 @@ namespace ExportSample
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(391, 708);
-            this.Controls.Add(this.labelError);
+            this.Controls.Add(this.resultLabel);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.tabControlExportSource);
             this.Controls.Add(this.buttonCancel);
@@ -496,7 +498,7 @@ namespace ExportSample
         private System.Windows.Forms.Button buttonCancel;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label labelError;
+        private System.Windows.Forms.Label resultLabel;
         private System.Windows.Forms.TabPage tabPageVideo;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ComboBox comboBoxSampleRate;
@@ -521,5 +523,6 @@ namespace ExportSample
         private System.Windows.Forms.CheckBox checkBoxIncludeOverlayImage;
         private System.Windows.Forms.ListBox listBoxCameras;
         private System.Windows.Forms.Button buttonRemoveCamera;
+        private System.Windows.Forms.ToolTip resultLabelToolTip;
     }
 }

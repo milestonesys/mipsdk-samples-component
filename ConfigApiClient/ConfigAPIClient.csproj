@@ -126,7 +126,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK" Version="*" />
-	<PackageReference Include="MilestoneSystems.VideoOS.ConfigurationAPI" Version="*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.ConfigurationAPI" Version="*" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigApiClient.cs" />

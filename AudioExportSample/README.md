@@ -28,11 +28,6 @@ one export at a time.
 
 -   VideoOS.Platform.Data.WAVExporter class
 
-## Special notes
-
-This sample needs a number of DLL to run. Please run the
-bin/CopyExportFiles.bat to get the relevant files with your application.
-
 ## Environment
 
 -   MIP .NET library

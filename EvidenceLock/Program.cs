@@ -34,7 +34,7 @@ namespace EvidenceLock
 
             // Initialize the SDK - must be done in stand alone
             VideoOS.Platform.SDK.Environment.Initialize();
-            VideoOS.Platform.SDK.UI.Environment.Initialize();		// Initialize ActiveX references, e.g. usage of ImageViewerActiveX etc
+            VideoOS.Platform.SDK.UI.Environment.Initialize();		// Initialize UI controls
 
             #region Connect to the server
             var loginForm = new VideoOS.Platform.SDK.UI.LoginDialog.DialogLoginForm(SetLoginResult, IntegrationId, IntegrationName, Version, ManufacturerName);

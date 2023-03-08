@@ -58,14 +58,3 @@ codec on the camera.
 
 This sample needs access to configuration, use of ImageViewerControl for
 video display and use of AudioPlayerControl for audio playing.
-
-Use the CopyUIFiles.bat file for copying the correct files from the
-MIPSDK folder to your folder, e.g. have this in the post-build event:
-
-~~~ cmd
-cd "$(ProjectDir)..\..\bin"
-call CopyUIFiles.bat "$(TargetDir)"
-~~~
-
-The reason for using this bat file is to allow for updating to new
-MIPSDK versions and get any new or changed files included.

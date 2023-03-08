@@ -24,7 +24,7 @@ namespace StatusViewer
 			Application.SetCompatibleTextRenderingDefault(false);
 
 			VideoOS.Platform.SDK.Environment.Initialize();			// General initialize.  Always required
-			VideoOS.Platform.SDK.UI.Environment.Initialize();		// Initialize ActiveX references, e.g. usage of ImageViewerActiveX etc
+			VideoOS.Platform.SDK.UI.Environment.Initialize();		// Initialize UI controls
 
 			DialogLoginForm loginForm = new DialogLoginForm(SetLoginResult, IntegrationId, IntegrationName, Version, ManufacturerName);
 			Application.Run(loginForm);								// Show and complete the form and login to server

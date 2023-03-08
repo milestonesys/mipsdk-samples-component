@@ -218,15 +218,21 @@ to the first camera group created.
 2.  Open the `SurveillanceCloudSample.sln` solution file with Visual
     Studio.
 
-3.  Rebuild the solution in order to ensure the latest NuGet packages has
-    been downloaded. The solution depends on the MilestoneSystems.VideoOS.Platform.SDK
-    which includes C++ DLLs. Some of these DLLs are not supported by IIS Express or
-    IIS. Therefore the bin folder of the SurveillanceCloudSampleService has to be added
-    to the path of environment variables. To do so, go to Start menu and type 
-    "Environment variables". Choose "Edit Environment variables", in the window
-    which opens click on the button named "Environment Variables". In the System Variables
-    find the "Path" variable and add the path of the bin folder. Once done, restart visual
-    studio to ensure the path works. 
+3.  The project `SurveillanceCloudSampleService` depends on the NuGet package
+    `MilestoneSystems.VideoOS.Platform.SDK`.
+
+    To ensure the latest NuGet packages has been downloaded, rebuild the solution.
+
+    `MilestoneSystems.VideoOS.Platform.SDK` includes some unmanaged DLLs
+    that are not found by IIS Express or IIS unless you explicitly
+    add the `bin` folder of the project `SurveillanceCloudSampleService` to the
+    `Path` environment variable:
+
+    1. Open the Start menu and type "Environment variables".
+    2. Choose "Edit the system environment variables".
+    3. In the System Properties window, select "Environment Variables...".
+    4. In the System variables list, select the "Path" variable and add the path of the bin folder.
+    5. To ensure the path works, restart Visual Studio.
 
 4.  Set the `SurveillanceCloudSample` and
     `SurveillanceCloudSampleService` projects as startup projects. To do

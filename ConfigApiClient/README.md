@@ -48,3 +48,7 @@ item on the right hand side.
 
 This is not intended as a production ready application, implementation
 of exception handling, retry methods and more are incomplete.
+
+The following functionality is not supported by the sample:
+
+- Add or edit data for registration numbers under *LPR match lists*

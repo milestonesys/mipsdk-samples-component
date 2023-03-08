@@ -31,7 +31,7 @@ namespace BookmarkCreator
 
             // Initialize the SDK - must be done in stand alone
             VideoOS.Platform.SDK.Environment.Initialize();
-            VideoOS.Platform.SDK.UI.Environment.Initialize();		// Initialize ActiveX references, e.g. usage of ImageViewerActiveX etc
+            VideoOS.Platform.SDK.UI.Environment.Initialize();		// Initialize UI controls
 
             #region Connect to the server
             VideoOS.Platform.SDK.UI.LoginDialog.DialogLoginForm loginForm = new VideoOS.Platform.SDK.UI.LoginDialog.DialogLoginForm(SetLoginResult, IntegrationId, IntegrationName, Version, ManufacturerName);
@@ -42,13 +42,6 @@ namespace BookmarkCreator
 				Console.ReadKey();
 				return;
             }
-
-			if (EnvironmentManager.Instance.MasterSite.ServerId.ServerType == ServerId.EnterpriseServerType)
-			{
-				Console.WriteLine("Bookmark is not supported on this product.");
-				Console.ReadKey();
-				return;				
-			}
             #endregion
 
             #region Select a camera

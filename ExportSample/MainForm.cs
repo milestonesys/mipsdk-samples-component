@@ -157,7 +157,7 @@ namespace ExportSample
                 {
                     int lastError = _exporter.LastError;
                     string lastErrorString = _exporter.LastErrorString;
-                    labelError.Text = lastErrorString + "  ( " + lastError + " )";
+                    SetResultLabel(lastErrorString + "  ( " + lastError + " )");
                     _exporter.EndExport();
                 }
             }
@@ -228,6 +228,12 @@ namespace ExportSample
             }
         }
 
+        private void SetResultLabel(string result)
+        {
+            resultLabel.Text = result;
+            resultLabelToolTip.SetToolTip(resultLabel, result);
+        }
+
         private void ShowProgress(object sender, EventArgs e)
         {
             if (_exporter != null)
@@ -241,7 +247,7 @@ namespace ExportSample
                     if (progress == 100)
                     {
                         _timer.Stop();
-                        labelError.Text = "Done";
+                        SetResultLabel("Done");
                         _exporter.EndExport();
                         _exporter = null;
                         buttonCancel.Enabled = false;
@@ -250,7 +256,7 @@ namespace ExportSample
                 if (lastError > 0)
                 {
                     progressBar.Value = 0;
-                    labelError.Text = lastErrorString + "  ( " + lastError + " )";
+                    SetResultLabel(lastErrorString + "  ( " + lastError + " )");
                     if (_exporter != null)
                     {
                         _exporter.EndExport();

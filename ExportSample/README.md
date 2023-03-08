@@ -23,11 +23,6 @@ systems.
 -   VideoOS.Platform.Data.DBExporter class
 -   VideoOS.Platform.Data.MKVExport class
 
-## Special notes
-
-This sample needs a number of DLL to run. Please run the
-bin/CopyExportFiles.bat to get the relevant files with your application.
-
 ## Environment
 
 -   MIP .NET library

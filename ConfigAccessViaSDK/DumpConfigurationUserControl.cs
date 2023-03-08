@@ -1,11 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using System.Collections;
 using VideoOS.Platform;
 using VideoOS.Platform.Login;
-using VideoOS.Platform.Messaging;
-using VideoOS.Platform.UI;
 using VideoOS.Platform.Util;
 
 namespace ConfigAccessViaSDK
@@ -93,10 +91,10 @@ namespace ConfigAccessViaSDK
 					}
 				}
 				buttonSelect.Enabled = true;
-			}
-		}
+            }
+        }
 
-		internal void FillContentSpecific(ItemHierarchy hierarchy)
+        internal void FillContentSpecific(ItemHierarchy hierarchy)
 		{
 			treeViewItems.Nodes.Clear();
             _selectedItem = null;

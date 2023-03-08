@@ -15,7 +15,7 @@ namespace MultiSiteStatusViewer
 			Application.SetCompatibleTextRenderingDefault(false);
 
 			VideoOS.Platform.SDK.Environment.Initialize();			// General initialize.  Always required
-			VideoOS.Platform.SDK.UI.Environment.Initialize();		// Initialize ActiveX references, e.g. usage of ImageViewerActiveX etc
+			VideoOS.Platform.SDK.UI.Environment.Initialize();		// Initialize UI controls
             VideoOS.Platform.EnvironmentManager.Instance.EnvironmentOptions["UsePing"] = "No";
             Application.Run(new MainForm());
         }

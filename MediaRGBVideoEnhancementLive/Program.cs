@@ -8,9 +8,6 @@ using VideoOS.Platform.SDK.UI.LoginDialog;
 
 namespace MediaRGBVideoEnhancementLive
 {
-	///
-	/// NOTE: This dll requires the application to be in x86 due to the ActiveX
-	/// 
 	static class Program
 	{
         private static readonly Guid IntegrationId = new Guid("45BA0711-41B9-4982-A009-D2CC68C82C38");

@@ -109,7 +109,7 @@ namespace PTZandPresets
                 _imageViewerControl.CameraFQID = _camera.FQID;
                 _imageViewerControl.EnableVisibleHeader = true; // May not be in 1.0a
                 _imageViewerControl.EnableMouseControlledPtz = true;
-                _imageViewerControl.EnableMousePtzEmbeddedHandler = true;   //Let the ActiveX do the job
+                _imageViewerControl.EnableMousePtzEmbeddedHandler = true;
                 _imageViewerControl.Initialize();
                 _imageViewerControl.Connect();
                 _imageViewerControl.Selected = true;

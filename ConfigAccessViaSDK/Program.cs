@@ -29,14 +29,11 @@ namespace ConfigAccessViaSDK
 
             DialogLoginForm loginForm = new DialogLoginForm(SetLoginResult, IntegrationId, IntegrationName, Version, ManufacturerName);
             VideoOS.Platform.SDK.Environment.Properties.ConfigurationRefreshIntervalInMs = 5000;
-			Application.Run(loginForm);
+
+            Application.Run(loginForm);
 
 			if (Connected)
 			{
-                SearchResult sr;
-                List<Item> items = Configuration.Instance.GetItemsBySearch("BB52", 10, 5, out sr);
-
-
 				Application.Run(new ConfigAccess());
 			}
 		}

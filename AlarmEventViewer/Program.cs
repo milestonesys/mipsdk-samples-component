@@ -20,7 +20,7 @@ namespace AlarmEventViewer
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
             VideoOS.Platform.SDK.Environment.Initialize();			// General initialize.  Always required
-			VideoOS.Platform.SDK.UI.Environment.Initialize();		// Initialize ActiveX references, e.g. usage of ImageViewerActiveX etc
+			VideoOS.Platform.SDK.UI.Environment.Initialize();		// Initialize UI controls
             //VideoOS.Platform.EnvironmentManager.Instance.TraceMessageCommunication = true;
 			
 			DialogLoginForm loginForm = new DialogLoginForm(SetLoginResult, IntegrationId, IntegrationName, Version, ManufacturerName);

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Windows.Forms;
 using VideoOS.Platform;
+using VideoOS.Platform.ConfigurationItems;
 using VideoOS.Platform.Data;
 using VideoOS.Platform.Messaging;
 
@@ -47,9 +48,11 @@ namespace StatusViewer
 				new VideoOS.Platform.Messaging.CommunicationIdFilter(VideoOS.Platform.Messaging.MessageId.Server.NewEventIndication));
             _obj = _messageCommunication.RegisterCommunicationFilter(MessageHandler,
                 new VideoOS.Platform.Messaging.CommunicationIdFilter(VideoOS.Platform.Messaging.MessageId.System.SystemConfigurationChangedIndication));
+            _obj = _messageCommunication.RegisterCommunicationFilter(MessageHandler,
+                new VideoOS.Platform.Messaging.CommunicationIdFilter(VideoOS.Platform.Messaging.MessageId.System.SystemConfigurationChangedDetailsIndication));
 
-			// Register to receive the response from the ProvideCurrentStateRequest - issued later in this method.
-			_obj3 = _messageCommunication.RegisterCommunicationFilter(ProvideCurrentStateResponseHandler,
+            // Register to receive the response from the ProvideCurrentStateRequest - issued later in this method.
+            _obj3 = _messageCommunication.RegisterCommunicationFilter(ProvideCurrentStateResponseHandler,
 				new VideoOS.Platform.Messaging.CommunicationIdFilter(MessageCommunication.ProvideCurrentStateResponse));
 			
 			_messageCommunication.ConnectionStateChangedEvent += new EventHandler(_messageCommunication_ConnectionStateChangedEvent);
@@ -237,11 +240,29 @@ namespace StatusViewer
                     }
                 }
 			}
-		    if (message.MessageId == VideoOS.Platform.Messaging.MessageId.System.SystemConfigurationChangedIndication)
+		    if (message.MessageId == VideoOS.Platform.Messaging.MessageId.System.SystemConfigurationChangedDetailsIndication)
 		    {
                 BeginInvoke(new MethodInvoker(delegate()
                 {
-                    listBoxChanges.Items.Insert(0, DateTime.Now.ToLongTimeString() + ": " + message.MessageId);
+					var dataInfo = "";
+					var data = message.Data as SystemConfigurationChangedDetailsIndicationData;
+					if (data != null)
+                    {
+						foreach (var detail in data.DefailList)
+						{
+                            string name = string.Empty;
+
+                            var configItem = VideoOS.Platform.ConfigurationItems.Factory.GetConfigurationItem(detail.FQID);
+							if (configItem != null)
+								name = configItem.Name;
+
+							string kindName = VideoOS.Platform.ConfigurationItems.Factory.GetItemTypeFromKind(detail.FQID.Kind);
+
+							dataInfo = $" - ChangeType={detail.ChangeType}, Name={name}, Kind={kindName} ({detail.FQID.Kind}), Id={detail.FQID.ObjectId}";
+						}
+                    }
+					
+                    listBoxChanges.Items.Insert(0, DateTime.Now.ToLongTimeString() + ": " + message.MessageId + dataInfo);
                 }));
                 
 		    }

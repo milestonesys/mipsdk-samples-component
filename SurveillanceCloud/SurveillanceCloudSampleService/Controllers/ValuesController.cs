@@ -104,7 +104,7 @@ namespace SurveillanceCloudSampleService.Controllers
 
                     #region Create Role in VMS
                     var roleFolder = new RoleFolder();
-                    var addRole = roleFolder.AddRole(userName, "Created by SurveillanceCloud sample", false, false, true, true, true, string.Empty, string.Empty);
+                    var addRole = roleFolder.AddRole(userName, "Created by SurveillanceCloud sample", false, false, true, true, true);
                     #endregion
 
                     if (addRole.State == StateEnum.Success)

@@ -2,7 +2,7 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="MilestoneSystems.VideoOS.Platform.SDK">
     <!-- PackageVersion property should be set to version of MilestoneSystems.VideoOS.Platform.SDK-CPP NuGet package used in the project and it must correspond to the version set in packages.config -->
-    <PackageVersion>22.3.0</PackageVersion>
+    <PackageVersion>23.1.1</PackageVersion>
     <SDKTargetFile>$(SolutionDir)\packages\MilestoneSystems.VideoOS.Platform.SDK.$(PackageVersion)\build\MilestoneSystems.VideoOS.Platform.SDK.targets</SDKTargetFile>
   </PropertyGroup>
   <Import Project="..\packages\Microsoft.Net.Compilers.3.10.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.3.10.0\build\Microsoft.Net.Compilers.props')" />

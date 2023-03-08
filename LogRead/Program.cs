@@ -25,7 +25,7 @@ namespace LogRead
 
             VideoOS.Platform.SDK.Environment.Initialize();      // General initialize.  Always required
             VideoOS.Platform.SDK.Log.Environment.Initialize();	// Initialize Log            
-            VideoOS.Platform.SDK.UI.Environment.Initialize();	// Initialize ActiveX references
+            VideoOS.Platform.SDK.UI.Environment.Initialize();	// Initialize UI controls
 
 
             DialogLoginForm loginForm = new DialogLoginForm(SetLoginResult, IntegrationId, IntegrationName, Version, ManufacturerName);
