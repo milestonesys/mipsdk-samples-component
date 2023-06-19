@@ -42,7 +42,6 @@ namespace ConfigAccessViaSDK
         {
             try
             {
-                treeViewItems.Nodes.Clear();
                 Configuration.Instance.GetItemsAsync(AsyncItemsHandler, this, null);
             }
             catch (Exception e)
@@ -77,29 +76,30 @@ namespace ConfigAccessViaSDK
 		{
 			if (list != null)
 			{
-				FillNodes(list, treeViewItems.Nodes);
+                treeViewItems.Nodes.Clear();
+                FillNodes(list, treeViewItems.Nodes);
 
 				if (EnvironmentManager.Instance.MasterSite!=null)
 				{
-					Item site = EnvironmentManager.Instance.GetSiteItem(EnvironmentManager.Instance.MasterSite);
-					if (site != null)
-					{
-						TreeNode tn = new TreeNode("Site-Hierarchy");
-						tn.ImageIndex = tn.SelectedImageIndex = VideoOS.Platform.UI.Util.FolderIconIx;
-						treeViewItems.Nodes.Add(tn);
-						FillNodes(new List<Item>() {site}, tn.Nodes);
-					}
-				}
+                    Item site = EnvironmentManager.Instance.GetSiteItem(EnvironmentManager.Instance.MasterSite);
+                    if (site != null)
+                    {
+                        TreeNode tn = new TreeNode("Site-Hierarchy");
+                        tn.ImageIndex = tn.SelectedImageIndex = VideoOS.Platform.UI.Util.FolderIconIx;
+                        treeViewItems.Nodes.Add(tn);
+                        FillNodes(new List<Item>() { site }, tn.Nodes);
+                    }
+                }
 				buttonSelect.Enabled = true;
             }
         }
 
         internal void FillContentSpecific(ItemHierarchy hierarchy)
-		{
-			treeViewItems.Nodes.Clear();
+        {
+            treeViewItems.Nodes.Clear();
             _selectedItem = null;
-			List<Item> top = Configuration.Instance.GetItems(hierarchy);
-			FillNodes(top, treeViewItems.Nodes);
+            List<Item> top = Configuration.Instance.GetItems(hierarchy);
+            FillNodes(top, treeViewItems.Nodes);
             if (EnvironmentManager.Instance.MasterSite != null)
             {
                 Item site = EnvironmentManager.Instance.GetSiteItem(EnvironmentManager.Instance.MasterSite);

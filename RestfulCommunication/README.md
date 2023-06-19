@@ -110,7 +110,7 @@ The status of the task can be checked using the `id` value as *`{taskId}`* in th
 
 ## Related samples
 
-- ProtocolSamples/RestfulCommunicationPython
+- mipsdk-samples-protocol/RestfulCommunicationPython
 
 ## Environment
 
@@ -118,4 +118,4 @@ The status of the task can be checked using the `id` value as *`{taskId}`* in th
 
 ## Visual Studio C\# project
 
-- [RestfulCommunication.csproj](javascript:openLink('..\\\\ComponentSamples\\\\RestfulCommunication\\\\RestfulCommunication.csproj');)
+- [RestfulCommunication.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

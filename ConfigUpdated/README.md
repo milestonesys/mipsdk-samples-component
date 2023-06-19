@@ -1,7 +1,7 @@
 ---
 description: This sample shows how you can keep your copy of the VMS
   configuration updated with the latest changes done by the
-  administrator
+  administrator.
 keywords: Component integration
 lang: en-US
 title: Keep your configuration updated
@@ -10,7 +10,7 @@ title: Keep your configuration updated
 # Keep your configuration updated
 
 This sample shows how you can keep your copy of the VMS configuration
-updated with the latest changes done by the administrator
+updated with the latest changes done by the administrator.
 
 The sample will utilize the Event Server to listen for changes, via the
 MessageCommunication classes. When changes happen a timer is started to
@@ -27,18 +27,18 @@ higher for large systems.
 
 ## The sample demonstrates
 
--   How to listen for events after a system configuration update
--   How to ask .Net library to reload configuration
+- How to listen for events after a system configuration update
+- How to ask .NET library to reload configuration
 
 ## Using
 
--   VideoOS.Platform.Environment
--   VideoOS.Platform.Messaging.MessageId.System.SystemConfigurationChangedIndication
+- VideoOS.Platform.Environment
+- VideoOS.Platform.Messaging.MessageId.System.SystemConfigurationChangedIndication
 
 ## Environment
 
--   MIP .Net Library (Component Integration)
+- MIP .NET Library (Component Integration)
 
 ## Visual Studio C\# project
 
--   [ConfigUpdated.csproj](javascript:openLink('..\\\\ComponentSamples\\\\ConfigUpdated\\\\ConfigUpdated.csproj');)
+- [ConfigUpdated.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

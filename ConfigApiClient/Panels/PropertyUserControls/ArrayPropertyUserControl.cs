@@ -17,7 +17,7 @@ namespace ConfigAPIClient.Panels
 		{
 			InitializeComponent();
 
-			labelOfProperty.Text = property.DisplayName;
+			labelOfProperty.Text = property.DisplayName + " (comma-separated list)";
 
             textBoxValue.Text = property.ValueArray.Length == 0? "" : property.ValueArray.Aggregate((a, b) => a + "," + b);
 

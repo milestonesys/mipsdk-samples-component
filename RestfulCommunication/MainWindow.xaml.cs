@@ -142,17 +142,11 @@ namespace RestfulCommunication
         {
 			if (response.StatusCode == System.Net.HttpStatusCode.OK &&
 					httpMethod == HttpMethod.Post &&
-					requestUri.Contains("?task=")) 
+					requestUri.Contains("?task=") &&
+                    !requestUri.EndsWith("?task=TaskCleanup")) 
 			{
 				lblWarning.Foreground = Brushes.Red;
 				lblWarning.Text = "Remember to cleanup the task - use '[POST] Clean up invoked task' from the combobox.";
-			}
-			else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest &&
-					httpMethod == HttpMethod.Post &&
-					requestUri.EndsWith("?task=TaskCleanup"))
-			{
-				lblWarning.Foreground = Brushes.Black;
-				lblWarning.Text = "Cleanup successful. The error 'Bad request -not supported, Method flow missing next MethodId' is expected for pre-release. Will be fixed for full release in 2022R1";
 			}
 			else
 			{

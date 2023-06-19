@@ -23,7 +23,7 @@ namespace ConfigAccessViaSDK
 
 		private void OnLoad(object sender, EventArgs e)
 		{
-			dumpConfigurationUserControl1.FillContentAsync();
+            dumpConfigurationUserControl1.FillContentAsync();
             dumpConfigurationUserControl1.FillDisabledItems();
 
             _configManager = new ConfigManager();
@@ -92,7 +92,7 @@ namespace ConfigAccessViaSDK
         private void button1_Click(object sender, EventArgs e)
         {
             LoginSettings ls = LoginSettingsCache.GetLoginSettings(EnvironmentManager.Instance.MasterSite);
-            VideoOS.Platform.SDK.Environment.Login(ls.Uri, IntegrationId, IntegrationName, Version, ManufacturerName);
+            VideoOS.Platform.SDK.Environment.Login(ls.Uri, IntegrationId, IntegrationName, Version, ManufacturerName, true);
             dumpConfigurationUserControl1.FillContentAsync();
         }
 

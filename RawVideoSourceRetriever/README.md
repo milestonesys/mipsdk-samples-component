@@ -62,4 +62,4 @@ and then retrieves some subsequent frames or GOPs as `RawVideoSourceDataList`.
 
 ## Visual Studio C\# project
 
-- [RawVideoSourceRetriever.csproj](javascript:openLink('..\\\\ComponentSamples\\\\RawVideoSourceRetriever\\\\RawVideoSourceRetriever.csproj');)
+- [RawVideoSourceRetriever.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

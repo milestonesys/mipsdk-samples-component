@@ -37,20 +37,20 @@ the application is running.
 
 ## The sample demonstrates
 
--   How to access the Status API using the StatusSession client.
--   Provide a list of well-known event IDs.
--   Find all cameras on a Recording Server
+- How to access the Status API using the StatusSession client.
+- Provide a list of well-known event IDs.
+- Find all cameras on a Recording Server
 
 ## Using
 
--   VideoOS.Platform.SDK.StatusSession
--   Event arguments in the
-    VideoOS.Platform.SDK.StatusClient.StatusEventArgs namespace
+- VideoOS.Platform.SDK.StatusSession
+- Event arguments in the
+  `VideoOS.Platform.SDK.StatusClient.StatusEventArgs` namespace
 
 ## Environment
 
--   None
+- None
 
 ## Visual Studio C\# project
 
--   [StatusSessionConsole.csproj](javascript:openLink('..\\\\ComponentSamples\\\\StatusSessionConsole\\\\StatusSessionConsole.csproj');)
+- [StatusSessionConsole.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

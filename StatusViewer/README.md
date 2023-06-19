@@ -20,23 +20,23 @@ tree item\'s color is updated and the update is listed in a list box.
 
 ## The sample demonstrates
 
--   How to listen for new events.
--   How to get configuration items.
--   How to request item state changes.
--   How to listen for item state changes.
+- How to listen for new events.
+- How to get configuration items.
+- How to request item state changes.
+- How to listen for item state changes.
 
 ## Using
 
--   VideoOS.Platform.Messaging.Message
--   VideoOS.Platform.Messaging.MessageCommunicationManager
--   VideoOS.Platform.Messaging.CommunicationIdFilter
--   VideoOS.Platform.Messaging.ItemState
--   VideoOS.Platform.MessageReceiver
+- VideoOS.Platform.Messaging.Message
+- VideoOS.Platform.Messaging.MessageCommunicationManager
+- VideoOS.Platform.Messaging.CommunicationIdFilter
+- VideoOS.Platform.Messaging.ItemState
+- VideoOS.Platform.MessageReceiver
 
 ## Environment
 
--   MIP .NET library
+- MIP .NET library
 
 ## Visual Studio C\# project
 
--   [StatusViewer.csproj](javascript:openLink('..\\\\ComponentSamples\\\\StatusViewer\\\\StatusViewer.csproj');)
+- [StatusViewer.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

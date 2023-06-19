@@ -15,16 +15,15 @@ real time.
 
 The TransactClient sample demonstrates:
 
--   How the Transact API can be used to display, search and monitor the
-    transactions
--   Construction of the TransactQueryClient
--   How to use the ItemPickerForm to select the desired Transact source
-    from the server
--   How to load the desired amount of recorded transaction lines and
-    fetch new transaction data in real time using live session control
-    methods
--   How to search for transaction text containing a substring using
-    GetExtendedTransactionLinesAsync
+- How the Transact API can be used to display, search and monitor the
+  transactions
+- Construction of the TransactQueryClient
+- How to use the ItemPickerForm to select the desired Transact source
+  from the server
+- How to load the desired amount of recorded transaction lines and fetch
+  new transaction data in real time using live session control methods
+- How to search for transaction text containing a substring using
+  `GetExtendedTransactionLinesAsync`
 
 The sample uses the logon dialog to login to an XProtect server, uses
 ItemPickerForm to select the Transact source, and uses the Transact API
@@ -38,18 +37,18 @@ and then it can return back to live mode.
 
 ## Using
 
--   using VideoOS.Platform
--   using VideoOS.Platform.Transact.Services.Client
--   using VideoOS.Platform.Transact.Services.DataContracts
--   using VideoOS.Platform.UI
+- using VideoOS.Platform
+- using VideoOS.Platform.Transact.Services.Client
+- using VideoOS.Platform.Transact.Services.DataContracts
+- using VideoOS.Platform.UI
 
 ## Environment
 
--   MIP .Net Library (Component Integration)
+- MIP .NET Library (Component Integration)
 
 ## Visual Studio C\# project
 
--   [TransactClient.csproj](javascript:openLink('..\\\\ComponentSamples\\\\TransactClient\\\\TransactClient.csproj');)
+- [TransactClient.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)
 
 ## Special notes
 

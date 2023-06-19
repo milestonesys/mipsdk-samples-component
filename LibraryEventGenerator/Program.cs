@@ -22,24 +22,24 @@ namespace LibraryEventGenerator
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-        	VideoOS.Platform.SDK.Environment.Initialize();
-			//VideoOS.Platform.SDK.UI.Environment.Initialize();				// Initialize the UI
+            VideoOS.Platform.SDK.Environment.Initialize();
+            //VideoOS.Platform.SDK.UI.Environment.Initialize();				// Initialize the UI
 
-			DialogLoginForm loginForm = new DialogLoginForm(SetLoginResult, IntegrationId, IntegrationName, Version, ManufacturerName);
-			//loginForm.AutoLogin = false;				// Can override the tick mark
-			//loginForm.LoginLogoImage = someImage;		// Could add my own image here
-			Application.Run(loginForm);
-			if (Connected)
-			{
-				Application.Run(new EventForm());
-			}
+            DialogLoginForm loginForm = new DialogLoginForm(SetLoginResult, IntegrationId, IntegrationName, Version, ManufacturerName);
+            //loginForm.AutoLogin = false;				// Can override the tick mark
+            //loginForm.LoginLogoImage = someImage;		// Could add my own image here
+            Application.Run(loginForm);
+            if (Connected)
+            {
+                Application.Run(new EventForm());
+            }
         }
 
-		private static bool Connected = false;
-		private static void SetLoginResult(bool connected)
-		{
-			Connected = connected;
-		}
+        private static bool Connected = false;
+        private static void SetLoginResult(bool connected)
+        {
+            Connected = connected;
+        }
 
     }
 }

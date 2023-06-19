@@ -301,6 +301,8 @@ namespace ConfigAPIClient.UI
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.EventTypeGroup, CustomEventIconIx);
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.EventTypeFolder, FolderIconIx);
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.EventType, CustomEventIconIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.StateGroupFolder, FolderIconIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.StateGroup, CustomEventIconIx);
             }
             catch (Exception ex)
 			{

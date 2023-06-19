@@ -29,17 +29,17 @@ the application is running.
 
 ## The sample demonstrates
 
--   How to access the Status API
--   Provide a list of well-known event IDs
+- How to access the Status API
+- Provide a list of well-known event IDs
 
 ## Using
 
--   VideoOS.Platform.SDK.Proxy.Status
+- VideoOS.Platform.SDK.Proxy.Status
 
 ## Environment
 
--   None
+- None
 
 ## Visual Studio C\# project
 
--   [StatusDemoConsole.csproj](javascript:openLink('..\\\\ComponentSamples\\\\StatusDemoConsole\\\\StatusDemoConsole.csproj');)
+- [StatusDemoConsole.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

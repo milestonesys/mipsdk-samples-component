@@ -21,6 +21,8 @@ Each user can login and have a different view of the configuration,
 depending on access rights, while still maintaining login credentials
 and token separately.
 
+For information about login, please refer to <a href="https://doc.developer.milestonesys.com/html/index.html?base=gettingstarted/gettingstarted/intro_environments_login.html&tree=tree_4.html" target="_blank">Introduction to MIP Environments and Login</a>
+
 ![](MultiUserEnvironment1.png)
 
 In this application you type the XProtect server address just once, and
@@ -34,18 +36,18 @@ to 5 cameras while the left hand user only has access to 3 cameras.
 
 ## The sample demonstrates
 
--   How a single instance of the .Net Library can hold multiple users\'
-    configuration at one time
+- How a single instance of the .NET Library can hold multiple users\'
+  configuration at one time
 
 ## Using
 
--   VideoOS.Platform.SDK.MultiUserEnvironment
--   VideoOS.Platform.Live.JPEGLiveSource
+- VideoOS.Platform.SDK.MultiUserEnvironment
+- VideoOS.Platform.Live.JPEGLiveSource
 
 ## Environment
 
--   .NET library MIP Environment
+- .NET library MIP Environment
 
 ## Visual Studio C\# project
 
--   [MultiUserEnvironment.csproj](javascript:openLink('..\\\\ComponentSamples\\\\MultiUserEnvironment\\\\MultiUserEnvironment.csproj');)
+- [MultiUserEnvironment.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

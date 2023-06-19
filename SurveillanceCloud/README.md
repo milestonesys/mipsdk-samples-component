@@ -16,11 +16,10 @@ The Surveillance Cloud sample shows how to set up a simple web
 application that connects to an XProtect VMS and enables anyone, using a
 coupon code, to:
 
--   Add a Basic user account and a corresponding role with limited
-    rights
--   Add, delete or replace a limited number of camera devices in their
-    account, and give access to live and recorded video to those cameras
-    through Smart, Mobile, and Web clients
+- Add a Basic user account and a corresponding role with limited rights.
+- Add, delete or replace a limited number of camera devices in their
+  account, and give access to live and recorded video to those cameras
+  through Smart, Mobile, and Web clients.
 
 ![Adding a camera](SurveillanceCloud_014.png)
 
@@ -28,9 +27,9 @@ coupon code, to:
 
 ## The sample demonstrates
 
--   How to implement a web application that utilizes the MIP SDK
--   How to set up and configure users, roles, and devices, using the
-    Configuration API
+- How to implement a web application that utilizes the MIP SDK
+- How to set up and configure users, roles, and devices, using the
+  Configuration API
 
 </div>
 
@@ -38,10 +37,10 @@ coupon code, to:
 
 ## Using
 
--   VideoOS.Platform.ConfigurationItems
--   ASP.NET Web API 2
--   ASP.NET MVC
--   3rd party NuGet packages
+- VideoOS.Platform.ConfigurationItems
+- ASP.NET Web API 2
+- ASP.NET MVC
+- 3rd-party NuGet packages
 
 </div>
 
@@ -55,7 +54,7 @@ This solution requires the following:
 
 ## Environment
 
--   Standalone
+- Standalone
 
 </div>
 
@@ -63,7 +62,7 @@ This solution requires the following:
 
 ## Visual Studio C\# solution
 
--   [SurveillanceCloudSample.sln](javascript:openLink('..\\\\ComponentSamples\\\\SurveillanceCloud\\\\SurveillanceCloudSample.sln');)
+- [SurveillanceCloudSample.sln](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','SurveillanceCloud/SurveillanceCloudSample.sln');)
 
 </div>
 
@@ -73,11 +72,11 @@ This solution requires the following:
 
 The SurveillanceCloudSample solution has three projects:
 
--   SurveillanceCloudSample (ASP.NET MVC web application)
+- SurveillanceCloudSample (ASP.NET MVC web application)
 
--   SurveillanceCloudSampleService (ASP.NET Web API 2 web application)
+- SurveillanceCloudSampleService (ASP.NET Web API 2 web application)
 
--   SurveillanceCloudSample.SharedObjects (class library)
+- SurveillanceCloudSample.SharedObjects (class library)
 
 </div>
 
@@ -90,37 +89,37 @@ solution. There are two views: HomeView (login/register page) and
 DashboardView (configuration page). Each view has its own model and
 controller.
 
--   By default, the HomeView view renders the Login form. If a GET
-    request contains the parameter `register`, HomeView renders the
-    Register form.
+- By default, the HomeView view renders the Login form. If a GET
+  request contains the parameter `register`, HomeView renders the
+  Register form.
 
-    The Register form requires the user to fill in a username, a
-    password, and a valid coupon code. Clicking the Register button
-    passes the parameters in a POST request, which calls the Register
-    method from HomeController. This method calls the
-    SurveillanceCloudSampleService and handles the result. If a new user
-    account was successfully created, a corresponding record is created
-    in a local JSON data store.
+  The Register form requires the user to fill in a username, a
+  password, and a valid coupon code. Clicking the Register button
+  passes the parameters in a POST request, which calls the Register
+  method from HomeController. This method calls the
+  SurveillanceCloudSampleService and handles the result. If a new user
+  account was successfully created, a corresponding record is created
+  in a local JSON data store.
 
-    The Login form requires the user to fill in a username and a
-    password. Clicking the Login button passes the parameters in a POST
-    request, which calls the Login method from HomeController. This
-    method calls the SurveillanceCloudSampleService and handles the
-    response. If the login is successful, the method sets the returned
-    user ID into the session values for later use.
+  The Login form requires the user to fill in a username and a
+  password. Clicking the Login button passes the parameters in a POST
+  request, which calls the Login method from HomeController. This
+  method calls the SurveillanceCloudSampleService and handles the
+  response. If the login is successful, the method sets the returned
+  user ID into the session values for later use.
 
--   After successful login, the DashboardView is called. Before
-    rendering the Configuration Panel form, DashboardController calls
-    SurveillanceCloudSampleService to get the user's data. DashboardView
-    renders the Configuration Panel form depending on how many cameras
-    the user is allotted.
+- After successful login, the DashboardView is called. Before
+  rendering the Configuration Panel form, DashboardController calls
+  SurveillanceCloudSampleService to get the user's data. DashboardView
+  renders the Configuration Panel form depending on how many cameras
+  the user is allotted.
 
-    To create a camera device, the user fills in a device IP address,
-    username, password, and optionally a device name. When the Save
-    button for a device is clicked, the AddDevice method from
-    DashboardController is called, passing the form values as POST
-    parameters. This method calls the SurveillanceCloudSampleService and
-    handles the response.
+  To create a camera device, the user fills in a device IP address,
+  username, password, and optionally a device name. When the Save
+  button for a device is clicked, the AddDevice method from
+  DashboardController is called, passing the form values as POST
+  parameters. This method calls the SurveillanceCloudSampleService and
+  handles the response.
 
 </div>
 
@@ -143,7 +142,7 @@ coupon codes hardcoded for registration. The number of camera devices
 allotted to the newly created user depends on the code passed to the
 Register method. The dictionary looks like this:
 
-~~~ cs
+~~~cs
 private Dictionary<string, int> codes = new Dictionary<string, int> { { "1cam", 1 }, { "2cams", 2 }, { "3cams", 3 }, { "4cams", 4 } };
 ~~~
 
@@ -169,96 +168,92 @@ to the first camera group created.
 
 ## Running the sample using Visual Studio
 
-1.  To run the sample, you must first configure the connection to the
-    VMS. To do that, open the `Web.config` file located at
-    `SurveillanceCloudSampleService\Web.config` and find the
-    `VMSSettings` configuration group. It looks like this:
+1. To run the sample, you must first configure the connection to the
+   VMS. To do that, open the `Web.config` file located at
+   `SurveillanceCloudSampleService\Web.config` and find the
+   `VMSSettings` configuration group. It looks like this:
 
-    ~~~ xml
-    <VMSSettings>
-        <Address>
-          <add key="SecureOnly" value="true" />
-          <add key="Scheme" value="https" />
-          <add key="Ip" value="localhost"/>
-          <add key="Port" value="443"/>
-        </Address>
-        <Credentials>
-          <add key="Username" value="SurveillanceCloud"/>
-          <add key="Password" value="\{R(5[8Hm3+t"/>
-          <add key="Authtype" value="Basic"/>
-          <!--
-            <add key="Authtype" value="Digest"/>
-            <add key="Domain" value="."/ 
-          -->
-        </Credentials>
-      </VMSSettings>
-    ~~~
+   ~~~xml
+   <VMSSettings>
+       <Address>
+         <add key="SecureOnly" value="true" />
+         <add key="Scheme" value="https" />
+         <add key="Ip" value="localhost"/>
+         <add key="Port" value="443"/>
+       </Address>
+       <Credentials>
+         <add key="Username" value="SurveillanceCloud"/>
+         <add key="Password" value="\{R(5[8Hm3+t"/>
+         <add key="Authtype" value="Basic"/>
+         <!--
+           <add key="Authtype" value="Digest"/>
+           <add key="Domain" value="."/ 
+         -->
+       </Credentials>
+     </VMSSettings>
+   ~~~
 
-    Replace the **SecureOnly**, **Scheme**, **Ip**, **Port**, **Username**, and **Password** fields
-    as needed.
+   Replace the **SecureOnly**, **Scheme**, **Ip**, **Port**, **Username**, and **Password** fields
+   as needed.
 
-    Select **Authtype** \"Digest\" to use Windows authentication. Set
-    **Domain** only for **Authtype** \"Digest\".
+   Select **Authtype** \"Digest\" to use Windows authentication. Set
+   **Domain** only for **Authtype** \"Digest\".
 
-    The **Username** must exist in the VMS and must have access rights
-    for:
+   The **Username** must exist in the VMS and must have access rights for:
 
-    -   Connect to Management Server: Management Server \| Connect
+   - Connect to Management Server: Management Server \| Connect
 
-    -   Creating roles and basic users: Management Server \| Read, Edit,
-        Manage security
+   - Creating roles and basic users: Management Server \| Read, Edit, Manage security
 
-    -   Assigning users to a role: Management Server \| Manage security
+   - Assigning users to a role: Management Server \| Manage security
 
-    -   Adding hardware to a Recording Server: Recording Servers \|
-        Manage hardware; Hardware \| Edit
+   - Adding hardware to a Recording Server: Recording Servers \|
+     Manage hardware; Hardware \| Edit
 
-    -   Adding cameras to a camera group: Cameras \| Read, Edit
+   - Adding cameras to a camera group: Cameras \| Read, Edit
 
-2.  Open the `SurveillanceCloudSample.sln` solution file with Visual
-    Studio.
+2. Open the `SurveillanceCloudSample.sln` solution file with Visual Studio.
 
-3.  The project `SurveillanceCloudSampleService` depends on the NuGet package
-    `MilestoneSystems.VideoOS.Platform.SDK`.
+3. The project `SurveillanceCloudSampleService` depends on the NuGet package
+   `MilestoneSystems.VideoOS.Platform.SDK`.
 
-    To ensure the latest NuGet packages has been downloaded, rebuild the solution.
+   To ensure the latest NuGet packages has been downloaded, rebuild the solution.
 
-    `MilestoneSystems.VideoOS.Platform.SDK` includes some unmanaged DLLs
-    that are not found by IIS Express or IIS unless you explicitly
-    add the `bin` folder of the project `SurveillanceCloudSampleService` to the
-    `Path` environment variable:
+   `MilestoneSystems.VideoOS.Platform.SDK` includes some unmanaged DLLs
+   that are not found by IIS Express or IIS unless you explicitly
+   add the `bin` folder of the project `SurveillanceCloudSampleService` to the
+   `Path` environment variable:
 
-    1. Open the Start menu and type "Environment variables".
-    2. Choose "Edit the system environment variables".
-    3. In the System Properties window, select "Environment Variables...".
-    4. In the System variables list, select the "Path" variable and add the path of the bin folder.
-    5. To ensure the path works, restart Visual Studio.
+   1. Open the Start menu and type "Environment variables".
+   2. Choose "Edit the system environment variables".
+   3. In the System Properties window, select "Environment Variables...".
+   4. In the System variables list, select the "Path" variable and add the path of the bin folder.
+   5. To ensure the path works, restart Visual Studio.
 
-4.  Set the `SurveillanceCloudSample` and
-    `SurveillanceCloudSampleService` projects as startup projects. To do
-    this, in the **Solution Explorer** window, right click on the
-    Solution and select **Set StartUp Projects**.
+4. Set the `SurveillanceCloudSample` and
+   `SurveillanceCloudSampleService` projects as startup projects. To do
+   this, in the **Solution Explorer** window, right click on the
+   Solution and select **Set StartUp Projects**.
 
-    ![](SurveillanceCloud_002.jpg)
+   ![](SurveillanceCloud_002.jpg)
 
-5.  Select the **Multiple startup projects** option and set the
-    **Action** of `SurveillanceCloudSample` and
-    `SurveillanceCloudSampleService` projects to **Start**.
+5. Select the **Multiple startup projects** option and set the
+   **Action** of `SurveillanceCloudSample` and
+   `SurveillanceCloudSampleService` projects to **Start**.
 
-    Then click **OK**.
+   Then click **OK**.
 
-    ![](SurveillanceCloud_003.jpg)
+   ![](SurveillanceCloud_003.jpg)
 
-6.  Right-click **SurveillanceCloudSampleService** and select
-    **Properties**.
+6. Right-click **SurveillanceCloudSampleService** and select **Properties**.
 
-7.  In the **SurveillanceCloudSampleService** window, select **Web**. On
-    this page, under **Start Action**, select **Don\'t open a page. Wait
-    for a request from an external application**.
+7. In the **SurveillanceCloudSampleService** window, select **Web**. On
+   this page, under **Start Action**, select **Don\'t open a page. Wait
+   for a request from an external application**.
 
-8.  Save.
+8. Save.
 
-9.  Run the sample using the **Run** button or by pressing F5.
+9. Run the sample using the **Run** button or by pressing F5.
 
 The Login page opens in the web browser.
 
@@ -275,67 +270,67 @@ proceed.
 
 ## Running the sample using IIS
 
-1.  To run the sample without using Visual Studio, you need to enable
-    IIS. Open `%windir%\System32\OptionalFeatures.exe`.
+1. To run the sample without using Visual Studio, you need to enable
+   IIS. Open `%windir%\System32\OptionalFeatures.exe`.
 
-2.  Select **Internet Information Services** \> **Web Management
-    Tools** \> **IIS Management Console** and **World Wide Web
-    Services** and click **OK**. Wait for the features to be enabled.
+2. Select **Internet Information Services** \> **Web Management
+   Tools** \> **IIS Management Console** and **World Wide Web
+   Services** and click **OK**. Wait for the features to be enabled.
 
-    ![](SurveillanceCloud_005.jpg)
+   ![](SurveillanceCloud_005.jpg)
 
-3.  Open **Internet Information Services (IIS) Manager**
-    (`%windir%\system32\inetsrv\InetMgr.exe`).
+3. Open **Internet Information Services (IIS) Manager**
+   (`%windir%\system32\inetsrv\InetMgr.exe`).
 
-4.  Right click on **Sites** and select **Add Website...**
+4. Right click on **Sites** and select **Add Website...**
 
-    ![](SurveillanceCloud_006.jpg)
+   ![](SurveillanceCloud_006.jpg)
 
-5.  In the **Add Website** window, do the following:
+5. In the **Add Website** window, do the following:
 
-    1.  In the **Site name** field, enter ***SurveillanceCloudSample***
+   1. In the **Site name** field, enter ***SurveillanceCloudSample***
 
-    2.  In the **Port** field, enter ***81***
+   2. In the **Port** field, enter ***81***
 
-    3.  In the **Physical path** field, enter the path to your
-        SurveillanceCloudSample folder
+   3. In the **Physical path** field, enter the path to your
+      SurveillanceCloudSample folder
 
-    4.  Click **OK**
+   4. Click **OK**
 
-        ![](SurveillanceCloud_007.jpg)
+      ![](SurveillanceCloud_007.jpg)
 
-6.  In **Application Pools**, select **SurveillanceCloudSample** and
-    click **Advanced Settings**.
+6. In **Application Pools**, select **SurveillanceCloudSample** and
+   click **Advanced Settings**.
 
-    ![](SurveillanceCloud_008.jpg)
+   ![](SurveillanceCloud_008.jpg)
 
-7.  In the **Advanced Settings** window, open the **Identity** browser
+7. In the **Advanced Settings** window, open the **Identity** browser
 
-    ![](SurveillanceCloud_009.jpg)
+   ![](SurveillanceCloud_009.jpg)
 
-    and select **Network Service** and click **OK**.
+   and select **Network Service** and click **OK**.
 
-    ![](SurveillanceCloud_010.jpg)
+   ![](SurveillanceCloud_010.jpg)
 
-8.  In the **Internet Information Services (IIS) Manager**, right click
-    on **Sites** and select **Add Website...**
+8. In the **Internet Information Services (IIS) Manager**, right click
+   on **Sites** and select **Add Website...**
 
-    ![](SurveillanceCloud_011.jpg)
+   ![](SurveillanceCloud_011.jpg)
 
-9.  In the **Add Website** window, do the following:
+9. In the **Add Website** window, do the following:
 
-    1.  In the **Site name** field, enter
-        `SurveillanceCloudSampleService`
+   1. In the **Site name** field, enter
+      `SurveillanceCloudSampleService`
 
-    2.  In the **Port** field, enter `8083`
+   2. In the **Port** field, enter `8083`
 
-    3.  In the **Physical path** field, enter the path to your
-        `SurveillanceCloudSampleService` folder
+   3. In the **Physical path** field, enter the path to your
+      `SurveillanceCloudSampleService` folder
 
-    4.  Under the **Application pool** field, click **Select** and
-        select **SurveillanceCloudSample** as the application pool
+   4. Under the **Application pool** field, click **Select** and
+      select **SurveillanceCloudSample** as the application pool
 
-    5.  Click **OK**.
+   5. Click **OK**.
 
 ![](SurveillanceCloud_012.jpg)
 
@@ -373,10 +368,10 @@ installed.
 
 The code must be one of the keys in the `codes` dictionary:
 
--   1cam
--   2cams
--   3cams
--   4cams
+- 1cam
+- 2cams
+- 3cams
+- 4cams
 
 </div>
 

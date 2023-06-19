@@ -20,17 +20,16 @@ store this in the Recording Server.
 
 ## The sample demonstrates
 
--   How to manage upload of video from edge devices to the Recording
-    Server
+- How to manage upload of video from edge devices to the Recording Server
 
 ## Using
 
--   VideoOS.Platform.SDK.RemoteRetrievalTasks.RetrievalTaskManager
+- VideoOS.Platform.SDK.RemoteRetrievalTasks.RetrievalTaskManager
 
 ## Environment
 
--   .NET library MIP Environment
+- .NET library MIP Environment
 
 ## Visual Studio C\# project
 
--   [RemoteRetrievalTaskSample.csproj](javascript:openLink('..\\\\ComponentSamples\\\\RemoteRetrievalTaskSample\\\\RemoteRetrievalTaskSample.csproj');)
+- [RemoteRetrievalTaskSample.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

@@ -20,7 +20,9 @@ application can operate as if it is one configuration. The built-in
 ItemPicker component, the ImageViewerControl and PlaybackController can
 handle cameras, no matter what site they are located on.
 
-## MIP Environment - .Net Library
+For information about login, please refer to <a href="https://doc.developer.milestonesys.com/html/index.html?base=gettingstarted/gettingstarted/intro_environments_login.html&tree=tree_4.html" target="_blank">Introduction to MIP Environments and Login</a>
+
+## MIP Environment - .NET Library
 
 ![](MultiSiteViewer1.png)
 
@@ -34,11 +36,11 @@ site using current (AD) credentials.
 
 The options for adding child sites:
 
--   Include all child sites now: Will add all child sites during the add
-    process
--   Delay include all child sites: Will wait to include until needed, in
-    this sample by the ItemPicker
--   Do not include any child sites: Will only add the site selected
+- Include all child sites now: Will add all child sites during the add
+  process
+- Delay include all child sites: Will wait to include until needed, in
+  this sample by the ItemPicker
+- Do not include any child sites: Will only add the site selected
 
 ![](MultiSiteViewer3.png)
 
@@ -54,19 +56,19 @@ cameras from two different XProtect systems are shown at the same time.
 
 ## The sample demonstrates
 
--   How to access video from multiple XProtect systems simultaneously
--   How to work with XProtect sites
+- How to access video from multiple XProtect systems simultaneously
+- How to work with XProtect sites
 
 ## Using
 
--   VideoOS.Platform.Client.ImageViewerControl
--   VideoOS.Platform.UI.ItemPickerForm
--   VideoOS.Platform.SDK.Environment.LoadSiteItem method
+- VideoOS.Platform.Client.ImageViewerControl
+- VideoOS.Platform.UI.ItemPickerForm
+- VideoOS.Platform.SDK.Environment.LoadSiteItem method
 
 ## Environment
 
--   .NET library MIP Environment
+- .NET library MIP Environment
 
 ## Visual Studio C\# project
 
--   [MultiSiteViewer.csproj](javascript:openLink('..\\\\ComponentSamples\\\\MultiSiteViewer\\\\MultiSiteViewer.csproj');)
+- [MultiSiteViewer.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

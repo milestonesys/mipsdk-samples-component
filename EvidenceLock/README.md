@@ -17,7 +17,7 @@ the svcutil.exe program that comes with Visual Studio. In order to
 create your own proxy, you need to open a Visual Studio Command Prompt
 and use the following command-line to create the proxy:
 
-~~~ cmd
+~~~cmd
 svcutil http://<host>/ManagementServer/ServerCommandService.svc /namespace:*,EvidenceLock.WcfProxy /targetClientVersion:Version35 /noConfig /out:<destination_dir>\ServerApiSvc.cs
 ~~~
 
@@ -31,29 +31,29 @@ options to this tool, and you can read more about it at
 After the login is successful, the sample will automatically perform
 these evidence lock operations:
 
--   Create first evidence lock
--   Create a second evidence lock
--   Look for evidence locks using MarkedDataSearch
--   Look for the first evidence lock using MarkedDataGet
--   Delete the two newly created evidence locks using MarkedDataDelete
+- Create first evidence lock
+- Create a second evidence lock
+- Look for evidence locks using MarkedDataSearch
+- Look for the first evidence lock using MarkedDataGet
+- Delete the two newly created evidence locks using MarkedDataDelete
 
 ![](evidence_lock.png)
 
 ## The sample demonstrates
 
--   Use of a WCF proxy to create, get and delete evidence locks
+- Use of a WCF proxy to create, get and delete evidence locks
 
 ## Using
 
--   Generated Server Command Service proxy
+- Generated Server Command Service proxy
 
 ## Environment
 
--   MIP .NET library
+- MIP .NET library
 
 ## Visual Studio C\# project
 
--   [EvidenceLock.csproj](javascript:openLink('..\\\\ComponentSamples\\\\EvidenceLock\\\\EvidenceLock.csproj');)
+- [EvidenceLock.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)
 
 ## Notes
 

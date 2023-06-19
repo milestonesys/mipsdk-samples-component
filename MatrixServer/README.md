@@ -30,17 +30,17 @@ camera being referenced will be displayed below on a row of 3 cameras.
 
 ## The sample demonstrates
 
--   How to receive matrix commands from VMS servers
+- How to receive matrix commands from VMS servers
 
 ## Using
 
--   VideoOS.Platform.UI.LogonDialog
--   Matrix protocol
+- VideoOS.Platform.UI.LogonDialog
+- Matrix protocol
 
 ## Environment
 
--   .NET library MIP Environment
+- .NET library MIP Environment
 
 ## Visual Studio C\# project
 
--   [MatrixServer.csproj](javascript:openLink('..\\\\ComponentSamples\\\\MatrixServer\\\\MatrixServer.csproj');)
+- [MatrixServer.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

@@ -25,19 +25,19 @@ access control are sent to the audit log.
 
 ## The sample demonstrates
 
--   How to define new log messages
--   How to write to the XProtect logs
+- How to define new log messages
+- How to write to the XProtect logs
 
 ## Using
 
--   VideoOS.Platform.Log.LogMessage
--   VideoOS.Platform.Log.LogMessageDictionary
--   VideoOS.Platform.Log.LogClient
+- VideoOS.Platform.Log.LogMessage
+- VideoOS.Platform.Log.LogMessageDictionary
+- VideoOS.Platform.Log.LogClient
 
 ## Environment
 
--   All Environments
+- All Environments
 
 ## Visual Studio C\# project
 
--   [LogOnServer.csproj](javascript:openLink('..\\\\ComponentSamples\\\\LogOnServer\\\\LogOnServer.csproj');)
+- [LogOnServer.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

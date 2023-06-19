@@ -29,30 +29,30 @@ codec on the camera.
 
 ## The sample demonstrates
 
--   Connection and login
--   Initialization of MIP .Net Library, when video display is required
--   Video display -- live and playback
--   Listen to audio coming from microphone attached to a camera
--   Speak into a local microphone and transmit to a speaker attached to
-    a camera
--   Use the ItemPickerForm dialog to select cameras
+- Connection and login
+- Initialization of MIP .NET Library, when video display is required
+- Video display -- live and playback
+- Listen to audio coming from microphone attached to a camera
+- Speak into a local microphone and transmit to a speaker attached to
+  a camera
+- Use the ItemPickerForm dialog to select cameras
 
 ## Using
 
--   VideoOS.Platform.ClientControl
--   VideoOS.Platform.UI.ItemPickerForm
--   VideoOS.Platform.Client.ImageViewerControl
--   VideoOS.Platform.Client.AudioPlayerControl
--   VideoOS.Platform.Data.OutgoingSpeakerController
--   VideoOS.Platform.Messaging
+- VideoOS.Platform.ClientControl
+- VideoOS.Platform.UI.ItemPickerForm
+- VideoOS.Platform.Client.ImageViewerControl
+- VideoOS.Platform.Client.AudioPlayerControl
+- VideoOS.Platform.Data.OutgoingSpeakerController
+- VideoOS.Platform.Messaging
 
 ## Environment
 
--   MIP .NET library
+- MIP .NET library
 
 ## Visual Studio C\# project
 
--   [VideoViewer2WayAudio.csproj](javascript:openLink('..\\\\ComponentSamples\\\\VideoViewer2WayAudio\\\\VideoViewer2WayAudio.csproj');)
+- [VideoViewer2WayAudio.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)
 
 ## Special notes
 

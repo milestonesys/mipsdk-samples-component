@@ -107,6 +107,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestfulCommunication", "..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RawVideoSourceRetriever", "..\RawVideoSourceRetriever\RawVideoSourceRetriever.csproj", "{D6597D2B-31D5-45DB-8D9C-5924655BEE5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaRestriction", "..\MediaRestriction\MediaRestriction.csproj", "{5E4D2993-F1A4-4955-842E-2DA4151CA31C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -321,6 +323,10 @@ Global
 		{D6597D2B-31D5-45DB-8D9C-5924655BEE5E}.Debug|x64.Build.0 = Debug|Any CPU
 		{D6597D2B-31D5-45DB-8D9C-5924655BEE5E}.Release|x64.ActiveCfg = Release|Any CPU
 		{D6597D2B-31D5-45DB-8D9C-5924655BEE5E}.Release|x64.Build.0 = Release|Any CPU
+		{5E4D2993-F1A4-4955-842E-2DA4151CA31C}.Debug|x64.ActiveCfg = Debug|x64
+		{5E4D2993-F1A4-4955-842E-2DA4151CA31C}.Debug|x64.Build.0 = Debug|x64
+		{5E4D2993-F1A4-4955-842E-2DA4151CA31C}.Release|x64.ActiveCfg = Release|x64
+		{5E4D2993-F1A4-4955-842E-2DA4151CA31C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

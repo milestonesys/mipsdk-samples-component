@@ -34,10 +34,10 @@ in the Smart Client.
 
 ## How to configure and run the sample
 
-1.  Setup an analytics event named MyAnalyticsEvent in your XProtect
-    Administrator Client / Administrator.
-2.  Setup an alarm that is created based on the analytics event (the
-    name configured above)
+1. Setup an analytics event named MyAnalyticsEvent in your XProtect
+   Management Client.
+2. Setup an alarm that is created based on the analytics event (the
+   name configured above)
 
 ![](SmartClientExtention2.png)
 
@@ -46,17 +46,17 @@ In the Management Client you need to create an Analytics Event called
 
 ## The sample demonstrates
 
--   How to create a new event using a MIP message
+- How to create a new event using a MIP message
 
 ## Using
 
--   VideoOS.Platform.Messaging
--   VideoOS.Platform.Data.AnalyticsEvent
+- VideoOS.Platform.Messaging
+- VideoOS.Platform.Data.AnalyticsEvent
 
 ## Environment
 
--   MIP .NET library
+- MIP .NET library
 
 ## Visual Studio C\# project
 
--   [LibraryEventGenerator.csproj](javascript:openLink('..\\\\ComponentSamples\\\\LibraryEventGenerator\\\\LibraryEventGenerator.csproj');)
+- [LibraryEventGenerator.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

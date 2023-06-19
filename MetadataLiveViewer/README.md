@@ -14,7 +14,7 @@ The Metadata Live Viewer sample shows how to use the metadata features
 through a C\# application. In this sample it will receive metadata from
 a source by using the `MetadataLiveSource` class.
 
-## MIP Environment - .Net Library
+## MIP Environment - .NET Library
 
 ![](MetadataLiveViewer1.png)
 
@@ -27,19 +27,19 @@ live status messages.
 
 ## The sample demonstrates
 
--   How to effectively retrieve metadata from XProtect servers
--   How to interpret live status messages
--   Handling of renewing login token
+- How to effectively retrieve metadata from XProtect servers
+- How to interpret live status messages
+- Handling of renewing login token
 
 ## Using
 
--   VideoOS.Platform.Live.MetadataLiveSource
--   VideoOS.Platform.Live.MetadataLiveContent
+- VideoOS.Platform.Live.MetadataLiveSource
+- VideoOS.Platform.Live.MetadataLiveContent
 
 ## Environment
 
--   .NET library MIP Environment
+- .NET library MIP Environment
 
 ## Visual Studio C\# project
 
--   [MetadataLiveViewer.csproj](javascript:openLink('..\\\\ComponentSamples\\\\MetadataLiveViewer\\\\MetadataLiveViewer.csproj');)
+- [MetadataLiveViewer.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

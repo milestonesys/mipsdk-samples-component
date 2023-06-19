@@ -29,20 +29,20 @@ data.
 
 ## The sample demonstrates
 
--   How to do playback of metadata with the
-    VideoOS.Platform.Data.MetadataPlaybackSource class
--   How to traverse metadata back and forth in time
--   Handling of threads while using media toolkit and UI Forms controls
+- How to do playback of metadata with the
+  `VideoOS.Platform.Data.MetadataPlaybackSource` class
+- How to traverse metadata back and forth in time
+- Handling of threads while using media toolkit and UI Forms controls
 
 ## Using
 
--   VideoOS.Platform.Data.MetadataPlaybackSource
--   VideoOS.Platform.Data.MetadataPlaybackData
+- VideoOS.Platform.Data.MetadataPlaybackSource
+- VideoOS.Platform.Data.MetadataPlaybackData
 
 ## Environment
 
--   .NET library MIP Environment
+- .NET library MIP Environment
 
 ## Visual Studio C\# project
 
--   [MetadataPlaybackViewer.csproj](javascript:openLink('..\\\\ComponentSamples\\\\MetadataPlaybackViewer\\\\MetadataPlaybackViewer.csproj');)
+- [MetadataPlaybackViewer.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

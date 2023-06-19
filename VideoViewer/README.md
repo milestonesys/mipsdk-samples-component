@@ -39,42 +39,26 @@ export that includes the cache.xml/archives_cache.xml files.
 
 ## The sample demonstrates
 
--   Connection and login
--   Initialization of MIP .Net Library, when video display is required
--   Video display -- live and playback
--   Digital zoom
--   Use the ItemPickerForm dialog to select cameras
--   Message system to control playback operations
--   Adaptive streaming
--	Opening offline footage
+- Connection and login
+- Initialization of MIP .NET Library, when video display is required
+- Video display -- live and playback
+- Digital zoom
+- Use the ItemPickerForm dialog to select cameras
+- Message system to control playback operations
+- Adaptive streaming
+- Opening offline footage
 
 ## Using
 
--   VideoOS.Platform.ClientControl
--   VideoOS.Platform.UI.ItemPickerForm
--   VideoOS.Platform.UI.ImageViewerControl
--   VideoOS.Platform.Messaging
+- VideoOS.Platform.ClientControl
+- VideoOS.Platform.UI.ItemPickerForm
+- VideoOS.Platform.UI.ImageViewerControl
+- VideoOS.Platform.Messaging
 
 ## Environment
 
--   MIP .NET library
+- MIP .NET library
 
 ## Visual Studio C\# project
 
--   [VideoViewer.csproj](javascript:openLink('..\\\\ComponentSamples\\\\VideoViewer\\\\VideoViewer.csproj');)
-
-## Special notes
-
-This sample needs access to configuration and use of ImageViewerControl
-for video display.
-
-Use the CopyUIFiles.bat file for copying the correct files from the
-MIPSDK folder to your folder, e.g. have this in the post-build event:
-
-~~~ cmd
-cd "$(ProjectDir)..\..\bin"
-call CopyUIFiles.bat "$(TargetDir)"
-~~~
-
-The reason for using this bat file is to allow for updating to new
-MIPSDK versions and get any new or changed files included.
+- [VideoViewer.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

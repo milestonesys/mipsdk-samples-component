@@ -36,19 +36,19 @@ this can be repeated using the Get current state button.
 
 ## The sample demonstrates
 
--   How to work with XProtect sites
--   How to subscribe to events from multiple XProtect sites at a time
+- How to work with XProtect sites
+- How to subscribe to events from multiple XProtect sites at a time
 
 ## Using
 
--   VideoOS.Platform.Messaging.MessageCommunicationManager
--   VideoOS.Platform.Messaging.CommunicationIdFilter
--   NewEventIndication -- ProvideCurrentStateResponse
+- VideoOS.Platform.Messaging.MessageCommunicationManager
+- VideoOS.Platform.Messaging.CommunicationIdFilter
+- NewEventIndication -- ProvideCurrentStateResponse
 
 ## Environment
 
--   .NET library MIP Environment
+- .NET library MIP Environment
 
 ## Visual Studio C\# project
 
--   [MultiSiteStatusViewer.csproj](javascript:openLink('..\\\\ComponentSamples\\\\MultiSiteStatusViewer\\\\MultiSiteStatusViewer.csproj');)
+- [MultiSiteStatusViewer.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

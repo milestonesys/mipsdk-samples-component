@@ -27,20 +27,20 @@ behavior.
 
 ## The sample demonstrates
 
--   Use of media toolkit BitmapSource
--   Use of PlayBackUserControl to control playback
--   Handling of threads while using media toolkit and UI forms controls
+- Use of media toolkit BitmapSource
+- Use of PlayBackUserControl to control playback
+- Handling of threads while using media toolkit and UI forms controls
 
 ## Using
 
--   VideoOS.Platform.Client.BitmapSource
--   VideoOS.Platform.Client.PlaybackController
--   VideoOS.Platform.Client.PlaybackUserControl
+- VideoOS.Platform.Client.BitmapSource
+- VideoOS.Platform.Client.PlaybackController
+- VideoOS.Platform.Client.PlaybackUserControl
 
 ## Environment
 
--   .NET library MIP Environment
+- .NET library MIP Environment
 
 ## Visual Studio C\# project
 
--   [MediaViewerBitmapSource.csproj](javascript:openLink('..\\\\ComponentSamples\\\\MediaViewerBitmapSource\\\\MediaViewerBitmapSource.csproj');)
+- [MediaViewerBitmapSource.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

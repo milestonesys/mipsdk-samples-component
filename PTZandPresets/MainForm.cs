@@ -132,7 +132,7 @@ namespace PTZandPresets
         private void ListSequences()
         {
             VideoOS.Platform.Data.SequenceDataSource ds = new VideoOS.Platform.Data.SequenceDataSource(_camera);
-            List<object> dslist = ds.GetData(DateTime.Now, TimeSpan.FromHours(8), 25, TimeSpan.FromHours(0), 0);
+            List<object> dslist = ds.GetData(DateTime.UtcNow, TimeSpan.FromHours(8), 25, TimeSpan.FromHours(0), 0);
             if (dslist == null || dslist.Count == 0)
             {
                 comboBoxSequences.Items.Add("No sequences in the last 8 hours");

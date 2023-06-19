@@ -22,16 +22,16 @@ one export at a time.
 
 ## The sample demonstrates
 
--   How to perform WAV export in Standalone application
+- How to perform WAV export in Standalone application
 
 ## Using
 
--   VideoOS.Platform.Data.WAVExporter class
+- VideoOS.Platform.Data.WAVExporter class
 
 ## Environment
 
--   MIP .NET library
+- MIP .NET library
 
 ## Visual Studio C\# project
 
--   [AudioExportSample.csproj](javascript:openLink('..\\\\ComponentSamples\\\\AudioExportSample\\\\AudioExportSample.csproj');)
+- [AudioExportSample.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

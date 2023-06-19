@@ -13,7 +13,7 @@ This sample shows how to add multiple cameras on an XProtect system. It
 reads a file in comma-separated format containing necessary information
 and then adds the cameras based on this.
 
-## MIP Environment - .Net Library
+## MIP Environment - .NET Library
 
 In order to keep it simple this sample is a console application.
 
@@ -23,23 +23,23 @@ parameters for login and location of input file. If not provided as
 command-line the console application will ask for the parameters. The
 sample can be started like this:
 
--   *ConfigAddCameras.exe* (Program now ask for address to connect to,
-    user authentication method, user name, password and the name of the
-    file (with full path))
--   *ConfigAddCameras.exe http://localhost d test.txt* (In this example
-    login on localhost using Default Windows authentication and read
-    camera information from the file test.txt placed in the folder of
-    the executable.
+- *ConfigAddCameras.exe* (Program now ask for address to connect to,
+  user authentication method, user name, password and the name of the
+  file (with full path))
+- *ConfigAddCameras.exe http://localhost d test.txt* (In this example
+  login on localhost using Default Windows authentication and read
+  camera information from the file test.txt placed in the folder of
+  the executable.
 
 The file must have the following format:
 
-~~~ default
+~~~default
 [Camera URL. IP or hostname and port],[Camera user name],[Camera password],[Driver number],[Name the hardware],[Name for the camera],[Name of the recording server],[Name of camera group]
 ~~~
 
 Example:
 
-~~~ default
+~~~default
 http://10.10.48.75:52123,root,password,616,myHardware,myCamera,REC007,myGroup
 ~~~
 
@@ -61,20 +61,20 @@ one camera.
 
 ## The sample demonstrates
 
--   Login with credentials provided by operator
--   Usage of strongly typed Configuration API classes to add a camera to
-    the VMS and specify the name and group for it.
+- Login with credentials provided by operator
+- Usage of strongly typed Configuration API classes to add a camera to
+  the VMS and specify the name and group for it.
 
 ## Using
 
--   VideoOS.Platform.ConfigurationItems
--   VideoOS.Platform.ConfigurationItems.ManagementServer
--   VideoOS.Platform.ConfigurationItems.ServerTask
+- VideoOS.Platform.ConfigurationItems
+- VideoOS.Platform.ConfigurationItems.ManagementServer
+- VideoOS.Platform.ConfigurationItems.ServerTask
 
 ## Environment
 
--   .NET library MIP Environment
+- .NET library MIP Environment
 
 ## Visual Studio C\# project
 
--   [ConfigAddCameras.csproj](javascript:openLink('..\\\\ComponentSamples\\\\ConfigAddCameras\\\\ConfigAddCameras.csproj');)
+- [ConfigAddCameras.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

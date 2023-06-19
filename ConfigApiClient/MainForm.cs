@@ -132,6 +132,8 @@ namespace ConfigAPIClient
                                                            ItemTypes.EventTypeGroup,
                                                            ItemTypes.EventTypeFolder,
                                                            ItemTypes.EventType,
+                                                           ItemTypes.StateGroupFolder,
+                                                           ItemTypes.StateGroup,
                                                        };
 
 

@@ -24,7 +24,7 @@ modification. The C++ DLL is part of the sample.
 The communication is using an IntPtr from the C++ DLL into a new C\#
 Bitmap for displaying the enhanced frames.
 
-## MIP Environment - .Net Library
+## MIP Environment - .NET Library
 
 ![](MediaRGBEnhancementPlayback1.png)
 
@@ -42,19 +42,18 @@ The playback is handled by the PlaybackController class.
 
 ## The sample demonstrates
 
--   Use of media source toolkit for accessing locally stored video
-    databases
--   Use of the PlaybackController when looking at a database
+- Use of media source toolkit for accessing locally stored video databases
+- Use of the PlaybackController when looking at a database
 
 ## Using
 
--   VideoOS.Platform.Data.BitmapVideoSource
--   VideoOS.Platform.Messaging.MessageId.SmartClient.PlaybackCommand
+- VideoOS.Platform.Data.BitmapVideoSource
+- VideoOS.Platform.Messaging.MessageId.SmartClient.PlaybackCommand
 
 ## Environment
 
--   .NET library MIP Environment
+- .NET library MIP Environment
 
 ## Visual Studio C\# project
 
--   [MediaRGBVideoEnhancementPlayback.sln](javascript:openLink('..\\\\ComponentSamples\\\\MediaRGBVideoEnhancementPlayback\\\\MediaRGBVideoEnhancementPlayback.sln');)
+- [MediaRGBVideoEnhancementPlayback.sln](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

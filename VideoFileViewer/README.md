@@ -14,29 +14,29 @@ view video directly from raw media database files (e.g. BLK files).
 
 The Video File Viewer can display video from these sources:
 
--   XProtect media database storage folders. (NOTE: Never use it with a
-    running database - always stop the Recording Server first!)
--   Export from the Smart Client in XProtect format.
+- XProtect media database storage folders. (NOTE: Never use it with a
+  running database - always stop the Recording Server first!)
+- Export from the Smart Client in XProtect format.
 
-Choose the folder that contains the cache.xml and archives_cache.xml
+Choose the folder that contains the `cache.xml` and `archives_cache.xml`
 files.
 
 ![Video File Viewer](videofileviewer.png)
 
 ## The sample demonstrates
 
--   Use of the ImageViewerControl and PlaybackUserControl for playback
-    of off-line data from XProtect systems
+- Use of the ImageViewerControl and PlaybackUserControl for playback
+  of off-line data from XProtect systems
 
 ## Using
 
--   VideoOS.Platform.Client.ImageViewerControl
--   VideoOS.Platform.Client.PlaybackUserControl
+- VideoOS.Platform.Client.ImageViewerControl
+- VideoOS.Platform.Client.PlaybackUserControl
 
 ## Environment
 
--   MIP .NET library
+- MIP .NET library
 
 ## Visual Studio C\# project
 
--   [VideoFileViewer.csproj](javascript:openLink('..\\\\ComponentSamples\\\\VideoFileViewer\\\\VideoFileViewer.csproj');)
+- [VideoFileViewer.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

@@ -12,7 +12,7 @@ title: Multi Channel Metadata Provider
 This sample shows how metadata can be injected into an XProtect system
 by using multiple channels of different types on the same device.
 
-The sample uses the C\# .Net MIP SDK Library for all communication and
+The sample uses the C\# .NET MIP SDK Library for all communication and
 synchronization, while the sample only needs to focus on providing
 metadata. The sample supports multiple simultaneous connections, e.g.
 metadata can be distributed to two XProtect Recording servers.
@@ -43,36 +43,35 @@ The sample app running and displaying the custom metadata.
 
 ## How to use this sample
 
--   Start the sample
--   Click the \"Accept Sessions\" button
--   Start the Management Client
--   Start the add hardware wizard
--   Add username and password to the search list: \"root\", \"password\"
--   Select to use the \"MIP Driver\"
--   Enter IP address of the machine this sample is running on, and port
-    52123
--   Press the \"Start all metadata\" button on the sample application.
--   Press \"Stop all metadata\" to stop the stream or Close to exit the
-    sample application.
--   You can view the incoming metadata by using the [Metadata Live
-    Viewer](../MetadataLiveViewer/README.html) sample
+- Start the sample
+- Click the \"Accept Sessions\" button
+- Start the Management Client
+- Start the add hardware wizard
+- Add username and password to the search list: \"root\", \"password\"
+- Select to use the \"MIP Driver\"
+- Enter IP address of the machine this sample is running on, and port 52123
+- Press the \"Start all metadata\" button on the sample application.
+- Press \"Stop all metadata\" to stop the stream or Close to exit the
+  sample application.
+- You can view the incoming metadata by using the [Metadata Live
+  Viewer](../MetadataLiveViewer/README.html) sample
 
 ## The sample demonstrates
 
--   How metadata can be stored in XProtect
--   How to support multiple server channels at one time
+- How metadata can be stored in XProtect
+- How to support multiple server channels at one time
 
 ## Using
 
--   VideoOS.Platform.Data.MediaVideoService
--   VideoOS.Platform.Data.MetadataVideoChannel
--   VideoOS.Platform.Data.HardwareDefinition
--   VideoOS.Platform.Data.MetadataStream
+- VideoOS.Platform.Data.MediaVideoService
+- VideoOS.Platform.Data.MetadataVideoChannel
+- VideoOS.Platform.Data.HardwareDefinition
+- VideoOS.Platform.Data.MetadataStream
 
 ## Environment
 
--   MIP .NET library
+- MIP .NET library
 
 ## Visual Studio C\# project
 
--   [MultiChannelMetadataProvider.csproj](javascript:openLink('..\\\\ComponentSamples\\\\MultiChannelMetadataProvider\\\\MultiChannelMetadataProvider.csproj');)
+- [MultiChannelMetadataProvider.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

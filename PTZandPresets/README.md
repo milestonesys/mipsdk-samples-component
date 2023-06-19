@@ -24,40 +24,23 @@ instructed to move up, down, left, or right.
 
 ## The sample demonstrates
 
--   Connection and login without using the LoginForm and the ItemPicker
-    pre-made dialogs
--   Initialization of MIP .Net Library, when video display is required
--   Video display -- live
--   PTZ control
--   Enumerate and go to presets
+- Connection and login without using the LoginForm and the ItemPicker
+  pre-made dialogs
+- Initialization of MIP .NET Library, when video display is required
+- Video display -- live
+- PTZ control
+- Enumerate and go to presets
 
 ## Using
 
--   VideoOS.Platform.ClientControl
--   VideoOS.Platform.UI.ImageViewerControl
--   VideoOS.Platform.Messaging
+- VideoOS.Platform.ClientControl
+- VideoOS.Platform.UI.ImageViewerControl
+- VideoOS.Platform.Messaging
 
 ## Environment
 
--   MIP .NET library
+- MIP .NET library
 
 ## Visual Studio C\# project
 
--   [PTZandPresets.csproj](javascript:openLink('..\\\\ComponentSamples\\\\PTZandPresets\\\\PTZandPresets.csproj');)
-
-## Special notes
-
-This sample needs access to configuration and use of ImageViewerControl
-for video display.
-
-Please use the CopyUIFiles.bat file for copying the correct files from
-the MIPSDK folder to your folder, e.g. have this in the post-build
-event:
-
-~~~ cmd
-cd "$(ProjectDir)..\..\bin"
-call CopyUIFiles.bat "$(TargetDir)"
-~~~
-
-The reason for using this bat file is to allow for updating to new
-MIPSDK versions and get any new or changed files included.
+- [PTZandPresets.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

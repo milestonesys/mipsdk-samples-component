@@ -18,20 +18,20 @@ these must be changed before running it.
 
 ## The sample demonstrates
 
--   How to navigate through the hierarchy of ConfigurationItems
--   How to find specific properties, for example the FPS for cameras
+- How to navigate through the hierarchy of ConfigurationItems
+- How to find specific properties, for example the FPS for cameras
 
 ## Using
 
--   VideoOS.ConfigurationAPI namespace
--   VideoOS.ConfigurationAPI.ConfigurationItem
--   VideoOS.ConfigurationAPI.Property
--   VideoOS.ConfigurationApi.ItemTypes
+- VideoOS.ConfigurationAPI namespace
+- VideoOS.ConfigurationAPI.ConfigurationItem
+- VideoOS.ConfigurationAPI.Property
+- VideoOS.ConfigurationApi.ItemTypes
 
 ## Environment
 
--   MIP .Net Library (Component Integration)
+- MIP .NET Library (Component Integration)
 
 ## Visual Studio C\# project
 
--   [ConfigAPIBatch.csproj](javascript:openLink('..\\\\ComponentSamples\\\\ConfigAPIBatch\\\\ConfigAPIBatch.csproj');)
+- [ConfigAPIBatch.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

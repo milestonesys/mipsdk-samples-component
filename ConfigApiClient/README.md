@@ -13,11 +13,11 @@ and to perform the changes done by the operator.
 
 The ConfigAPIClient sample demonstrates:
 
--   How the Configuration API can be used to create client application
--   Construction of a client via ChannelFactory
--   How the Token is embedded in the SOAP Header
--   How ItemTypes can be interpreted for tree view display or tabs
--   How execution of server side methods is done
+- How the Configuration API can be used to create client application
+- Construction of a client via ChannelFactory
+- How the Token is embedded in the SOAP Header
+- How ItemTypes can be interpreted for tree view display or tabs
+- How execution of server side methods is done
 
 The sample uses the logon dialog to login to an XProtect server via the
 ServerCommandService, and uses the Configuration API for getting all
@@ -30,19 +30,19 @@ item on the right hand side.
 
 ## Using
 
--   VideoOS.ConfigurationAPI.ConfigurationItem
--   VideoOS.ConfigurationAPI.Property
--   VideoOS.ConfigurationApi.ItemTypes
--   And many other classes from the VideoOS.ConfigurationAPI namespace
+- VideoOS.ConfigurationAPI.ConfigurationItem
+- VideoOS.ConfigurationAPI.Property
+- VideoOS.ConfigurationApi.ItemTypes
+- And many other classes from the VideoOS.ConfigurationAPI namespace
 
 ## Environment
 
--   MIP .Net Library (Component Integration) - Though it only uses the
-    component for login
+- MIP .NET Library (Component Integration) - Though it only uses the
+  component for login
 
 ## Visual Studio C\# project
 
--   [ConfigAPIClient.csproj](javascript:openLink('..\\\\ComponentSamples\\\\ConfigAPIClient\\\\ConfigAPIClient.csproj');)
+- [ConfigAPIClient.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)
 
 ## Special notes
 

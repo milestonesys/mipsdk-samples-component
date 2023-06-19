@@ -1,10 +1,17 @@
 ---
 description: The Media Live Service shows how to use the Media
   Toolkit features through a C++ service type application.
-keywords: Component integration
+keywords:
+- Component integration
+- C++
 lang: en-US
 title: MediaLiveService C++
 ---
+
+> **Support for C++ integration will be discontinued after 2023 R3**  
+The 2023 R3 XProtect VMS release will be the last release to include clients, documentation, and APIs 
+for C++ integrations. This includes the `MilestoneSystems.VideoOS.Platform.SDK-CPP` NuGet package, the 
+`ServerCommandServiceClient` DLL, and all C++ Toolkit APIs.
 
 # MediaLiveService C++
 
@@ -22,7 +29,7 @@ while the `vmsRecorderUri` is found in the configuration for the specific
 camera in the response from the `GetConfiguration()` method on the
 ServerCommandService SOAP service.
 
-~~~ cpp
+~~~cpp
 // GUID for the camera: CHANGE TO YOUR GUID
 utf8_string_t cameraGuid = "d3fba69e-fa92-4347-acd2-e216dcf35682";
 
@@ -38,7 +45,7 @@ AuthenticationMethod_t authMethod = WindowsAuthentication;   // Choose betwee
 
 The method used for authentication can be changed to use Basic by changing the line:
 
-~~~ cpp
+~~~cpp
 AuthenticationMethod_t authMethod = WindowsAuthentication;   // Choose between BasicAuthentication or WindowsAuthentication
 ~~~
 
@@ -74,6 +81,6 @@ on the console output.
 
 ## Visual Studio C++ project
 
-- [MediaLiveServiceJPEG.vcxproj](javascript:openLink('..\\\\ComponentSamples\\\\MediaLiveServiceJPEG\\\\MediaLiveServiceJPEG.vcxproj');)
+- [MediaLiveServiceJPEG.vcxproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)
 
  *Note* - Windows SDK 10 is required for this project to build. Install it through Visual studios "Get Tools And Features", choose "Desktop Development with C++" 

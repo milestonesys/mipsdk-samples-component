@@ -90,6 +90,9 @@ namespace ConfigAPIClient
                         case ValueTypes.SeparatorType:
                             uc = new SeperatorPropertyUserControl(property);
                             break;
+                        case ValueTypes.Array:
+                            uc = new ArrayPropertyUserControl(property);
+                            break;
                         case ValueTypes.StringType:
 						default:
 							uc = new StringPropertyUserControl(property);

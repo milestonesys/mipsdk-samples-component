@@ -30,18 +30,18 @@ been 'enhanced' with focus on the red color plane.
 
 ## The sample demonstrates
 
--   How to use the media toolkit in a standalone application
+- How to use the media toolkit in a standalone application
 
 ## Using
 
--   VideoOS.Platform.Live.BitmapLiveSource
--   VideoOS.Platform.Live.LiveSourceBitmapContent
--   VideoOS.Platform.BitmapFormat.BGR24
+- VideoOS.Platform.Live.BitmapLiveSource
+- VideoOS.Platform.Live.LiveSourceBitmapContent
+- VideoOS.Platform.BitmapFormat.BGR24
 
 ## Environment
 
--   .NET library MIP Environment
+- .NET library MIP Environment
 
 ## Visual Studio C\# project
 
--   [MediaRGBVideoEnhancementLive.sln](javascript:openLink('..\\\\ComponentSamples\\\\MediaRGBVideoEnhancementLive\\\\MediaRGBVideoEnhancementLive.sln');)
+- [MediaRGBVideoEnhancementLive.sln](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

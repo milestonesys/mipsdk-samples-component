@@ -27,32 +27,32 @@ recorded footage or not or stop the playback when a gap is encountered.
 
 ## The sample demonstrates
 
--   Connection and login
--   Initialization of MIP .Net Library, when video display is required
--   Video display playback and live
--   Tall and short version mode of the PlaybackWpfUserControl can be
-    chosen by user
--   Will start with default live stream and switch between multiple live
-    streams (if multiple live streams are configured for the camera)
--   Demonstrates playback behavior when there are pauses in recorded
-    footage. Three options can be chosen: Skip gaps, no skip or stop
-    playback at sequence end
--   Diagnostics overlay for video rendering can be enabled
--   You can request the information on the IP address of the camera
--   Working with exported files (called offline mode)
--   Playing audio stream as well as video stream
+- Connection and login
+- Initialization of MIP .NET Library, when video display is required
+- Video display playback and live
+- Tall and short version mode of the PlaybackWpfUserControl can be
+  chosen by user
+- Will start with default live stream and switch between multiple live
+  streams (if multiple live streams are configured for the camera)
+- Demonstrates playback behavior when there are pauses in recorded
+  footage. Three options can be chosen: Skip gaps, no skip or stop
+  playback at sequence end
+- Diagnostics overlay for video rendering can be enabled
+- You can request the information on the IP address of the camera
+- Working with exported files (called offline mode)
+- Playing audio stream as well as video stream
 
 ## Using
 
--   VideoOS.Platform.Client.PlaybackWpfUserControl
--   VideoOS.Platform.Client.ImageViewerWpfControl
--   VideoOS.Platform.Messaging.MessageId.SmartClient.PlaybackCommand
--   VideoOS.Platform.Messaging.MessageId.Server.GetIPAddressRequest
+- VideoOS.Platform.Client.PlaybackWpfUserControl
+- VideoOS.Platform.Client.ImageViewerWpfControl
+- VideoOS.Platform.Messaging.MessageId.SmartClient.PlaybackCommand
+- VideoOS.Platform.Messaging.MessageId.Server.GetIPAddressRequest
 
 ## Environment
 
--   MIP .Net Library (Component Integration)
+- MIP .NET Library (Component Integration)
 
 ## Visual Studio C\# project
 
--   [ImageViewerClient.csproj](javascript:openLink('..\\\\ComponentSamples\\\\ImageViewerClient\\\\ImageViewerClient.csproj');)
+- [ImageViewerClient.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

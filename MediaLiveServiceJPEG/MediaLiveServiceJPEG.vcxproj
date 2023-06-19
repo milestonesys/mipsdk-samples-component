@@ -2,7 +2,7 @@
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="MilestoneSystems.VideoOS.Platform.SDK-CPP">
     <!-- PackageVersion property should be set to version of MilestoneSystems.VideoOS.Platform.SDK-CPP NuGet package used in the project and it must correspond to the version set in packages.config -->
-    <PackageVersion>23.1.1</PackageVersion>
+    <PackageVersion>23.2.1</PackageVersion>
     <PackageConfig Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.Debug</PackageConfig>
     <SDKPropsFile>$(SolutionDir)\packages\MilestoneSystems.VideoOS.Platform.SDK-CPP$(PackageConfig).$(PackageVersion)\native\MilestoneSystems.VideoOS.Platform.SDK-CPP$(PackageConfig).props</SDKPropsFile>
   </PropertyGroup>

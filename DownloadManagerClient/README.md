@@ -47,7 +47,7 @@ Now the dummy text file has been added to the download page.
 
 Further maintenance can be done in the Download Manager application.
 This tool can be started by the button, or by selecting it in the
-\"Start \> All Programs \> Milestone \> XProtect Download Manager\".
+\"Start \> Milestone \> XProtect Download Manager\".
 
 ![](DownloadManagerClient4.png)
 
@@ -62,18 +62,18 @@ The `http://localhost/installation` page would now look like this:
 
 ## The sample demonstrates
 
--   How to add a Smart Client plugin to the download page
+- How to add a Smart Client plugin to the download page
 
 ## Using
 
--   SSCM
--   SSCM.Interface
--   SSCM.Interface.Retriever
+- SSCM
+- SSCM.Interface
+- SSCM.Interface.Retriever
 
 ## Environment
 
--   None
+- None
 
 ## Visual Studio C\# project
 
--   [DownloadManagerClient.csproj](javascript:openLink('..\\\\ComponentSamples\\\\DownloadManagerClient\\\\DownloadManagerClient.csproj');)
+- [DownloadManagerClient.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

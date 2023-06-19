@@ -37,24 +37,24 @@ the application is running.
 
 ## The sample demonstrates
 
--   How to access the status API on all Recording Servers in a system
-    using the SystemStatusClient class
--   How to use the client to get status information on all cameras in
-    the system
--   How to subscribe to specific events across all Recording Servers
--   How to use the MultiEnvironment to log in
+- How to access the status API on all Recording Servers in a system
+  using the SystemStatusClient class
+- How to use the client to get status information on all cameras in
+  the system
+- How to subscribe to specific events across all Recording Servers
+- How to use the MultiEnvironment to log in
 
 ## Using
 
--   VideoOS.Platform.SDK.StatusClient.StatusSession
--   VideoOS.Platform.SDK.StatusClient.SystemStatusClient
--   Event arguments in the
-    VideoOS.Platform.SDK.StatusClient.StatusEventArgs namespace
+- VideoOS.Platform.SDK.StatusClient.StatusSession
+- VideoOS.Platform.SDK.StatusClient.SystemStatusClient
+- Event arguments in the
+  `VideoOS.Platform.SDK.StatusClient.StatusEventArgs` namespace
 
 ## Environment
 
--   None
+- None
 
 ## Visual Studio C\# project
 
--   [SystemStatusClientConsole.csproj](javascript:openLink('..\\\\ComponentSamples\\\\SystemStatusClientConsole\\\\SystemStatusClientConsole.csproj');)
+- [SystemStatusClientConsole.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

@@ -20,17 +20,17 @@ with a bit width of 16 bits per sample.
 
 ## The sample demonstrates
 
--   How to create a file with raw audio (PCM) data from live audio
-    source (within the VMS).
+- How to create a file with raw audio (PCM) data from live audio
+  source (within the VMS)
 
 ## Using
 
--   VideoOS.Platform.Live.PcmLiveSource
+- VideoOS.Platform.Live.PcmLiveSource
 
 ## Environment
 
--   None
+- None
 
 ## Visual Studio C\# project
 
--   [AudioLiveRecorder.csproj](javascript:openLink('..\\\\ComponentSamples\\\\AudioLiveRecorder\\\\AudioLiveRecorder.csproj');)
+- [AudioLiveRecorder.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

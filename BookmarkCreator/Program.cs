@@ -3,6 +3,7 @@
 using System;
 using System.Text;
 using System.Windows.Forms;
+
 using VideoOS.Platform;
 using VideoOS.Platform.Data;
 
@@ -21,7 +22,7 @@ namespace BookmarkCreator
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
+
             Console.WriteLine("MIP SDK Bookmarks demo");
             Console.WriteLine("Creates 2 new bookmarks and retrieves them using ");
             Console.WriteLine("  1) BookmarkSearchTime ");
@@ -39,17 +40,17 @@ namespace BookmarkCreator
             if (!Connected)
             {
                 Console.WriteLine("Failed to connect or login");
-				Console.ReadKey();
-				return;
+                Console.ReadKey();
+                return;
             }
             #endregion
 
             #region Select a camera
             Item _selectItem1 = null;
-			VideoOS.Platform.UI.ItemPickerForm form = new VideoOS.Platform.UI.ItemPickerForm();
-			form.KindFilter = Kind.Camera;
-			form.AutoAccept = true;
-			form.Init(Configuration.Instance.GetItems());
+            VideoOS.Platform.UI.ItemPickerForm form = new VideoOS.Platform.UI.ItemPickerForm();
+            form.KindFilter = Kind.Camera;
+            form.AutoAccept = true;
+            form.Init(Configuration.Instance.GetItems());
             if (form.ShowDialog() == DialogResult.OK)
             {
                 _selectItem1 = form.SelectedItem;
@@ -57,15 +58,9 @@ namespace BookmarkCreator
             if (_selectItem1 == null)
             {
                 Console.WriteLine("Failed to pick a camera");
-            	Console.ReadKey();
-				return;
-			}
-			if (_selectItem1.FQID.ServerId.ServerType == ServerId.EnterpriseServerType)
-			{
-				Console.WriteLine("Bookmark is not supported on this product.");
-				Console.ReadKey();
-				return;
-			}
+                Console.ReadKey();
+                return;
+            }
 
             FQID cameraFqid = _selectItem1.FQID;
 
@@ -97,7 +92,7 @@ namespace BookmarkCreator
 
             Console.WriteLine("Asking for a new Bookmark Reference:");
             BookmarkReference bookmarkReference = BookmarkService.Instance.BookmarkGetNewReference(cameraFqid, true);
-            Console.WriteLine(".... Received:"+bookmarkReference.Reference);
+            Console.WriteLine(".... Received:" + bookmarkReference.Reference);
 
             #endregion
 
@@ -105,7 +100,7 @@ namespace BookmarkCreator
             Console.WriteLine("Creating the first bookmark");
             DateTime timeBegin = timeNow.AddMinutes(-5);
 
-            StringBuilder bookmarkref= new StringBuilder();
+            StringBuilder bookmarkref = new StringBuilder();
             StringBuilder bookmarkHeader = new StringBuilder();
             StringBuilder bookmarkDesc = new StringBuilder();
             bookmarkref.AppendFormat("Mybookmark-{0}", timeBegin.ToLongTimeString());
@@ -113,24 +108,24 @@ namespace BookmarkCreator
             bookmarkDesc.AppendFormat("AutoBookmark-{0} set for a duration of {1} seconds", timeBegin.ToLongTimeString(), (timeBegin.AddSeconds(10) - timeBegin.AddSeconds(1)).Seconds);
 
 
-            Bookmark bookmark1 = null; 
-			try
-			{
-				bookmark1 = BookmarkService.Instance.BookmarkCreate(
+            Bookmark bookmark1 = null;
+            try
+            {
+                bookmark1 = BookmarkService.Instance.BookmarkCreate(
                                     cameraFqid,
                                     timeBegin.AddSeconds(1),
-					                timeBegin.AddSeconds(5),
-					                timeBegin.AddSeconds(10),
-					                bookmarkref.ToString(),
-					                bookmarkHeader.ToString(),
-					                bookmarkDesc.ToString());
+                                    timeBegin.AddSeconds(5),
+                                    timeBegin.AddSeconds(10),
+                                    bookmarkref.ToString(),
+                                    bookmarkHeader.ToString(),
+                                    bookmarkDesc.ToString());
                 Console.WriteLine("Created bookmark 1 = " + bookmark1.BookmarkFQID.ToString());
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine("BookmarkCreate 1 failed: " + ex.Message);
-				Console.WriteLine("Press any Key");
-				Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("BookmarkCreate 1 failed: " + ex.Message);
+                Console.WriteLine("Press any Key");
+                Console.ReadKey();
             }
             #endregion
 
@@ -147,15 +142,15 @@ namespace BookmarkCreator
             StringBuilder bookmarkref2 = new StringBuilder();
             bookmarkref2.AppendFormat("Mybookmark-{0}", timeBegin2.ToLongTimeString());
             bookmarkHeader.AppendFormat("AutoBookmark-{0}", timeBegin2.ToLongTimeString());
-            bookmarkDesc.AppendFormat("AutoBookmark-{0} set for a duration of {1} seconds", timeBegin2.ToLongTimeString(), (timeBegin2.AddSeconds(10)-timeBegin2.AddSeconds(1)).Seconds);
+            bookmarkDesc.AppendFormat("AutoBookmark-{0} set for a duration of {1} seconds", timeBegin2.ToLongTimeString(), (timeBegin2.AddSeconds(10) - timeBegin2.AddSeconds(1)).Seconds);
 
             Bookmark bookmark2 = null;
             try
             {
                 bookmark2 = BookmarkService.Instance.BookmarkCreate(
                                     cameraFqid,
-                                    timeBegin2.AddSeconds(1), 
-                                    timeBegin2.AddSeconds(5), 
+                                    timeBegin2.AddSeconds(1),
+                                    timeBegin2.AddSeconds(5),
                                     timeBegin2.AddSeconds(10),
                                     bookmarkref2.ToString(),
                                     bookmarkHeader.ToString(),
@@ -172,7 +167,7 @@ namespace BookmarkCreator
             Console.WriteLine("-> trigger time = {0}", bookmark2.TimeTrigged);
             Console.WriteLine("");
             #endregion
-            
+
             #region BookmarkSearchTime
 
             // Get max 10 the bookmarks created after the specified time
@@ -180,12 +175,12 @@ namespace BookmarkCreator
             Console.WriteLine("Looking for bookmarks using BookmarkSearchTime (finding the 2 newly created)");
             Bookmark[] bookmarkList = BookmarkService.Instance.BookmarkSearchTime(
                                 cameraFqid.ServerId,
-                                bookmark1.TimeBegin.AddSeconds(-10), 
-                                1800000000, 
-                                10, 
-                                mediaDeviceTypes, 
-                                null, 
-                                null, 
+                                bookmark1.TimeBegin.AddSeconds(-10),
+                                1800000000,
+                                10,
+                                mediaDeviceTypes,
+                                null,
+                                null,
                                 null);
             if (bookmarkList.Length > 0)
             {
@@ -213,18 +208,18 @@ namespace BookmarkCreator
                 Console.WriteLine("sorry no bookmarks found");
             }
             Console.WriteLine("");
-            #endregion 
-            
+            #endregion
+
             #region BookmarkSearchFromBookmark
             // Get the next (max 10) bookmarks after the first
             Console.WriteLine("Looking for bookmarks using BookmarSearchFromBookmark (finding the last of the 2 newly created)");
             Bookmark[] bookmarkListsFromBookmark = BookmarkService.Instance.BookmarkSearchFromBookmark(
                                 bookmark1.BookmarkFQID,
-                                1800000000, 
-                                10, 
-                                mediaDeviceTypes, 
-                                null, 
-                                null, 
+                                1800000000,
+                                10,
+                                mediaDeviceTypes,
+                                null,
+                                null,
                                 null);
             if (bookmarkListsFromBookmark.Length > 0)
             {
@@ -348,7 +343,7 @@ namespace BookmarkCreator
             Console.WriteLine("");
             Console.WriteLine("Press any key");
             Console.ReadKey();
-            
+
         }
 
         private static bool Connected = false;

@@ -18,26 +18,25 @@ finds, it will ask for the children belonging to that item.
 
 ## The sample demonstrates
 
--   Initialization of MIP .NET Library, when only configuration is
-    required
--   Access to Milestone-owned configuration, for example, servers and
-    cameras groups
--   A simple drill down of all Items via the Item.GetChildren() method.
--   Launching the ItemPicker dialog to select one or more cameras
-    from the loaded configuration.
+- Initialization of MIP .NET Library, when only configuration is required
+- Access to Milestone-owned configuration, for example, servers and
+  cameras groups
+- A simple drill down of all Items via the Item.GetChildren() method.
+- Launching the ItemPicker dialog to select one or more cameras from the
+  loaded configuration.
 
 ## Using
 
--   VideoOS.Platform.Configuration
--   VideoOS.Platform.UI.ItemPickerUserControl
+- VideoOS.Platform.Configuration
+- VideoOS.Platform.UI.ItemPickerUserControl
 
 ## Environment
 
--   MIP .NET library
+- MIP .NET library
 
 ## Visual Studio C\# project
 
--   [ConfigAccessViaSDK.csproj](javascript:openLink('..\\\\ComponentSamples\\\\ConfigAccessViaSDK\\\\ConfigAccessViaSDK.csproj');)
+- [ConfigAccessViaSDK.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)
 
 ## Special notes
 
@@ -45,7 +44,7 @@ This sample only needs access to configuration and the simple
 ItemPickerForm, and no need to display live video, then only these 2
 files are required for deployment:
 
--   VideoOS.Platform.dll
--   VideoOS.Platform.SDK.dll
+- VideoOS.Platform.dll
+- VideoOS.Platform.SDK.dll
 
 ![ItemPickerUserControl](itempickerusercontrol.jpg)

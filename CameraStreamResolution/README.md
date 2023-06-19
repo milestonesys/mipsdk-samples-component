@@ -34,25 +34,25 @@ will still get the recorded and the live image information.
 
 ## The sample demonstrates
 
--   Login with credentials provided by operator
--   Search for a camera using a string that is compared to the camera
-    name
--   Get the latest recorded image, and the resolution
--   Get the default live image, and the resolution
--   Get a list of the streams and properties belonging to each stream
--   Get a live image from a specific stream, and the resolution of it
+- Login with credentials provided by operator
+- Search for a camera using a string that is compared to the camera
+  name
+- Get the latest recorded image, and the resolution
+- Get the default live image, and the resolution
+- Get a list of the streams and properties belonging to each stream
+- Get a live image from a specific stream, and the resolution of it
 
 ## Using
 
--   VideoOS.Platform.Data.StreamDataSource
--   VideoOS.Platform.Live.JPEGLiveSource
--   VideoOS.Platform.Live.LiveContentEventArgs
--   VideoOS.Platform.Data.JPEGVideoSource
+- VideoOS.Platform.Data.StreamDataSource
+- VideoOS.Platform.Live.JPEGLiveSource
+- VideoOS.Platform.Live.LiveContentEventArgs
+- VideoOS.Platform.Data.JPEGVideoSource
 
 ## Environment
 
--   .NET library MIP Environment
+- .NET library MIP Environment
 
 ## Visual Studio C\# project
 
--   [CameraStreamResolution.csproj](javascript:openLink('..\\\\ComponentSamples\\\\CameraStreamResolution\\\\CameraStreamResolution.csproj');)
+- [CameraStreamResolution.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

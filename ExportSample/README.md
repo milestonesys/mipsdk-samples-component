@@ -15,18 +15,18 @@ systems.
 
 ## The sample demonstrates
 
--   How to use the export classes for AVI, MKV and Database export
+- How to use the export classes for AVI, MKV and Database export
 
 ## Using
 
--   VideoOS.Platform.Data.AVIExporter class
--   VideoOS.Platform.Data.DBExporter class
--   VideoOS.Platform.Data.MKVExport class
+- VideoOS.Platform.Data.AVIExporter class
+- VideoOS.Platform.Data.DBExporter class
+- VideoOS.Platform.Data.MKVExport class
 
 ## Environment
 
--   MIP .NET library
+- MIP .NET library
 
 ## Visual Studio C\# project
 
--   [ExportSample.csproj](javascript:openLink('..\\\\ComponentSamples\\\\ExportSample\\\\ExportSample.csproj');)
+- [ExportSample.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)

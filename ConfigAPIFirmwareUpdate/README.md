@@ -27,28 +27,27 @@ successful file upload and firmware update:
 
 ## The sample demonstrates
 
--   How the Configuration API can be used to create client applications
--   Construction of a ConfigurationApiService client
--   How a firmware file can be transferred to the Management Server file
-    storage
--   How a single hardware device can be selected with ItemPickerForm
--   How execution of hardware device firmware update can be done via the
-    Configuration API
+- How the Configuration API can be used to create client applications
+- Construction of a ConfigurationApiService client
+- How a firmware file can be transferred to the Management Server file storage
+- How a single hardware device can be selected with ItemPickerForm
+- How execution of hardware device firmware update can be done via the
+  Configuration API
 
 ## Using
 
--   VideoOS.ConfigurationAPI namespace
--   VideoOS.ConfigurationAPI.ConfigurationItem
--   VideoOS.ConfigurationAPI.Property
--   VideoOS.ConfigurationApi.ItemTypes
+- VideoOS.ConfigurationAPI namespace
+- VideoOS.ConfigurationAPI.ConfigurationItem
+- VideoOS.ConfigurationAPI.Property
+- VideoOS.ConfigurationApi.ItemTypes
 
 ## Environment
 
--   MIP .NET Library (Component Integration)
+- MIP .NET Library (Component Integration)
 
 ## Visual Studio C\# project
 
--   [ConfigAPIFirmwareUpdate.csproj](javascript:openLink('..\\\\ComponentSamples\\\\ConfigAPIFirmwareUpdate\\\\ConfigAPIFirmwareUpdate.csproj');)
+- [ConfigAPIFirmwareUpdate.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)
 
 ## Special notes
 
