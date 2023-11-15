@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 using VideoOS.Platform;
 using VideoOS.Platform.Messaging;
@@ -9,7 +12,7 @@ namespace VideoWallController
 {
     public partial class MainForm : Form
     {
-        ItemPickerForm itemPickerForm;
+        ItemPickerWpfWindow itemPicker;
         Item _selectedItem;
         private VideoOS.Platform.Messaging.Message msg;
         private FQID _presetActivateFQID, 
@@ -18,10 +21,12 @@ namespace VideoWallController
             _monitorShowTextFQID, 
             _layoutSetLayoutFQID, _monitorSetLayoutFQID, 
             _monitorSetCamerasFQID,
-            _monitorApplyXmlFQID;
+            _monitorApplyXmlFQID,
+            _changeModeFQID;
         private decimal _positionInViewSetLayoutAndCameras, _positionInViewShowText, _positionInViewSetCameras;
         private Collection<FQID> _cameraSetLayoutAndCamerasFQIDCollection, _cameraRemoveCamerasFQIDCollection, _cameraSetCamerasFQIDCollection;
         private string _textShowText;
+        private string _clientID;
 
         private MessageCommunication _messageCommunication;
         private object _msgComRec;
@@ -29,6 +34,9 @@ namespace VideoWallController
         public MainForm()
         {
             InitializeComponent();
+            _clientID = $"{Environment.MachineName}-VideoWallControllerSample/{Process.GetCurrentProcess().Id}/{DateTime.UtcNow.Hour}:{DateTime.UtcNow.Minute}";
+            changeModeSpeedComboBox.SelectedIndex = 2;
+            playbackModeComboBox.SelectedIndex = 0;
         }
 
         private void OnLoad(object sender, EventArgs e)
@@ -93,35 +101,43 @@ namespace VideoWallController
 
         private FQID SelectItem(Guid kind, Button button)
         {
-            itemPickerForm = new ItemPickerForm();
-            itemPickerForm.KindFilter = kind;
-            itemPickerForm.AutoAccept = true;
+            itemPicker = new ItemPickerWpfWindow()
+            {
+                KindsFilter = new List<Guid> { kind },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+        };
+
             if (kind == Kind.Camera)
             {
-                itemPickerForm.Init();
-            } else
-            {
-                itemPickerForm.Init(Configuration.Instance.GetItems(ItemHierarchy.SystemDefined));
+                itemPicker.Items = Configuration.Instance.GetItems();
             }
-            
-            if(itemPickerForm.ShowDialog() == DialogResult.OK)
+            else
             {
-                _selectedItem = itemPickerForm.SelectedItem;
+                itemPicker.Items = Configuration.Instance.GetItems(ItemHierarchy.SystemDefined);
+            }
+
+            if (itemPicker.ShowDialog().Value)
+            {
+                _selectedItem = itemPicker.SelectedItems.First();
                 button.Text = _selectedItem.Name;
                 return _selectedItem.FQID;
             }
-            return null;           
+
+            return null;        
         }
 
         private void SelectCameraToListBox(Button button, ListBox listBox, Collection<FQID> cameraFQIDCollection)
         {
-            itemPickerForm = new ItemPickerForm();
-            itemPickerForm.KindFilter = Kind.Camera;
-            itemPickerForm.AutoAccept = true;
-            itemPickerForm.Init();
-            if (itemPickerForm.ShowDialog() == DialogResult.OK)
+            itemPicker = new ItemPickerWpfWindow()
             {
-                _selectedItem = itemPickerForm.SelectedItem;
+                KindsFilter = new List<Guid> { Kind.Camera },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                Items = Configuration.Instance.GetItems()
+            };
+
+            if (itemPicker.ShowDialog().Value)
+            {
+                _selectedItem = itemPicker.SelectedItems.First();
                 button.Text = "Select more cameras";
                 cameraFQIDCollection.Add(_selectedItem.FQID);
                 listBox.Items.Add(_selectedItem.Name);
@@ -299,6 +315,35 @@ namespace VideoWallController
                     System.Diagnostics.Debug.Assert(false);
                     break;
             }
+        }
+
+        private void selectMonitorChangeModeButton_Click(object sender, EventArgs e)
+        {
+            _changeModeFQID = SelectItem(Kind.VideoWallMonitor, selectMonitorChangeModeButton);
+            if (_changeModeFQID != null )
+                changeModeButton.Enabled = true;
+        }
+
+        private void playbackRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            playbackDateTimePicker.Enabled = playbackRadioButton.Checked;
+            playbackModeComboBox.Enabled = playbackRadioButton.Checked;
+            changeModeSpeedComboBox.Enabled = playbackRadioButton.Checked;
+        }
+
+        private void changeModeButton_Click(object sender, EventArgs e)
+        {
+            string xmlCommand;
+            if (liveRadioButton.Checked) 
+            {
+                xmlCommand = $"<MonitorLiveState><SourceId>{_clientID}</SourceId></MonitorLiveState>";
+            }
+            else
+            {
+                xmlCommand = $"<MonitorPlaybackState><SourceId>{_clientID}</SourceId><PlaybackMode>{playbackModeComboBox.Text}</PlaybackMode><SeekTime>{playbackDateTimePicker.Value.ToString("o")}</SeekTime><PlaySpeed>{changeModeSpeedComboBox.Text}</PlaySpeed></MonitorPlaybackState>";
+            }
+            var monitor = new VideoOS.Platform.ConfigurationItems.Monitor(_changeModeFQID);
+            monitor.ApplyMonitorState(xmlCommand);
         }
     }
 

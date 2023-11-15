@@ -19,7 +19,7 @@ finds, it will ask for the children belonging to that item.
 ## The sample demonstrates
 
 - Initialization of MIP .NET Library, when only configuration is required
-- Access to Milestone-owned configuration, for example, servers and
+- Access to VMS owned configuration, for example, servers and
   cameras groups
 - A simple drill down of all Items via the Item.GetChildren() method.
 - Launching the ItemPicker dialog to select one or more cameras from the
@@ -28,7 +28,7 @@ finds, it will ask for the children belonging to that item.
 ## Using
 
 - VideoOS.Platform.Configuration
-- VideoOS.Platform.UI.ItemPickerUserControl
+- VideoOS.Platform.UI.ItemPickerWpfUserControl
 
 ## Environment
 
@@ -41,8 +41,8 @@ finds, it will ask for the children belonging to that item.
 ## Special notes
 
 This sample only needs access to configuration and the simple
-ItemPickerForm, and no need to display live video, then only these 2
-files are required for deployment:
+ItemPickerWpfUserControl, and no need to display live video, the only 2
+files which are required for deployment:
 
 - VideoOS.Platform.dll
 - VideoOS.Platform.SDK.dll

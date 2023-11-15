@@ -52,3 +52,4 @@ of exception handling, retry methods and more are incomplete.
 The following functionality is not supported by the sample:
 
 - Add or edit data for registration numbers under *LPR match lists*
+- Creating user defined events and generic events (See “Introduction to Configuration API” -> “Rules configuration” -> “External Events sources”)

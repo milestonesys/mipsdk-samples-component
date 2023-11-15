@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using VideoOS.Platform;
@@ -62,15 +64,16 @@ namespace MediaLiveViewer
 			ClearAllFlags();
 			ResetSelections();
 
-			ItemPickerForm form = new ItemPickerForm();
-			form.KindFilter = Kind.Camera;
-			form.AutoAccept = true;
-			form.Init(Configuration.Instance.GetItems());
-
-			// Ask user to select a camera
-			if (form.ShowDialog() == DialogResult.OK)		
+			ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow()
 			{
-				_selectItem1 = form.SelectedItem;
+				KindsFilter = new List<Guid> { Kind.Camera },
+				SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+				Items = Configuration.Instance.GetItems(),
+			};
+
+			if (itemPicker.ShowDialog().Value)
+			{
+				_selectItem1 = itemPicker.SelectedItems.First();
 				buttonSelect1.Text = _selectItem1.Name;
 
 				_jpegLiveSource = new JPEGLiveSource(_selectItem1);
@@ -82,26 +85,28 @@ namespace MediaLiveViewer
 					checkBoxAspect.Enabled = false;
 					checkBoxFill.Enabled = false;
 					checkBoxKeyFramesOnly.Enabled = false;
-					comboBoxResolution.Enabled = !checkBoxAspect.Checked;	// Only allow resolution change, if filling available space
-				    _jpegLiveSource.Width = pictureBox1.Width;
-				    _jpegLiveSource.Height = pictureBox1.Height;
+					comboBoxResolution.Enabled = !checkBoxAspect.Checked;   // Only allow resolution change, if filling available space
+					_jpegLiveSource.Width = pictureBox1.Width;
+					_jpegLiveSource.Height = pictureBox1.Height;
 					_jpegLiveSource.KeyFramesOnly = checkBoxKeyFramesOnly.Checked;
-                    SetStreamType(pictureBox1.Width, pictureBox1.Height);
-                    _jpegLiveSource.Init();
+					SetStreamType(pictureBox1.Width, pictureBox1.Height);
+					_jpegLiveSource.Init();
 					_jpegLiveSource.LiveContentEvent += JpegLiveSource1LiveNotificationEvent;
 					_jpegLiveSource.LiveStatusEvent += JpegLiveStatusNotificationEvent;
 
 					labelCount.Text = "0";
 					buttonPause.Enabled = true;
-                    buttonLift.Enabled = true;
+					buttonLift.Enabled = true;
 					_count = 0;
 
-				} catch (Exception ex)
+				}
+				catch (Exception ex)
 				{
 					MessageBox.Show("Could not Init:" + ex.Message);
 					_jpegLiveSource = null;
 				}
-			} else
+			}
+			else
 			{
 				_selectItem1 = null;
 				buttonSelect1.Text = "Select Camera ...";
@@ -109,12 +114,12 @@ namespace MediaLiveViewer
 				labelSize.Text = "";
 				labelResolution.Text = "";
 				buttonPause.Enabled = false;
-                checkBoxAspect.Enabled = true;
-                checkBoxFill.Enabled = true;
-                checkBoxKeyFramesOnly.Enabled = true;
-                buttonLift.Enabled = false;
-            }
-        }
+				checkBoxAspect.Enabled = true;
+				checkBoxFill.Enabled = true;
+				checkBoxKeyFramesOnly.Enabled = true;
+				buttonLift.Enabled = false;
+			}
+		}
 
 	    private bool OnMainThread = false;
 		/// <summary>

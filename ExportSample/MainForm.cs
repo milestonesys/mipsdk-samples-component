@@ -190,15 +190,14 @@ namespace ExportSample
         /// <param name="e"></param>
         private void buttonAddCamera_Click(object sender, EventArgs e)
         {
-            ItemPickerForm form = new ItemPickerForm
+            ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow();
+            itemPicker.KindsFilter = new List<Guid> { Kind.Camera };
+            itemPicker.SelectionMode = SelectionModeOptions.AutoCloseOnSelect;
+            itemPicker.Items = Configuration.Instance.GetItems();
+
+            if (itemPicker.ShowDialog().Value)
             {
-                KindFilter = Kind.Camera,
-                AutoAccept = true
-            };
-            form.Init(Configuration.Instance.GetItems());
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                var cameraItem = form.SelectedItem;
+                var cameraItem = itemPicker.SelectedItems.First();
                 _cameraItems.Add(cameraItem);
                 listBoxCameras.Items.Add(cameraItem.Name);
 

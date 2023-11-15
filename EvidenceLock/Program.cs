@@ -9,6 +9,9 @@ using System.Xml;
 using System.Text;
 using VideoOS.Common.Proxy.Server.WCF;
 using System.ServiceModel.Security;
+using VideoOS.Platform.UI;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EvidenceLock
 {
@@ -56,16 +59,14 @@ namespace EvidenceLock
 
             #region Select a camera
             Item selectedItem = null;
-            var form = new VideoOS.Platform.UI.ItemPickerForm
+            ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow();
+            itemPicker.KindsFilter = new List<Guid> { Kind.Camera };
+            itemPicker.SelectionMode = SelectionModeOptions.AutoCloseOnSelect;
+            itemPicker.Items = Configuration.Instance.GetItems();
+
+            if (itemPicker.ShowDialog().Value)
             {
-                KindFilter = Kind.Camera,
-                AutoAccept = true
-            };
-            form.Init(Configuration.Instance.GetItems());
-            
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                selectedItem = form.SelectedItem;
+                selectedItem = itemPicker.SelectedItems.First();
             }
 
             if (selectedItem == null)
@@ -74,9 +75,10 @@ namespace EvidenceLock
                 Console.ReadKey();
                 return;
             }
+
             if (selectedItem.FQID.ServerId.ServerType != ServerId.CorporateRecordingServerType)
             {
-                Console.WriteLine("Evidence locks are not supported on this product.");
+                Console.WriteLine("Evidence locks are not supported on this product");
                 Console.ReadKey();
                 return;
             }
@@ -84,6 +86,10 @@ namespace EvidenceLock
             #endregion
 
             var loginSettings = LoginSettingsCache.GetLoginSettings(EnvironmentManager.Instance.MasterSite);
+            if (loginSettings.IsOAuthIdentity)
+            {
+                throw new NotSupportedMIPException("This sample does not support external identity providers.");
+            }
 
             using (var client = CreateWcfClient(loginSettings))
             {
@@ -289,10 +295,11 @@ namespace EvidenceLock
             var spn = SpnFactory.GetSpn(uri);
             var endpoint = new EndpointAddress(uri, EndpointIdentity.CreateSpnIdentity(spn));
             var client = new ServerCommandServiceClient(binding, endpoint);
+            var nc = LoginSettingsCache.GetNetworkCredential(EnvironmentManager.Instance.MasterSite.ServerId);
             if (loginSettings.IsBasicUser)
             {
-                client.ClientCredentials.UserName.UserName = "[BASIC]\\" + loginSettings.NetworkCredential.UserName;
-                client.ClientCredentials.UserName.Password = loginSettings.NetworkCredential.Password;
+                client.ClientCredentials.UserName.UserName = "[BASIC]\\" + nc.UserName;
+                client.ClientCredentials.UserName.Password = nc.Password;
 
                 // If it's basic user, you need to specify the certificate validation mode yourself
                 client.ClientCredentials.ServiceCertificate.SslCertificateAuthentication = new X509ServiceCertificateAuthentication()
@@ -302,7 +309,7 @@ namespace EvidenceLock
             }
             else
             {
-                client.ClientCredentials.Windows.ClientCredential = LoginSettingsCache.GetNetworkCredential(EnvironmentManager.Instance.MasterSite.ServerId);
+                client.ClientCredentials.Windows.ClientCredential = nc;
             }
 
             return client;

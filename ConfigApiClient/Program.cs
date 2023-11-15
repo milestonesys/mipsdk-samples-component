@@ -30,10 +30,7 @@ namespace ConfigAPIClient
             Application.Run(loginForm);
             if (Connected)
             {
-                string serverAddress = EnvironmentManager.Instance.MasterSite.ServerId.ServerHostname;
-                int serverPort = EnvironmentManager.Instance.MasterSite.ServerId.Serverport;
-                bool corporate = EnvironmentManager.Instance.MasterSite.ServerId.ServerType == ServerId.CorporateManagementServerType;
-                Application.Run(new MainForm(serverAddress, serverPort, corporate));
+                Application.Run(new MainForm(EnvironmentManager.Instance.MasterSite.ServerId));
             }
         }
 

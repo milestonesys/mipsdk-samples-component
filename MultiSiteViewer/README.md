@@ -20,19 +20,18 @@ application can operate as if it is one configuration. The built-in
 ItemPicker component, the ImageViewerControl and PlaybackController can
 handle cameras, no matter what site they are located on.
 
-For information about login, please refer to <a href="https://doc.developer.milestonesys.com/html/index.html?base=gettingstarted/gettingstarted/intro_environments_login.html&tree=tree_4.html" target="_blank">Introduction to MIP Environments and Login</a>
+For information about login, please refer to <a href="https://doc.developer.milestonesys.com/html/index.html?base=gettingstarted/intro_environments_login.html&tree=tree_4.html" target="_top">Introduction to MIP Environments and Login</a>
 
 ## MIP Environment - .NET Library
 
 ![](MultiSiteViewer1.png)
 
 The above dialog adds a site and potentially all child sites known by
-this site using Basic authentication.
+this site using Windows AD authentication.
 
 ![](MultiSiteViewer2.png)
 
-This time we add a site and potentially all child sites known by this
-site using current (AD) credentials.
+Here we see the same dialog after having used the Validate button.
 
 The options for adding child sites:
 

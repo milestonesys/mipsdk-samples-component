@@ -1,7 +1,7 @@
 ---
 description: The VideoViewer2WayAudio sample can show live and recorded
   video from one camera. After connecting to a server, the user selects
-  what camera to show via the ItemPickerForm.
+  what camera to show via the ItemPickerWpfWindow.
 keywords: Component integration
 lang: en-US
 title: Video Viewer 2-way Audio
@@ -11,7 +11,7 @@ title: Video Viewer 2-way Audio
 
 The VideoViewer2WayAudio sample can show live and recorded video from
 one camera. After connecting to a server, the user selects what camera
-to show via the ItemPickerForm.
+to show via the ItemPickerWpfWindow.
 
 If microphone and speakers have been configured and assigned as related
 to the camera, two checkmark boxes are enabled. The user can now enable
@@ -35,14 +35,14 @@ codec on the camera.
 - Listen to audio coming from microphone attached to a camera
 - Speak into a local microphone and transmit to a speaker attached to
   a camera
-- Use the ItemPickerForm dialog to select cameras
+- Use the ItemPickerWpfWindow dialog to select cameras
 
 ## Using
 
 - VideoOS.Platform.ClientControl
-- VideoOS.Platform.UI.ItemPickerForm
-- VideoOS.Platform.Client.ImageViewerControl
-- VideoOS.Platform.Client.AudioPlayerControl
+- VideoOS.Platform.UI.ItemPickerWpfWindow
+- VideoOS.Platform.Client.ImageViewerWpfControl
+- VideoOS.Platform.Client.AudioPlayer
 - VideoOS.Platform.Data.OutgoingSpeakerController
 - VideoOS.Platform.Messaging
 
@@ -56,5 +56,5 @@ codec on the camera.
 
 ## Special notes
 
-This sample needs access to configuration, use of ImageViewerControl for
-video display and use of AudioPlayerControl for audio playing.
+This sample needs access to configuration, use of ImageViewerWpfControl for
+video display and use of AudioPlayer for audio playing.

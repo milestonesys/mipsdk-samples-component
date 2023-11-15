@@ -1,0 +1,45 @@
+<platformUiControls:VideoOSWindow x:Class="MediaViewerBitmapSource.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:platformUiControls="clr-namespace:VideoOS.Platform.UI.Controls;assembly=VideoOS.Platform"
+        xmlns:platformClient="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+        mc:Ignorable="d"
+        Title="MediaViewerBitmapSource Application" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!--row 1-->
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Row="0">
+            <platformUiControls:VideoOSButtonPrimaryMedium x:Name="CameraButton" Content="Select Camera" VerticalAlignment="Center"  Margin="10,10,10,10" Width="200" Click="CameraButton_Click" />
+            <platformUiControls:VideoOSButtonTextSmall Content="Playback mode:" VerticalAlignment="Center" />
+            <platformUiControls:VideoOSRadioButtonMedium x:Name="_playbackRadioButton" Content="Playback" Margin="10,0,10,0" IsChecked="True" VerticalAlignment="Center" Checked="playbackRadioButton_Changed" Unchecked="playbackRadioButton_Changed" IsEnabled="{Binding Path=VideoModeRadioButtonsEnabled}" />
+            <platformUiControls:VideoOSRadioButtonMedium Content="Live" Margin="10,0,10,0" VerticalAlignment="Center" IsEnabled="{Binding Path=VideoModeRadioButtonsEnabled}" />
+        </StackPanel>
+
+        <!--row 2-->
+        <Image Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10" Source="{Binding Path=ImageSource}" />
+
+        <!--row 3-->
+        <platformClient:PlaybackWpfUserControl Grid.Row="2" x:Name="_playbackUserControl" Margin="10,0,10,0" IsEnabled="{Binding Path=PlaybackEnabled}" />
+
+        <!--row 4-->
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <platformUiControls:VideoOSButtonPrimaryMedium x:Name="_loopButton" Grid.Row="2" Content="Start looping" Grid.Column="0" Margin="10" Click="LoopButton_Click" IsEnabled="{Binding Path=PlaybackEnabled}" />
+            <platformUiControls:VideoOSProgressBar Margin="10" Width="100" Height="5" Grid.Column="1" Value="{Binding Path=LoopProgress}" />
+            <platformUiControls:VideoOSButtonPrimaryMedium Grid.Column="3" Content="Close" Margin="10" Click="CloseButton_Click" />
+        </Grid>
+    </Grid>
+</platformUiControls:VideoOSWindow>

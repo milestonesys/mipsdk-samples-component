@@ -187,22 +187,27 @@ namespace AudioExportSample
 
         private void AddItemByKind(Guid kind)
         {
-            ItemPickerForm form = new ItemPickerForm();
-            form.KindFilter = kind;
-            form.Init();
-            if (form.ShowDialog() == DialogResult.OK)
+            ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow();
+            itemPicker.KindsFilter = new List<Guid> { kind };
+            itemPicker.Items = Configuration.Instance.GetItems(ItemHierarchy.UserDefined);
+
+            if (itemPicker.ShowDialog().Value)
             {
-                _item = form.SelectedItem;
+                _item = itemPicker.SelectedItems.First();
                 if (!_audioList.Contains(_item))
                 {
                     _audioList.Add(_item);
                     if (_path != null)
+                    {
                         buttonExport.Enabled = true;
+                    }
                 }
 
                 string audioDevicesName = _item.Name;
                 if (!listBoxAudioDevices.Items.Contains(audioDevicesName))
+                {
                     listBoxAudioDevices.Items.Add(audioDevicesName);
+                }
             }
         }
     }

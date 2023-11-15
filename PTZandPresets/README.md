@@ -24,8 +24,6 @@ instructed to move up, down, left, or right.
 
 ## The sample demonstrates
 
-- Connection and login without using the LoginForm and the ItemPicker
-  pre-made dialogs
 - Initialization of MIP .NET Library, when video display is required
 - Video display -- live
 - PTZ control

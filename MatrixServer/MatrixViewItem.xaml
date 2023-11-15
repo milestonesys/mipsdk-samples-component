@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="MatrixServer.MatrixViewItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MatrixServer"
+             xmlns:platformClient="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+             mc:Ignorable="d" 
+             Height="150" Width="150">
+    <Grid>
+        <platformClient:ImageViewerWpfControl x:Name="_imageViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+    </Grid>
+</UserControl>

@@ -5,6 +5,7 @@ using System.Windows.Forms;
 
 using VideoOS.Platform;
 using VideoOS.Platform.Data;
+using VideoOS.Platform.UI;
 
 namespace MediaRestriction
 {
@@ -281,30 +282,28 @@ namespace MediaRestriction
             // Local functions
             (bool Success, Item SelectedItem) SelectCamera()
             {
-                var form = new VideoOS.Platform.UI.ItemPickerForm
+                ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow()
                 {
-                    KindFilter = Kind.Camera,
-                    AutoAccept = true
+                    KindsFilter = new List<Guid> { Kind.Camera },
+                    SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                    Items = Configuration.Instance.GetItems()
                 };
 
-                var items = Configuration.Instance.GetItems();
-                form.Init(items);
-
-                if (form.ShowDialog() != DialogResult.OK)
+                if (!itemPicker.ShowDialog().Value)
                 {
                     Console.WriteLine("Failed to pick a camera");
                     Console.ReadKey();
                     return (false, null);
                 }
 
-                if (form.SelectedItem.FQID.ServerId.ServerType != ServerId.CorporateRecordingServerType)
+                if (itemPicker.SelectedItems.First().FQID.ServerId.ServerType != ServerId.CorporateRecordingServerType)
                 {
                     Console.WriteLine("Media restrictions are not supported on this product.");
                     Console.ReadKey();
                     return (false, null);
                 }
 
-                return (true, form.SelectedItem);
+                return (true, itemPicker.SelectedItems.First());
             }
 
             void PrintWarningAndFaultDevices(IEnumerable<WarningDevice> warningDevices, IEnumerable<FaultDevice> faultDevices)

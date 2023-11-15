@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ConfigAPIClient</RootNamespace>
     <AssemblyName>ConfigAPIClient</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -168,10 +168,6 @@
     </Compile>
     <Compile Include="Panels\PropertyEnableUserControl.Designer.cs">
       <DependentUpon>PropertyEnableUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Panels\GroupUserControl.cs" />
-    <Compile Include="Panels\GroupUserControl.Designer.cs">
-      <DependentUpon>GroupUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Panels\PanelUtils.cs" />
     <Compile Include="Panels\PropertyListUserControl.cs">
@@ -351,10 +347,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\PropertyEnableUserControl.resx">
       <DependentUpon>PropertyEnableUserControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Panels\GroupUserControl.resx">
-      <DependentUpon>GroupUserControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\PropertyListUserControl.resx">

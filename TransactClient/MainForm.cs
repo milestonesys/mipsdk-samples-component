@@ -44,17 +44,17 @@ namespace TransactClient
         }
         private async void buttonPick_Click(object sender, EventArgs e)
         {
-            // Using ItemPickerForm component to pick elements of the type TransactionSource
-            var picker = new ItemPickerForm
+            // Using ItemPickerWpfWindow component to pick elements of the type TransactionSource
+            ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow()
             {
-                KindFilter = Kind.TransactSource
+                KindsFilter = new List<Guid> { Kind.TransactSource },
+                Items = Configuration.Instance.GetItems(ItemHierarchy.SystemDefined)
             };
 
-            picker.Init(Configuration.Instance.GetItems(ItemHierarchy.SystemDefined));
-            if (picker.ShowDialog() == DialogResult.OK)
+            if (itemPicker.ShowDialog().Value)
             {
                 // Remembering the selected item
-                this._item = picker.SelectedItem;
+                this._item = itemPicker.SelectedItems.First();
 
                 // Displaying selected item text
                 labelSelectedItem.Text = "Source: " + _item.Name;

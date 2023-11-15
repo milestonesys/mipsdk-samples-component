@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
+using System.Linq;
 using System.Windows.Forms;
 using VideoOS.Platform;
 using VideoOS.Platform.Live;
@@ -49,43 +51,45 @@ namespace MetadataLiveViewer
 			ClearAllFlags();
 			ResetSelections();
 
-			ItemPickerForm form = new ItemPickerForm();
-			form.KindFilter = Kind.Metadata;
-			form.AutoAccept = true;
-			form.Init(Configuration.Instance.GetItems());
-
-			// Ask user to select a metadata device
-			if (form.ShowDialog() == DialogResult.OK)		
+			ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow()
 			{
-				_selectItem1 = form.SelectedItem;
-				deviceSelectButton.Text = _selectItem1.Name;
+				KindsFilter = new List<Guid> { Kind.Metadata },
+				SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+				Items = Configuration.Instance.GetItems(),
+            };
 
-				_metadataLiveSource = new MetadataLiveSource(_selectItem1);
-				try
-				{
-					_metadataLiveSource.LiveModeStart = true;
-					_metadataLiveSource.Init();
-					_metadataLiveSource.LiveContentEvent += OnLiveContentEvent;
-					_metadataLiveSource.LiveStatusEvent += OnLiveStatusEvent;
+			if (itemPicker.ShowDialog().Value)
+			{
+                _selectItem1 = itemPicker.SelectedItems.First();
+                deviceSelectButton.Text = _selectItem1.Name;
+
+                _metadataLiveSource = new MetadataLiveSource(_selectItem1);
+                try
+                {
+                    _metadataLiveSource.LiveModeStart = true;
+                    _metadataLiveSource.Init();
+                    _metadataLiveSource.LiveContentEvent += OnLiveContentEvent;
+                    _metadataLiveSource.LiveStatusEvent += OnLiveStatusEvent;
                     _metadataLiveSource.ErrorEvent += OnErrorEvent;
 
-				    _count = 0;
+                    _count = 0;
                     labelCount.Text = _count.ToString(CultureInfo.InvariantCulture);
-					buttonPause.Enabled = true;
-				} 
+                    buttonPause.Enabled = true;
+                }
                 catch (Exception ex)
-				{
-					MessageBox.Show(@"Could not Init:" + ex.Message);
-					_metadataLiveSource = null;
-				}
-			} else
+                {
+                    MessageBox.Show(@"Could not Init:" + ex.Message);
+                    _metadataLiveSource = null;
+                }
+            }
+			else
 			{
-				_selectItem1 = null;
-				deviceSelectButton.Text = @"Select Metadata device ...";
-				labelCount.Text = "0";
-				labelSize.Text = "";
-				buttonPause.Enabled = false;
-			}
+                _selectItem1 = null;
+                deviceSelectButton.Text = @"Select Metadata device ...";
+                labelCount.Text = "0";
+                labelSize.Text = "";
+                buttonPause.Enabled = false;
+            }
 		}
 
         /// <summary>

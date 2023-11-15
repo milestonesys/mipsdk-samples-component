@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ConfigAPIClient;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -6,10 +8,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using Microsoft.Win32;
 using VideoOS.ConfigurationAPI;
 using VideoOS.Platform;
-using VideoOS.Platform.Login;
 using VideoOS.Platform.UI;
 
 namespace ConfigAPIUpdateFirmwareWPF
@@ -69,13 +69,14 @@ namespace ConfigAPIUpdateFirmwareWPF
         private void SelectHardwareButton_Click(object sender, RoutedEventArgs e)
         {
             // Item picker to select a single hardware device
-            ItemPickerForm form = new ItemPickerForm { KindFilter = Kind.Hardware };
-            form.Init(Configuration.Instance.GetItems(ItemHierarchy.SystemDefined));
+            ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow();
+            itemPicker.KindsFilter = new List<Guid> { Kind.Hardware };
+            itemPicker.Items = Configuration.Instance.GetItems(ItemHierarchy.SystemDefined);
 
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (itemPicker.ShowDialog().Value)
             {
-                SelectedHardwareTextBox.Text = form.SelectedItem.FQID.ObjectId.ToString();
-                HardwareNameTextBlock.Text = form.SelectedItem.Name;
+                SelectedHardwareTextBox.Text = itemPicker.SelectedItems.First().FQID.ObjectId.ToString();
+                HardwareNameTextBlock.Text = itemPicker.SelectedItems.First().Name;
             }
         }
 
@@ -251,14 +252,7 @@ namespace ConfigAPIUpdateFirmwareWPF
         // Initialize the Config API client
         private void InitializeClient()
         {
-            LoginSettings ls = LoginSettingsCache.GetLoginSettings(EnvironmentManager.Instance.MasterSite);
-
-            _configApiClient.ServerAddress = EnvironmentManager.Instance.MasterSite.ServerId.ServerHostname;
-            _configApiClient.ServerPort = EnvironmentManager.Instance.MasterSite.ServerId.Serverport;
-            _configApiClient.BasicUser = ls.IsBasicUser;
-            _configApiClient.Username = EnvironmentManager.Instance.LoginNetworkCredential.UserName;
-            _configApiClient.Password = EnvironmentManager.Instance.LoginNetworkCredential.Password;
-            _configApiClient.Domain = EnvironmentManager.Instance.LoginNetworkCredential.Domain;
+            _configApiClient.ServerId = EnvironmentManager.Instance.MasterSite.ServerId;
             _configApiClient.Initialize();
         }
 

@@ -25,13 +25,13 @@ files.
 
 ## The sample demonstrates
 
-- Use of the ImageViewerControl and PlaybackUserControl for playback
+- Use of the ImageViewerWpfControl and PlaybackWpfUserControl for playback
   of off-line data from XProtect systems
 
 ## Using
 
-- VideoOS.Platform.Client.ImageViewerControl
-- VideoOS.Platform.Client.PlaybackUserControl
+- VideoOS.Platform.Client.ImageViewerWpfControl
+- VideoOS.Platform.Client.PlaybackWpfUserControl
 
 ## Environment
 

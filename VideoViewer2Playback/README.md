@@ -1,7 +1,7 @@
 ---
 description: The VideoViewer2Playback sample can show live and recorded
   video for two selected cameras. After connecting to a server, you
-  select the two cameras in the ItemPickerForm.
+  select the two cameras in the ItemPickerWpfWindow.
 keywords: Component integration
 lang: en-US
 title: Video Viewer - Individual Playback
@@ -11,7 +11,7 @@ title: Video Viewer - Individual Playback
 
 The VideoViewer2Playback sample can show live and recorded video for two
 selected cameras. After connecting to a server, you select the two
-cameras in the ItemPickerForm.
+cameras in the ItemPickerWpfWindow.
 
 This sample is similar to the VideoViewer sample, but can control
 multiple cameras with respect to mode (live or playback) and time stamp.
@@ -31,14 +31,14 @@ same playback control.
 - Video display -- live and playback
 - Video display -- individual control of live and playback
 - Digital zoom
-- How to use the ItemPickerForm to select cameras
+- How to use the ItemPickerWpfWindow to select cameras
 - Message system to control playback operations
 
 ## Using
 
 - VideoOS.Platform.ClientControl
-- VideoOS.Platform.UI.ItemPickerForm
-- VideoOS.Platform.UI.ImageViewerControl
+- VideoOS.Platform.UI.ItemPickerWpfWindow
+- VideoOS.Platform.Client.ImageViewerWpfControl
 - VideoOS.Platform.Messaging
 
 ## Environment

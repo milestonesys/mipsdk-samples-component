@@ -4,67 +4,61 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Net;
 using System.ServiceModel;
+using System.ServiceModel.Security;
 using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml;
 using VideoOS.ConfigurationAPI;
+using VideoOS.Platform;
 using VideoOS.Platform.Login;
 using VideoOS.Platform.Util;
 
-namespace ConfigAPIUpdateFirmwareWPF
+namespace ConfigAPIClient
 {
     public class ConfigApiClient
     {
-        private readonly string NOT_LICENSED_RECORDER_SERVER_MESSAGE = "Value cannot be null.\r\nParameter name: Hardware Driver Path empty";
+        private IConfigurationService _client = null;
 
-        private IConfigurationService _client;
-        private Dictionary<string, string> _translations = new Dictionary<string, string>();
+        private Dictionary<String, MethodInfo> _allMethodInfos = new Dictionary<string, MethodInfo>();
+        private Dictionary<String, String> _translations = new Dictionary<String, String>();
 
-        internal Dictionary<string, MethodInfo> AllMethodInfos { get; } = new Dictionary<string, MethodInfo>();
-        internal Dictionary<string, Bitmap> AllMethodBitmaps { get; } = new Dictionary<string, Bitmap>();
+        private Dictionary<String, Bitmap> _allMethodBitmaps = new Dictionary<string, Bitmap>();
+
+        internal Dictionary<String, MethodInfo> AllMethodInfos { get { return _allMethodInfos; } }
+        internal Dictionary<String, Bitmap> AllMethodBitmaps { get { return _allMethodBitmaps; } }
+
         internal bool TrimTreeToolStripMenuItem { get; set; }
-        public string ServerAddress { get; set; }
-        public int ServerPort { get; set; }
-        public bool BasicUser { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Domain { get; set; }
-        public bool Connected { get; set; }
-        public string DomainUser { get; internal set; }
+        public ServerId ServerId { get; set; }
 
-        public string LastError { get; private set; }
+        internal bool Connected { get; set; }
 
         #region Construction, Initialize and Close
         internal void InitializeClientProxy()
         {
             try
             {
-                LoginSettings loginSettings = LoginSettingsCache.GetLoginSettings(ServerAddress);
+                LoginSettings loginSettings = LoginSettingsCache.GetLoginSettings(ServerId.ServerHostname);
                 if (loginSettings.IsOAuthConnection)
                 {
-                    _client = CreateOAuthClientProxy(ServerAddress, ServerPort, loginSettings);
+                    _client = CreateOAuthClientProxy(ServerId, loginSettings);
                 }
                 else
                 {
-
-                    _client = CreateClientProxy(ServerAddress, ServerPort, loginSettings);
+                    _client = CreateClientProxy(ServerId, loginSettings);
                 }
-
                 Connected = false;
             }
             catch (EndpointNotFoundException)
             {
             }
-
         }
 
-        private IConfigurationService CreateOAuthClientProxy(string address, int serverPort, LoginSettings loginSettings)
+        private IConfigurationService CreateOAuthClientProxy(ServerId serverId, LoginSettings loginSettings)
         {
             // If the OAuth server is available it uses OAuth version of ServerCommandService.
-            var uri = ConfigApiServiceOAuthHelper.CalculateServiceUrl(address, serverPort);
-            var oauthBinding = ConfigApiServiceOAuthHelper.GetOAuthBinding(serverPort == 443);
+            var uri = ConfigApiServiceOAuthHelper.CalculateServiceUrl(serverId.ServerHostname, serverId.Serverport);
+            var oauthBinding = ConfigApiServiceOAuthHelper.GetOAuthBinding(serverId.Serverport == 443);
             string spn = SpnFactory.GetSpn(uri);
             EndpointAddress endpointAddress = new EndpointAddress(uri, EndpointIdentity.CreateSpnIdentity(spn));
 
@@ -75,152 +69,186 @@ namespace ConfigAPIUpdateFirmwareWPF
             return channel.CreateChannel();
         }
 
-        private IConfigurationService CreateClientProxy(string serverAddress, int serverPort, LoginSettings loginSettings)
+        public IConfigurationService CreateClientProxy(ServerId serverId, LoginSettings loginSettings)
         {
-            LastError = string.Empty;
-            string uriString;
-            string address = ServerPort == 0 ? ServerAddress : ServerAddress + ":" + ServerPort;
+            string address = serverId.Serverport == 0 ? serverId.ServerHostname : serverId.ServerHostname + ":" + serverId.Serverport;
+            bool basic = loginSettings != null && loginSettings.IsBasicUser;
 
-            if (BasicUser)
+            string hostName = address;
+            string uriString;
+            if (loginSettings != null)
             {
-                if (ServerPort == 80)
-                    address = ServerAddress;
-                uriString = $"https://{address}/ManagementServer/ConfigurationApiService.svc";
+                uriString = new UriBuilder(loginSettings.UriCorporate).Uri.ToString() + "ManagementServer/ConfigurationApiService.svc";
             }
             else
-                uriString = $"http://{address}/ManagementServer/ConfigurationApiService.svc";
+            {
+                uriString = String.Format("http://{0}/Config", hostName);
+            }
+            ChannelFactory<IConfigurationService> channel = null;
 
             Uri uri = new UriBuilder(uriString).Uri;
-            var binding = GetBinding(BasicUser);
+            var binding = GetBinding(basic);
             var spn = SpnFactory.GetSpn(uri);
             var endpointAddress = new EndpointAddress(uri, EndpointIdentity.CreateSpnIdentity(spn));
-            var channel = new ChannelFactory<IConfigurationService>(binding, endpointAddress);
+            channel = new ChannelFactory<IConfigurationService>(binding, endpointAddress);
 
-            if (BasicUser)
+            ClientTokenHelper clientTokenHelper = new ClientTokenHelper(serverId.ServerHostname);
+            channel.Endpoint.Behaviors.Add(new TokenServiceBehavior(clientTokenHelper));
+
+            var networkCredential = LoginSettingsCache.GetNetworkCredential(serverId);
+            if (loginSettings != null)
             {
-                // Note the domain == [BASIC] 
-                if (channel.Credentials != null)
+                if (basic)
                 {
-                    DomainUser = "[BASIC]\\" + Username;
-                    channel.Credentials.UserName.UserName = DomainUser;
-                    channel.Credentials.UserName.Password = Password;
+                    channel.Credentials.UserName.UserName = "[BASIC]\\" + networkCredential.UserName;
+                    channel.Credentials.UserName.Password = networkCredential.Password;
+                    channel.Credentials.ServiceCertificate.SslCertificateAuthentication = new X509ServiceCertificateAuthentication()
+                    {
+                        CertificateValidationMode = X509CertificateValidationMode.None,
+                    };
+                }
+                else
+                {
+                    channel.Credentials.Windows.ClientCredential.UserName = networkCredential.UserName;
+                    channel.Credentials.Windows.ClientCredential.Password = networkCredential.Password;
                 }
             }
-            else
-            {
-                if (channel.Credentials != null)
-                {
-                    channel.Credentials.Windows.ClientCredential.UserName = Username;
-                    channel.Credentials.Windows.ClientCredential.Password = Password;
-                    channel.Credentials.Windows.ClientCredential.Domain = Domain;
-
-                    // VmoClient needs the domain along with the user name
-                    DomainUser = string.IsNullOrWhiteSpace(Domain) ? Username : Domain + "\\" + Username;
-                }
-            }
-            
-
-            ServicePointManager.ServerCertificateValidationCallback = ((sender, certificate, chain, sslPolicyErrors) => true);
-
-            Connected = false;
-
             return channel.CreateChannel();
         }
 
-        public void Initialize()
+        internal void Initialize()
         {
             try
             {
                 InitializeClientProxy();
 
+                _translations = _client.GetTranslations("en-US");
+
                 MethodInfo[] methods = _client.GetMethodInfos();
                 foreach (MethodInfo mi in methods)
                 {
-                    if (!AllMethodInfos.ContainsKey(mi.MethodId))
-                    {
-                        AllMethodInfos.Add(mi.MethodId, mi);
-                    }
-                    if (!AllMethodBitmaps.ContainsKey(mi.MethodId))
-                    {
-                        AllMethodBitmaps.Add(mi.MethodId, MakeBitmap(mi.Bitmap));
-                    }
+                    _allMethodInfos.Add(mi.MethodId, mi);
+                    _allMethodBitmaps.Add(mi.MethodId, MakeBitmap(mi.Bitmap));
+
+                    //Debug.WriteLine("Method: id=" + mi.MethodId + ",DisplayName=" + mi.DisplayName + ",TranslationId=" + mi.TranslationId);
+                    String translated = _translations.ContainsKey(mi.TranslationId) ? _translations[mi.TranslationId] : "not found";
+                    //Debug.WriteLine("        Translation Lookup:" + translated);
                 }
 
-                _translations = _client.GetTranslations("en-US");
                 Connected = true;
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
                 Connected = false;
-                throw;
+                MessageBox.Show("Unable to contact server:" + ex.Message);
             }
 
+        }
+
+        internal String Translate(String key)
+        {
+            String text = "";
+            _translations.TryGetValue(key, out text);
+            return text;
         }
 
         internal void Close()
         {
-            AllMethodInfos.Clear();
-            AllMethodBitmaps.Clear();
-
+            _allMethodInfos.Clear();
+            _allMethodBitmaps.Clear();
         }
 
         #endregion
 
-        #region Utilities
-
-     
-        private static readonly List<string> TopItemTypes = new List<string>
+        #region utilities
+        internal List<ConfigurationItem> GetNextForItemType(ConfigurationItem item, String itemtype)
         {
-            ItemTypes.System,
-            ItemTypes.RecordingServer,
-            ItemTypes.RecordingServerFolder,
-            ItemTypes.HardwareDriverFolder,
-            ItemTypes.HardwareDriver,
-            ItemTypes.HardwareFolder,
-            ItemTypes.Hardware
-        };
+            List<ConfigurationItem> result = new List<ConfigurationItem>();
+            ConfigurationItem[] children = _client.GetChildItems(item.Path);
+            if (children != null)
+                foreach (ConfigurationItem child in children)
+                {
+                    if (child.ItemType.StartsWith(itemtype)
+                        || ((child.ItemType == ItemTypes.StorageFolder || child.ItemType == ItemTypes.Storage) && itemtype == ItemTypes.ArchiveStorage)
+                        || (child.ItemType == ItemTypes.HardwareFolder || child.ItemType == ItemTypes.Hardware) ||
+                        (child.ItemType.StartsWith(ItemTypes.Camera) && itemtype == ItemTypes.PatrollingProfile))
+                    {
+                        result.Add(child);
+                        continue;
+                    }
+                }
+            return result;
+        }
 
+        private static List<String> _topItemTypes = new List<string>()
+	                                             {
+	                                                 ItemTypes.System,
+	                                                 ItemTypes.RecordingServer,
+	                                                 ItemTypes.RecordingServerFolder,
+	                                                 ItemTypes.HardwareDriverFolder,
+	                                                 ItemTypes.HardwareDriver,
+                                                     ItemTypes.HardwareFolder,
+                                                     ItemTypes.Hardware
+	                                             };
         public List<ConfigurationItem> GetTopForItemType(string itemtype)
         {
             try
             {
-                ConfigurationItem item = _client.GetItem("/");		// Start from top
+                ConfigurationItem item;
+                switch (itemtype)
+                {
+                    case ItemTypes.Role:
+                        item = _client.GetItem("/RoleFolder");
+                        break;
+                    case ItemTypes.Layout:
+                        item = _client.GetItem("/LayoutGroupFolder");
+                        break;
+                    case ItemTypes.VideoWall:
+                    case ItemTypes.Monitor:
+                    case ItemTypes.VideoWallPreset:
+                        item = _client.GetItem("/VideoWallFolder");
+                        break;
+                    case ItemTypes.MIPItem:
+                        item = _client.GetItem("/MIPKindFolder");
+                        break;
+                    case ItemTypes.ArchiveStorage:
+                        item = _client.GetItem("/RecordingServerFolder");
+                        break;
+                    case ItemTypes.FailoverRecorder:
+                        item = _client.GetItem("/"+ItemTypes.FailoverGroupFolder);
+                        break;
+                    default:
+                        item = _client.GetItem("/"); 
+                        break;
+                }
                 if (item == null)
                     return new List<ConfigurationItem>();
 
-                if (item.ItemType == itemtype)
+                if (item.ItemType.StartsWith(itemtype))
                     return new List<ConfigurationItem>() { item };
 
-                List<ConfigurationItem> result = GetTopForItemTypeRecursive(item, itemtype);	// Loop recursive in hierarchy until itemtype is found
+                List<ConfigurationItem> result = GetTopForItemTypeRecursive(item, itemtype);
                 return result;
             }
             catch (Exception ex)
             {
-                Trace.WriteLine("GetTopForItemType exception:" + ex.Message);
+                MessageBox.Show(ex.Message);
                 return new List<ConfigurationItem>();
             }
         }
 
-        private List<ConfigurationItem> GetTopForItemTypeRecursive(ConfigurationItem item, string itemtype)
+        private List<ConfigurationItem> GetTopForItemTypeRecursive(ConfigurationItem item, String itemtype)
         {
             List<ConfigurationItem> result = new List<ConfigurationItem>();
             ConfigurationItem[] children = _client.GetChildItems(item.Path);
-            if (children == null) return result;
-            foreach (ConfigurationItem child in children)
-            {
-                try
+            if (children != null)
+                foreach (ConfigurationItem child in children)
                 {
-                    if (child.ItemType != itemtype)
+                    try
                     {
-                        if (child.ItemType == ItemTypes.RecordingServer && itemtype != ItemTypes.HardwareDriver)
-                        {
-                            result.Add(child);
-                            continue;
-                        }
                         if (child.ItemType == itemtype || child.ItemType == itemtype + "Folder")
                         {
-                            if (child.ItemType.EndsWith("Folder") && TrimTreeToolStripMenuItem && child.ItemType != ItemTypes.HardwareDriverFolder)
+                            if (child.ItemType.EndsWith("Folder") && TrimTreeToolStripMenuItem)// && child.ItemType != ItemTypes.HardwareDriverFolder)
                             {
                                 result.AddRange(GetTopForItemTypeRecursive(child, itemtype));
                             }
@@ -229,18 +257,28 @@ namespace ConfigAPIUpdateFirmwareWPF
                             continue;
                         }
 
-                        if (TopItemTypes.Contains(child.ItemType))
+                        if (child.ItemType != itemtype)
                         {
-                            result.AddRange(GetTopForItemTypeRecursive(child, itemtype));
+                            if (child.ItemType == ItemTypes.RecordingServer && itemtype != ItemTypes.HardwareDriver
+                                || child.ItemType == ItemTypes.MIPKind && itemtype == ItemTypes.MIPItem
+                                || child.ItemType == ItemTypes.VideoWall &&(itemtype == ItemTypes.Monitor || itemtype == ItemTypes.VideoWallPreset)
+                                || child.ItemType == ItemTypes.FailoverGroup && itemtype == ItemTypes.FailoverRecorder)
+                            {
+                                result.Add(child);
+                                continue;
+                            }
+
+                            if (_topItemTypes.Contains(child.ItemType))
+                            {
+                                result.AddRange(GetTopForItemTypeRecursive(child, itemtype));
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("GetTopForItemTypeRecursive threw exception " + ex.GetType().ToString() + ", Message: " + ex.Message);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Trace.WriteLine("GetTopForItemTypeRecursive exception:" + ex.Message);
-                    throw;
-                }
-            }
             return result;
         }
 
@@ -287,7 +325,7 @@ namespace ConfigAPIUpdateFirmwareWPF
             }
         }
 
-        internal Dictionary<string, string> GetTranslations(string language)
+        internal Dictionary<String, String> GetTranslations(string language)
         {
             try
             {
@@ -307,7 +345,7 @@ namespace ConfigAPIUpdateFirmwareWPF
             }
         }
 
-        internal ConfigurationItem InvokeMethod(ConfigurationItem item, string methodId)
+        internal ConfigurationItem InvokeMethod(ConfigurationItem item, String methodId)
         {
             try
             {
@@ -320,24 +358,9 @@ namespace ConfigAPIUpdateFirmwareWPF
                 {
                     return _client.InvokeMethod(item, methodId);
                 }
-                catch (FaultException fe)
-                {
-                    if (fe.Message.Equals(NOT_LICENSED_RECORDER_SERVER_MESSAGE))
-                    {
-                        LastError = string.Format("Invoking method {0} failed. Please make sure the recording server is licensed to be able to add hardware.", methodId);
-                        throw new InvalidOperationException(LastError);
-                    }
-                    else
-                    {
-                        LastError = string.Format("Invoking method {0} failed with error {1}. ", methodId, fe.Reason.ToString());
-                        throw new InvalidOperationException(LastError);
-                    }
-
-                    throw;
-                }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine("InvokeMethod:" + ex.Message);
                     throw;
                 }
             }
@@ -358,7 +381,7 @@ namespace ConfigAPIUpdateFirmwareWPF
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.Message);
+                    Debug.WriteLine("ValidateItem:" + ex.Message);
                     throw;
                 }
             }
@@ -406,10 +429,53 @@ namespace ConfigAPIUpdateFirmwareWPF
                 }
             }
         }
+
+        internal ConfigurationItem[] FillChildren(string path, string[] itemTypes, ItemFilter[] itemFilters)
+        {
+            try
+            {
+                return _client.GetChildItemsHierarchy(path, itemTypes, itemFilters);
+            }
+            catch (Exception)
+            {
+                InitializeClientProxy();
+                try
+                {
+                    return _client.GetChildItemsHierarchy(path, itemTypes, itemFilters);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("FillChildren:" + ex.Message);
+                    throw;
+                }
+            }
+        }
+
+        internal ConfigurationItem[] QueryItems(ItemFilter itemFilter, int maxResult)
+        {
+            try
+            {
+                return _client.QueryItems(itemFilter, maxResult);
+            }
+            catch (Exception)
+            {
+                InitializeClientProxy();
+                try
+                {
+                    return _client.QueryItems(itemFilter, maxResult);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("QueryItems:" + ex.Message);
+                    throw;
+                }
+            }
+        }
+
         #endregion
 
-        #region Private Methods
-        private static Bitmap MakeBitmap(byte[] data)
+        #region private methods
+        private Bitmap MakeBitmap(byte[] data)
         {
             try
             {
@@ -426,42 +492,65 @@ namespace ConfigAPIUpdateFirmwareWPF
             }
         }
 
-        internal static System.ServiceModel.Channels.Binding GetBinding(bool isBasic)
+        internal static System.ServiceModel.Channels.Binding GetBinding(bool IsBasic)
         {
-            if (!isBasic)
+            if (!IsBasic)
             {
                 WSHttpBinding binding = new WSHttpBinding();
                 var security = binding.Security;
                 security.Message.ClientCredentialType = MessageCredentialType.Windows;
+
                 binding.ReaderQuotas.MaxStringContentLength = 2147483647;
                 binding.MaxReceivedMessageSize = 2147483647;
                 binding.MaxBufferPoolSize = 2147483647;
+
                 binding.ReaderQuotas = XmlDictionaryReaderQuotas.Max;
                 return binding;
-            }
-            else
+            } else
             {
-                BasicHttpBinding binding = new BasicHttpBinding
-                {
-                    ReaderQuotas = { MaxStringContentLength = 2147483647 },
-                    MaxReceivedMessageSize = 2147483647,
-                    MaxBufferSize = 2147483647,
-                    MaxBufferPoolSize = 2147483647,
-                    HostNameComparisonMode = HostNameComparisonMode.StrongWildcard,
-                    MessageEncoding = WSMessageEncoding.Text,
-                    TextEncoding = Encoding.UTF8,
-                    UseDefaultWebProxy = true,
-                    AllowCookies = false,
-                    Namespace = "VideoOS.ConfigurationAPI",
-                    Security =
-                    {
-                        Mode = BasicHttpSecurityMode.Transport,
-                        Transport = {ClientCredentialType = HttpClientCredentialType.Basic}
-                    }
-                };
+                BasicHttpBinding binding = new BasicHttpBinding();
+                binding.ReaderQuotas.MaxStringContentLength = 2147483647;
+                binding.MaxReceivedMessageSize = 2147483647;
+                binding.MaxBufferSize = 2147483647;
+                binding.MaxBufferPoolSize = 2147483647;
+                binding.HostNameComparisonMode = HostNameComparisonMode.StrongWildcard;
+                binding.MessageEncoding = WSMessageEncoding.Text;
+                binding.TextEncoding = Encoding.UTF8;
+                binding.UseDefaultWebProxy = true;
+                binding.AllowCookies = false;
+                binding.Namespace = "VideoOS.ConfigurationAPI";
+                binding.Security.Mode = BasicHttpSecurityMode.Transport;
+                binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
+
                 return binding;
             }
         }
         #endregion
     }
+
+    /// <summary>
+    /// This class assist in adding the login token to the SOAP header
+    /// </summary>
+    public class ClientTokenHelper : TokenHelper
+    {
+        private String _serverAddress;
+        public ClientTokenHelper(string serverAddress)
+        {
+            _serverAddress = serverAddress;
+        }
+        public override string GetToken()
+        {
+            LoginSettings ls = LoginSettingsCache.GetLoginSettings(_serverAddress);
+            if (ls!=null)
+                return ls.Token;
+            return "";
+        }
+        public override bool ValidateToken(string token)
+        {
+            // Not used on client side
+            return true;
+        }
+    }
+
+
 }

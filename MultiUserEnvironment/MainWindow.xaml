@@ -1,0 +1,81 @@
+<platformUiControls:VideoOSWindow x:Class="MultiUserEnvironment.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiUserEnvironment"
+        xmlns:platformUiControls="clr-namespace:VideoOS.Platform.UI.Controls;assembly=VideoOS.Platform"
+        mc:Ignorable="d"
+        Title="Multi-User Environment Application" Height="800" Width="1200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="5*" />
+        </Grid.ColumnDefinitions>
+
+        <GroupBox x:Name="_serverGroupBox" Header="Logon Server" Margin="5,5,5,5" Grid.ColumnSpan="2">
+            <Grid Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <platformUiControls:VideoOSTextBlockBodySmall Text="Server address:" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <platformUiControls:VideoOSTextBoxSmall x:Name="_serverAddressBox" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2"/>
+
+                <platformUiControls:VideoOSTextBlockBodySmall Text="Username:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1"/>
+                <platformUiControls:VideoOSTextBoxSmall x:Name="_userNameBox" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"/>
+
+                <platformUiControls:VideoOSTextBlockBodySmall Text="Password:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2"/>
+                <platformUiControls:VideoOSPasswordBoxSmall x:Name="_passwordBox" HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"/>
+
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Grid.RowSpan="2">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type platformUiControls:VideoOSRadioButtonSmall}">
+                            <Setter Property="Margin" Value="2"/>
+                        </Style>
+                        <Style TargetType="{x:Type platformUiControls:VideoOSCheckBoxSmall}">
+                            <Setter Property="Margin" Value="2"/>
+                        </Style>
+                    </StackPanel.Resources>
+
+                    <platformUiControls:VideoOSRadioButtonSmall x:Name="_negotiateAuthTypeRadioButton"  GroupName="AuthType" Content="AD User" IsChecked="True" />
+                    <platformUiControls:VideoOSRadioButtonSmall x:Name="_basicAuthTypeRadioButton" GroupName="AuthType" Content="Basic User" />
+                    <platformUiControls:VideoOSCheckBoxSmall x:Name="_useOAuthTokenCheckBox" Content="Use OAuth token" />
+                    <platformUiControls:VideoOSCheckBoxSmall x:Name="_secureOnlyCheckBox" Content="Secure only" />
+                </StackPanel>
+
+                <platformUiControls:VideoOSButtonPrimaryMedium Grid.Row="3" Grid.Column="2" Content="Save" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="Save_Click" />
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="_userContext1GroupBox" Grid.Row="1" Header="User 1 context" Margin="5,5,5,5" Grid.ColumnSpan="2" IsEnabled="False">
+            <local:UserContextControl x:Name="_userContextControl1" Margin="5"/>
+        </GroupBox>
+
+        <GroupBox x:Name="_userContext2GroupBox" Grid.Row="1" Grid.Column="2" Header="User 2 context" Margin="5,5,5,5" IsEnabled="False">
+            <local:UserContextControl x:Name="_userContextControl2" Margin="5"/>
+        </GroupBox>
+
+        <platformUiControls:VideoOSButtonPrimaryMedium Grid.Row="2" Content="Close" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Click="CloseButton_Click" Grid.Column="2" />
+
+        <GroupBox Grid.Column="2" Header="Configuration logs" Margin="5,5,5,5" IsEnabled="False">
+            <ListBox Margin="5,5,5,5"  ItemsSource="{Binding Path=ConfigurationMonitorItems}" />
+        </GroupBox>
+    </Grid>
+</platformUiControls:VideoOSWindow>

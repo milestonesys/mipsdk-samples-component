@@ -35,12 +35,15 @@ namespace LibraryEventGenerator
         /// <param name="e"></param>
         private void OnSelect(object sender, EventArgs e)
         {
-            ItemPickerForm form = new ItemPickerForm();
-            form.AutoAccept = true;
-            form.Init(Configuration.Instance.GetItems());
-            if (form.ShowDialog() == DialogResult.OK)
+            ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow()
             {
-                _item = form.SelectedItem;
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                Items = Configuration.Instance.GetItems()
+            };
+
+            if (itemPicker.ShowDialog().Value)
+            {
+                _item = itemPicker.SelectedItems.First();
                 _buttonSelect.Text = _item.Name;
             }
         }

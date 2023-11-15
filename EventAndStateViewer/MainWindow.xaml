@@ -1,0 +1,38 @@
+﻿<Window x:Class="EventAndStateViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EventAndStateViewer"
+        xmlns:subscription="clr-namespace:EventAndStateViewer.Subscription"
+        xmlns:eventViewer="clr-namespace:EventAndStateViewer.EventViewer"
+        xmlns:stateViewer="clr-namespace:EventAndStateViewer.StateViewer"
+        xmlns:controls="clr-namespace:VideoOS.Platform.UI.Controls;assembly=VideoOS.Platform"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance local:MainViewModel}"
+        Title="Event and state viewer" Height="450" Width="800">
+    <Grid>
+        <controls:VideoOSTextBlockH2 Text="{Binding ConnectionStateViewModel.SuccessStateMessage}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="15" Foreground="Green" />
+        <controls:VideoOSTextBlockH2 Text="{Binding ConnectionStateViewModel.ErrorStateMessage}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="15" Foreground="Red" />
+        
+        <controls:VideoOSTabControlPrimaryHorizontalLarge x:Name="TabControl" ItemsSource="{Binding Tabs}" ItemTextPropertyName="TabName" Loaded="TabControl_Loaded">
+            <controls:VideoOSTabControlPrimaryHorizontalLarge.Resources>
+                <DataTemplate DataType="{x:Type subscription:SubscriptionViewModel}">
+                    <subscription:SubscriptionControl />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type stateViewer:StateViewerViewModel}">
+                    <stateViewer:StateViewerControl />
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type eventViewer:EventViewerViewModel}">
+                    <eventViewer:EventViewerControl />
+                </DataTemplate>
+            </controls:VideoOSTabControlPrimaryHorizontalLarge.Resources>
+            <controls:VideoOSTabControlPrimaryHorizontalLarge.ContentTemplate>
+                <DataTemplate>
+                    <!-- Display tabs using above templates depending on type -->
+                    <ContentPresenter Content="{Binding}" />
+                </DataTemplate>
+            </controls:VideoOSTabControlPrimaryHorizontalLarge.ContentTemplate>
+        </controls:VideoOSTabControlPrimaryHorizontalLarge>
+    </Grid>
+</Window>

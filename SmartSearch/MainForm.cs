@@ -58,19 +58,20 @@ namespace SmartSearch
 				_cameraBitmap.Dispose();
 	        _cameraBitmap = null;
 
-            ItemPickerForm form = new ItemPickerForm();
-            form.KindFilter = Kind.Camera;
-            form.AutoAccept = true;
-            form.Init(Configuration.Instance.GetItems());
-            
-            if (form.ShowDialog() == DialogResult.OK)
+            ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow()
             {
-                
-                _selectItem = form.SelectedItem;
-                buttonPickCamera.Text = _selectItem.Name; 
+                KindsFilter = new List<Guid> { Kind.Camera },
+                SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                Items = Configuration.Instance.GetItems()
+            };
+
+            if (itemPicker.ShowDialog().Value)
+            {
+                _selectItem = itemPicker.SelectedItems.First();
+                buttonPickCamera.Text = _selectItem.Name;
                 _jpegVideoSource = new JPEGVideoSource(_selectItem);
                 _jpegVideoSource.Init();
-				ShowImageFrom(DateTime.UtcNow);
+                ShowImageFrom(DateTime.UtcNow);
                 buttonClear.Enabled = true;
                 buttonSearch.Enabled = true;
             }

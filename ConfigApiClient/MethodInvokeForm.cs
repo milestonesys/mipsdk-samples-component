@@ -309,7 +309,7 @@ namespace ConfigAPIClient
                                 if (pathProperty.Value.StartsWith("Task"))
                                     taskPath = pathProperty.Value;
                             }
-                            if (stateProperty != null && (stateProperty.Value == "Success" || stateProperty.Value == "Error"))
+                            if (stateProperty != null && (stateProperty.Value == "Success" || stateProperty.Value == "Error" || stateProperty.Value == "Completed"))
                                 timer1.Stop();
                         }
                         else

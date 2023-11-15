@@ -8,7 +8,7 @@ using VideoOS.Platform;
 
 namespace MatrixServer
 {
-    class MatrixSession
+	class MatrixSession
 	{
 		Socket _session;
 		MatrixService _matrixService;
@@ -20,7 +20,7 @@ namespace MatrixServer
 			this._matrixService = matrixService;
 			Thread thread = new Thread(new ThreadStart(run));
 			thread.Name = "MatrixSession";
-            thread.IsBackground = true;
+			thread.IsBackground = true;
 			thread.Start();
 		}
 
@@ -32,34 +32,32 @@ namespace MatrixServer
 		/// </summary>
 		private void run()
 		{
-			long activity = DateTime.Now.Ticks;
 			string command = "";
 			byte[] buffer = new byte[1000];
 			try
 			{
-				while (activity + 30 * 1000 * 10000 > DateTime.Now.Ticks && _session.Connected)
+				while (_session.Connected)
 				{
 					if (_session.Available > 0)
 					{
-						activity = DateTime.Now.Ticks;
 						int bytes = _session.Receive(buffer, buffer.Length, SocketFlags.None);
 
-                        for (int i = 0; i < bytes; i++)
-                        {
-                            command += Convert.ToChar(buffer[i]);
-                        }
+						for (int i = 0; i < bytes; i++)
+						{
+							command += Convert.ToChar(buffer[i]);
+						}
+
+						HandleCommand(command);
+						_matrixService.ShowCommand(command);
                     }
 
-					HandleCommand(command);
-					_matrixService.ShowCommand(command);
-
-					Thread.Sleep(100);
+                    Thread.Sleep(100);
 				}
 			}
 			catch (Exception e)
 			{
-				EnvironmentManager.Instance.ExceptionHandler("MatrixSession","Run",e);
-            }
+				EnvironmentManager.Instance.ExceptionHandler("MatrixSession", "Run", e);
+			}
 			if (_session.Connected)
 				_session.Disconnect(false);
 			_session.Close();
@@ -100,10 +98,10 @@ namespace MatrixServer
 					case "CONNECTGUID":
 						HandleConnectGuid(parm);
 						break;
-                    case "CONNECTGUIDS":
-                        HandleConnectGuids(parm);
-                        break;
-                    case "DISCONNECT":
+					case "CONNECTGUIDS":
+						HandleConnectGuids(parm);
+						break;
+					case "DISCONNECT":
 						DisconnectAll();
 						Response("DISCONNECT", "");
 						break;
@@ -111,7 +109,7 @@ namespace MatrixServer
 			}
 			else
 			{
-                _matrixService.ShowCommand("Invalid password: Command not accepted");
+				_matrixService.ShowCommand("Invalid password: Command not accepted");
 			}
 
 			_session.Disconnect(false);
@@ -125,8 +123,8 @@ namespace MatrixServer
 				string devFrameRate = parm[5];
 				string devResolution = parm[6];
 				string devName = parm[7];
-                Trace.WriteLine("MatrixSession: Old Matrix command ignored");
-                Response("CONNECT", "NOT_IMPLEMENTED");
+				Trace.WriteLine("MatrixSession: Old Matrix command ignored");
+				Response("CONNECT", "NOT_IMPLEMENTED");
 			}
 		}
 
@@ -143,36 +141,36 @@ namespace MatrixServer
 			Response("CONNECTGUID", "");
 		}
 
-        private void HandleConnectGuids(List<string> parm)
-        {
-            if (parm.Count >= 7)
-            {
-                int guidCount = int.Parse(parm[2]);
-                if (parm.Count >= guidCount + 6)
-                {
-                    var guids = new List<Guid>();
-                    int index = 3;
-                    for (; index < guidCount + 3; index++)
-                    {
-                        guids.Add(new Guid(parm[index]));
-                    }
-                    string devFrameRate = parm[index++];
-                    string devResolution = parm[index++];
-                    string devName = parm[index++];
-                    // the sample only shows the first camera, but of course a real solution should use them all
-                    Connect(guids[0], devFrameRate, devResolution, devName); 
-                }
-            }
-            Response("CONNECTGUIDS", "");
-        }
+		private void HandleConnectGuids(List<string> parm)
+		{
+			if (parm.Count >= 7)
+			{
+				int guidCount = int.Parse(parm[2]);
+				if (parm.Count >= guidCount + 6)
+				{
+					var guids = new List<Guid>();
+					int index = 3;
+					for (; index < guidCount + 3; index++)
+					{
+						guids.Add(new Guid(parm[index]));
+					}
+					string devFrameRate = parm[index++];
+					string devResolution = parm[index++];
+					string devName = parm[index++];
+					// the sample only shows the first camera, but of course a real solution should use them all
+					Connect(guids[0], devFrameRate, devResolution, devName);
+				}
+			}
+			Response("CONNECTGUIDS", "");
+		}
 
-        /// <summary>
-        /// Unpack the command string into a list of strings.
-        /// If command is semi-encrypted - it will be descrypted.
-        /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
-        private List<string> Unpack(string command)
+		/// <summary>
+		/// Unpack the command string into a list of strings.
+		/// If command is semi-encrypted - it will be descrypted.
+		/// </summary>
+		/// <param name="command"></param>
+		/// <returns></returns>
+		private List<string> Unpack(string command)
 		{
 			var parms = new List<string>();
 			int i = 0;
@@ -180,8 +178,8 @@ namespace MatrixServer
 			bool quote = false;
 			string parmTxt = command.Substring(3);
 
-            // DTS #8851: Recieved argument contain sometimes hex-values. These values are now reverted to the ASCII representation
-            command = Uri.UnescapeDataString(command);
+			// DTS #8851: Recieved argument contain sometimes hex-values. These values are now reverted to the ASCII representation
+			command = Uri.UnescapeDataString(command);
 
 			if (command.StartsWith("+1+"))
 			{
@@ -193,48 +191,48 @@ namespace MatrixServer
 				}
 				parmTxt = decrypt;
 			}
-			
-			while (i<parmTxt.Length)
+
+			while (i < parmTxt.Length)
 			{
 				char c = parmTxt[i++];
-                                if (c == '"')
-                                {
-                                  quote = !quote;
-                                }
-                                else
-                                {
-                                  if (!quote && c == '+')
-                                  {
-                                    parms.Add(parm);
-                                    parm = "";
-                                  }
-                                  else
-                                    parm += c;
-                                }
+				if (c == '"')
+				{
+					quote = !quote;
+				}
+				else
+				{
+					if (!quote && c == '+')
+					{
+						parms.Add(parm);
+						parm = "";
+					}
+					else
+						parm += c;
+				}
 			}
 			return parms;
 		}
-		
+
 		private void GetStatus()
 		{
 			List<MatrixViewItem> list = _matrixService.MatrixViewItems;
 			string windowStatus = "0";
-			if (list!=null && list.Count>0)
+			if (list != null && list.Count > 0)
 			{
 				windowStatus = "" + list.Count;
 				foreach (MatrixViewItem g in list)
 					windowStatus += "+" + g.CameraItem.FQID.ObjectId.ToString();
 			}
-			Response("GETSTATUS",windowStatus);
+			Response("GETSTATUS", windowStatus);
 		}
-				
+
 		private void Connect(Guid devGuid, string devFrameRate, string devResolution, string devName)
 		{
 			Item item = Configuration.Instance.GetItem(devGuid, Kind.Camera);
-			if (item!=null)
+			if (item != null)
 			{
 				List<MatrixViewItem> views = _matrixService.MatrixViewItems;
-				for (int ix = views.Count - 1; ix > 0; ix-- )
+				for (int ix = views.Count - 1; ix > 0; ix--)
 				{
 					views[ix].CameraItem = views[ix - 1].CameraItem;
 				}
@@ -251,10 +249,10 @@ namespace MatrixServer
 			}
 		}
 
-		private void Response(string cmd,string tx)
+		private void Response(string cmd, string tx)
 		{
 			string response = "NetMatrixMonitorBegin+" + cmd + "+" + tx + "+NetMatrixMonitorEnd+Version30";
-			_session.Send(_encoder.GetBytes(response));			
+			_session.Send(_encoder.GetBytes(response));
 		}
 	}
 }

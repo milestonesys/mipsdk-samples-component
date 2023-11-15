@@ -24,13 +24,14 @@ Commands to change monitor content:
 - Show text message on the specified position in the current layout on
   the specified monitor
 - Replace current layout of one monitor with specified layout
-- Show cameras(s) on the monitor from specified position
+- Show camera(s) on the monitor from specified position
+- Change mode between live and playback
 
 ![Video wall controller](video_wall_controller.png)
 
 ## The sample demonstrates
 
-- The message commands to send to the video wall(s)
+- The commands to send to the video wall(s)
 - Using messaging to listen to VideoWallIndication
 
 ## Using
@@ -38,6 +39,7 @@ Commands to change monitor content:
 - VideoOS.Platform
 - VideoOS.Platform.Messaging.MessageCommunicationManager
 - VideoOS.Platform.Messaging.CommunicationIdFilter
+- VideoOS.Platform.ConfigurationItems.Monitor
 - VideoOS.Platform.UI.ItemPickerForm
 
 ## Environment

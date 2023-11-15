@@ -1,0 +1,51 @@
+﻿    <platformUiControls:VideoOSWindow x:Class="ConfigAccessViaSDK.DevicePickerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:picker="clr-namespace:VideoOS.Platform.UI;assembly=VideoOS.Platform"
+        xmlns:platformUiControls="clr-namespace:VideoOS.Platform.UI.Controls;assembly=VideoOS.Platform"
+        xmlns:local="clr-namespace:ConfigAccessViaSDK"
+        mc:Ignorable="d" MinHeight="650" MinWidth="700"
+        Title="DevicePickerWindow">
+    <Grid Loaded="OnLoad" Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <platformUiControls:VideoOSTextBlockLabel Grid.Column="0" HorizontalAlignment="Stretch" Text="Type filter:" />
+            <platformUiControls:VideoOSDropDownMedium 
+                x:Name="_filter" 
+                Grid.Column="1" 
+                SelectedItemChanged="Filter_SelectedItemChanged"
+                HorizontalAlignment="Left"
+                Width="300"
+                Margin="10, 0, 0, 0" />
+        </Grid>
+        <picker:ItemPickerWpfUserControl Grid.Row="1" IsMultiSelection="True" x:Name="_itemPicker" HorizontalAlignment="Stretch" />
+        <StackPanel 
+            Orientation="Horizontal" 
+            Grid.Row="2" 
+            HorizontalAlignment="Right">
+            <platformUiControls:VideoOSButtonPrimaryMedium 
+                Content="Cancel" 
+                HorizontalAlignment="Right" 
+                Margin="0, 0, 25, 0"
+                Click="CancelButton_Click"
+                />
+            <platformUiControls:VideoOSButtonPrimaryMedium 
+                Content="OK"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Grid.Column="1" 
+                Click="OkButton_Click"
+                />
+        </StackPanel>
+    </Grid>
+</platformUiControls:VideoOSWindow>

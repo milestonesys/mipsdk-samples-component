@@ -56,14 +56,6 @@ namespace VideoWallController
             this.selectLayoutSetLayoutLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.messageListenerGroupBox = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.numericUpDownApplyXml = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBoxApplyXml = new System.Windows.Forms.TextBox();
-            this.buttonSendXml = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.selectMonitorApplyXmlButton = new System.Windows.Forms.Button();
             this.messageSenderGroupBox = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.removeCamerasGroupBox = new System.Windows.Forms.GroupBox();
@@ -90,12 +82,28 @@ namespace VideoWallController
             this.cameraToShowSetCamerasListBox = new System.Windows.Forms.ListBox();
             this.camerasSavedSetCamerasLabel = new System.Windows.Forms.Label();
             this.selectCameraSetCamerasButton = new System.Windows.Forms.Button();
+            this.showXmlAsViewItemsGroupBox = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numericUpDownApplyXml = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxApplyXml = new System.Windows.Forms.TextBox();
+            this.buttonSendXml = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.selectMonitorApplyXmlButton = new System.Windows.Forms.Button();
+            this.changeModeGroupBox = new System.Windows.Forms.GroupBox();
+            this.changeModeSpeedComboBox = new System.Windows.Forms.ComboBox();
+            this.changeModeButton = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.selectMonitorChangeModeButton = new System.Windows.Forms.Button();
+            this.playbackModeComboBox = new System.Windows.Forms.ComboBox();
+            this.playbackDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.label4 = new System.Windows.Forms.Label();
+            this.playbackRadioButton = new System.Windows.Forms.RadioButton();
+            this.liveRadioButton = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.setPositionSetLayoutAndCamerasNumeric)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.setPositionShowTextNumeric)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.messageListenerGroupBox.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownApplyXml)).BeginInit();
             this.messageSenderGroupBox.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.removeCamerasGroupBox.SuspendLayout();
@@ -105,12 +113,15 @@ namespace VideoWallController
             this.presetActivatedGroupBox.SuspendLayout();
             this.setCamerasGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.setPositionSetCamerasNumeric)).BeginInit();
+            this.showXmlAsViewItemsGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownApplyXml)).BeginInit();
+            this.changeModeGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonClose
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.Location = new System.Drawing.Point(694, 902);
+            this.buttonClose.Location = new System.Drawing.Point(694, 1032);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(75, 23);
             this.buttonClose.TabIndex = 0;
@@ -120,7 +131,7 @@ namespace VideoWallController
             // 
             // messageListenerListBox
             // 
-            this.messageListenerListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.messageListenerListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.messageListenerListBox.FormattingEnabled = true;
             this.messageListenerListBox.HorizontalScrollbar = true;
@@ -390,116 +401,26 @@ namespace VideoWallController
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(762, 918);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(762, 1015);
             this.tableLayoutPanel1.TabIndex = 6;
             // 
             // messageListenerGroupBox
             // 
-            this.messageListenerGroupBox.Controls.Add(this.groupBox1);
             this.messageListenerGroupBox.Controls.Add(this.messageListenerListBox);
             this.messageListenerGroupBox.Location = new System.Drawing.Point(3, 3);
             this.messageListenerGroupBox.Name = "messageListenerGroupBox";
-            this.messageListenerGroupBox.Size = new System.Drawing.Size(750, 262);
+            this.messageListenerGroupBox.Size = new System.Drawing.Size(750, 113);
             this.messageListenerGroupBox.TabIndex = 2;
             this.messageListenerGroupBox.TabStop = false;
             this.messageListenerGroupBox.Text = "Video wall message listener";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.numericUpDownApplyXml);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBoxApplyXml);
-            this.groupBox1.Controls.Add(this.buttonSendXml);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.selectMonitorApplyXmlButton);
-            this.groupBox1.Location = new System.Drawing.Point(9, 110);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(726, 144);
-            this.groupBox1.TabIndex = 12;
-            this.groupBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 114);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 13);
-            this.label1.TabIndex = 23;
-            this.label1.Text = "Set monitor";
-            // 
-            // numericUpDownApplyXml
-            // 
-            this.numericUpDownApplyXml.Location = new System.Drawing.Point(527, 109);
-            this.numericUpDownApplyXml.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownApplyXml.Name = "numericUpDownApplyXml";
-            this.numericUpDownApplyXml.Size = new System.Drawing.Size(41, 20);
-            this.numericUpDownApplyXml.TabIndex = 22;
-            this.numericUpDownApplyXml.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(464, 114);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(57, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "in position:";
-            // 
-            // textBoxApplyXml
-            // 
-            this.textBoxApplyXml.Location = new System.Drawing.Point(134, 18);
-            this.textBoxApplyXml.MaxLength = 1000000;
-            this.textBoxApplyXml.Multiline = true;
-            this.textBoxApplyXml.Name = "textBoxApplyXml";
-            this.textBoxApplyXml.Size = new System.Drawing.Size(574, 73);
-            this.textBoxApplyXml.TabIndex = 19;
-            // 
-            // buttonSendXml
-            // 
-            this.buttonSendXml.Enabled = false;
-            this.buttonSendXml.Location = new System.Drawing.Point(582, 97);
-            this.buttonSendXml.Name = "buttonSendXml";
-            this.buttonSendXml.Size = new System.Drawing.Size(138, 35);
-            this.buttonSendXml.TabIndex = 21;
-            this.buttonSendXml.Text = "Send XML as ViewItem";
-            this.buttonSendXml.UseVisualStyleBackColor = true;
-            this.buttonSendXml.Click += new System.EventHandler(this.button_Click);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 21);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(127, 13);
-            this.label3.TabIndex = 18;
-            this.label3.Text = "Show XML as ViewItems:";
-            // 
-            // selectMonitorApplyXmlButton
-            // 
-            this.selectMonitorApplyXmlButton.Location = new System.Drawing.Point(108, 109);
-            this.selectMonitorApplyXmlButton.Name = "selectMonitorApplyXmlButton";
-            this.selectMonitorApplyXmlButton.Size = new System.Drawing.Size(101, 23);
-            this.selectMonitorApplyXmlButton.TabIndex = 16;
-            this.selectMonitorApplyXmlButton.Text = "Select monitor";
-            this.selectMonitorApplyXmlButton.UseVisualStyleBackColor = true;
-            this.selectMonitorApplyXmlButton.Click += new System.EventHandler(this.button_Click);
             // 
             // messageSenderGroupBox
             // 
             this.messageSenderGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.messageSenderGroupBox.Controls.Add(this.tableLayoutPanel2);
-            this.messageSenderGroupBox.Location = new System.Drawing.Point(3, 271);
+            this.messageSenderGroupBox.Location = new System.Drawing.Point(3, 122);
             this.messageSenderGroupBox.Name = "messageSenderGroupBox";
-            this.messageSenderGroupBox.Size = new System.Drawing.Size(750, 600);
+            this.messageSenderGroupBox.Size = new System.Drawing.Size(750, 888);
             this.messageSenderGroupBox.TabIndex = 3;
             this.messageSenderGroupBox.TabStop = false;
             this.messageSenderGroupBox.Text = "Video wall message sender";
@@ -514,9 +435,13 @@ namespace VideoWallController
             this.tableLayoutPanel2.Controls.Add(this.setLayoutGroupBox, 0, 4);
             this.tableLayoutPanel2.Controls.Add(this.presetActivatedGroupBox, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.setCamerasGroupBox, 0, 6);
+            this.tableLayoutPanel2.Controls.Add(this.showXmlAsViewItemsGroupBox, 0, 7);
+            this.tableLayoutPanel2.Controls.Add(this.changeModeGroupBox, 0, 8);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(9, 29);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 7;
+            this.tableLayoutPanel2.RowCount = 9;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -524,7 +449,7 @@ namespace VideoWallController
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(735, 556);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(735, 852);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // removeCamerasGroupBox
@@ -696,6 +621,7 @@ namespace VideoWallController
             // setCamerasGroupBox
             // 
             this.setCamerasGroupBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.setCamerasGroupBox.AutoSize = true;
             this.setCamerasGroupBox.Controls.Add(this.sendSetCamerasButton);
             this.setCamerasGroupBox.Controls.Add(this.setPositionSetCamerasNumeric);
             this.setCamerasGroupBox.Controls.Add(this.positionSetCamerasLabel);
@@ -705,16 +631,16 @@ namespace VideoWallController
             this.setCamerasGroupBox.Controls.Add(this.camerasSavedSetCamerasLabel);
             this.setCamerasGroupBox.Controls.Add(this.selectCameraSetCamerasButton);
             this.setCamerasGroupBox.Controls.Add(this.showCamerasSetCamerasLabel);
-            this.setCamerasGroupBox.Location = new System.Drawing.Point(4, 465);
+            this.setCamerasGroupBox.Location = new System.Drawing.Point(5, 462);
             this.setCamerasGroupBox.Name = "setCamerasGroupBox";
-            this.setCamerasGroupBox.Size = new System.Drawing.Size(726, 85);
+            this.setCamerasGroupBox.Size = new System.Drawing.Size(725, 95);
             this.setCamerasGroupBox.TabIndex = 11;
             this.setCamerasGroupBox.TabStop = false;
             // 
             // sendSetCamerasButton
             // 
             this.sendSetCamerasButton.Enabled = false;
-            this.sendSetCamerasButton.Location = new System.Drawing.Point(582, 39);
+            this.sendSetCamerasButton.Location = new System.Drawing.Point(581, 43);
             this.sendSetCamerasButton.Name = "sendSetCamerasButton";
             this.sendSetCamerasButton.Size = new System.Drawing.Size(138, 33);
             this.sendSetCamerasButton.TabIndex = 8;
@@ -795,11 +721,221 @@ namespace VideoWallController
             this.selectCameraSetCamerasButton.UseVisualStyleBackColor = true;
             this.selectCameraSetCamerasButton.Click += new System.EventHandler(this.button_Click);
             // 
+            // showXmlAsViewItemsGroupBox
+            // 
+            this.showXmlAsViewItemsGroupBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.showXmlAsViewItemsGroupBox.AutoSize = true;
+            this.showXmlAsViewItemsGroupBox.Controls.Add(this.label1);
+            this.showXmlAsViewItemsGroupBox.Controls.Add(this.numericUpDownApplyXml);
+            this.showXmlAsViewItemsGroupBox.Controls.Add(this.label2);
+            this.showXmlAsViewItemsGroupBox.Controls.Add(this.textBoxApplyXml);
+            this.showXmlAsViewItemsGroupBox.Controls.Add(this.buttonSendXml);
+            this.showXmlAsViewItemsGroupBox.Controls.Add(this.label3);
+            this.showXmlAsViewItemsGroupBox.Controls.Add(this.selectMonitorApplyXmlButton);
+            this.showXmlAsViewItemsGroupBox.Location = new System.Drawing.Point(4, 563);
+            this.showXmlAsViewItemsGroupBox.Name = "showXmlAsViewItemsGroupBox";
+            this.showXmlAsViewItemsGroupBox.Size = new System.Drawing.Size(726, 151);
+            this.showXmlAsViewItemsGroupBox.TabIndex = 13;
+            this.showXmlAsViewItemsGroupBox.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 114);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 13);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "Set monitor";
+            // 
+            // numericUpDownApplyXml
+            // 
+            this.numericUpDownApplyXml.Location = new System.Drawing.Point(527, 109);
+            this.numericUpDownApplyXml.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownApplyXml.Name = "numericUpDownApplyXml";
+            this.numericUpDownApplyXml.Size = new System.Drawing.Size(41, 20);
+            this.numericUpDownApplyXml.TabIndex = 22;
+            this.numericUpDownApplyXml.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(464, 114);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "in position:";
+            // 
+            // textBoxApplyXml
+            // 
+            this.textBoxApplyXml.Location = new System.Drawing.Point(134, 18);
+            this.textBoxApplyXml.MaxLength = 1000000;
+            this.textBoxApplyXml.Multiline = true;
+            this.textBoxApplyXml.Name = "textBoxApplyXml";
+            this.textBoxApplyXml.Size = new System.Drawing.Size(574, 73);
+            this.textBoxApplyXml.TabIndex = 19;
+            // 
+            // buttonSendXml
+            // 
+            this.buttonSendXml.Enabled = false;
+            this.buttonSendXml.Location = new System.Drawing.Point(582, 97);
+            this.buttonSendXml.Name = "buttonSendXml";
+            this.buttonSendXml.Size = new System.Drawing.Size(138, 35);
+            this.buttonSendXml.TabIndex = 21;
+            this.buttonSendXml.Text = "Send XML as ViewItem";
+            this.buttonSendXml.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(127, 13);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Show XML as ViewItems:";
+            // 
+            // selectMonitorApplyXmlButton
+            // 
+            this.selectMonitorApplyXmlButton.Location = new System.Drawing.Point(108, 109);
+            this.selectMonitorApplyXmlButton.Name = "selectMonitorApplyXmlButton";
+            this.selectMonitorApplyXmlButton.Size = new System.Drawing.Size(101, 23);
+            this.selectMonitorApplyXmlButton.TabIndex = 16;
+            this.selectMonitorApplyXmlButton.Text = "Select monitor";
+            this.selectMonitorApplyXmlButton.UseVisualStyleBackColor = true;
+            // 
+            // changeModeGroupBox
+            // 
+            this.changeModeGroupBox.Controls.Add(this.changeModeSpeedComboBox);
+            this.changeModeGroupBox.Controls.Add(this.changeModeButton);
+            this.changeModeGroupBox.Controls.Add(this.label5);
+            this.changeModeGroupBox.Controls.Add(this.selectMonitorChangeModeButton);
+            this.changeModeGroupBox.Controls.Add(this.playbackModeComboBox);
+            this.changeModeGroupBox.Controls.Add(this.playbackDateTimePicker);
+            this.changeModeGroupBox.Controls.Add(this.label4);
+            this.changeModeGroupBox.Controls.Add(this.playbackRadioButton);
+            this.changeModeGroupBox.Controls.Add(this.liveRadioButton);
+            this.changeModeGroupBox.Location = new System.Drawing.Point(3, 720);
+            this.changeModeGroupBox.Name = "changeModeGroupBox";
+            this.changeModeGroupBox.Size = new System.Drawing.Size(727, 125);
+            this.changeModeGroupBox.TabIndex = 14;
+            this.changeModeGroupBox.TabStop = false;
+            // 
+            // changeModeSpeedComboBox
+            // 
+            this.changeModeSpeedComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.changeModeSpeedComboBox.Enabled = false;
+            this.changeModeSpeedComboBox.FormattingEnabled = true;
+            this.changeModeSpeedComboBox.Items.AddRange(new object[] {
+            "0.25",
+            "0.5",
+            "1",
+            "2",
+            "4",
+            "8",
+            "16"});
+            this.changeModeSpeedComboBox.Location = new System.Drawing.Point(473, 38);
+            this.changeModeSpeedComboBox.Name = "changeModeSpeedComboBox";
+            this.changeModeSpeedComboBox.Size = new System.Drawing.Size(48, 21);
+            this.changeModeSpeedComboBox.TabIndex = 27;
+            // 
+            // changeModeButton
+            // 
+            this.changeModeButton.Enabled = false;
+            this.changeModeButton.Location = new System.Drawing.Point(582, 73);
+            this.changeModeButton.Name = "changeModeButton";
+            this.changeModeButton.Size = new System.Drawing.Size(138, 35);
+            this.changeModeButton.TabIndex = 26;
+            this.changeModeButton.Text = "Set mode";
+            this.changeModeButton.UseVisualStyleBackColor = true;
+            this.changeModeButton.Click += new System.EventHandler(this.changeModeButton_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 90);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(60, 13);
+            this.label5.TabIndex = 25;
+            this.label5.Text = "Set monitor";
+            // 
+            // selectMonitorChangeModeButton
+            // 
+            this.selectMonitorChangeModeButton.Location = new System.Drawing.Point(107, 85);
+            this.selectMonitorChangeModeButton.Name = "selectMonitorChangeModeButton";
+            this.selectMonitorChangeModeButton.Size = new System.Drawing.Size(101, 23);
+            this.selectMonitorChangeModeButton.TabIndex = 24;
+            this.selectMonitorChangeModeButton.Text = "Select monitor";
+            this.selectMonitorChangeModeButton.UseVisualStyleBackColor = true;
+            this.selectMonitorChangeModeButton.Click += new System.EventHandler(this.selectMonitorChangeModeButton_Click);
+            // 
+            // playbackModeComboBox
+            // 
+            this.playbackModeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.playbackModeComboBox.Enabled = false;
+            this.playbackModeComboBox.FormattingEnabled = true;
+            this.playbackModeComboBox.Items.AddRange(new object[] {
+            "Forward",
+            "Stop",
+            "Reverse"});
+            this.playbackModeComboBox.Location = new System.Drawing.Point(346, 37);
+            this.playbackModeComboBox.Name = "playbackModeComboBox";
+            this.playbackModeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.playbackModeComboBox.TabIndex = 4;
+            // 
+            // playbackDateTimePicker
+            // 
+            this.playbackDateTimePicker.CustomFormat = "dd/MM/yyyy HH:mm:ss";
+            this.playbackDateTimePicker.Enabled = false;
+            this.playbackDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.playbackDateTimePicker.Location = new System.Drawing.Point(140, 38);
+            this.playbackDateTimePicker.Name = "playbackDateTimePicker";
+            this.playbackDateTimePicker.Size = new System.Drawing.Size(200, 20);
+            this.playbackDateTimePicker.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 19);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(52, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Set mode";
+            // 
+            // playbackRadioButton
+            // 
+            this.playbackRadioButton.AutoSize = true;
+            this.playbackRadioButton.Location = new System.Drawing.Point(65, 41);
+            this.playbackRadioButton.Name = "playbackRadioButton";
+            this.playbackRadioButton.Size = new System.Drawing.Size(69, 17);
+            this.playbackRadioButton.TabIndex = 1;
+            this.playbackRadioButton.Text = "Playback";
+            this.playbackRadioButton.UseVisualStyleBackColor = true;
+            this.playbackRadioButton.CheckedChanged += new System.EventHandler(this.playbackRadioButton_CheckedChanged);
+            // 
+            // liveRadioButton
+            // 
+            this.liveRadioButton.AutoSize = true;
+            this.liveRadioButton.Checked = true;
+            this.liveRadioButton.Location = new System.Drawing.Point(65, 17);
+            this.liveRadioButton.Name = "liveRadioButton";
+            this.liveRadioButton.Size = new System.Drawing.Size(45, 17);
+            this.liveRadioButton.TabIndex = 0;
+            this.liveRadioButton.TabStop = true;
+            this.liveRadioButton.Text = "Live";
+            this.liveRadioButton.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(790, 937);
+            this.ClientSize = new System.Drawing.Size(790, 1067);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "MainForm";
@@ -809,11 +945,9 @@ namespace VideoWallController
             ((System.ComponentModel.ISupportInitialize)(this.setPositionShowTextNumeric)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.messageListenerGroupBox.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownApplyXml)).EndInit();
             this.messageSenderGroupBox.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.removeCamerasGroupBox.ResumeLayout(false);
             this.removeCamerasGroupBox.PerformLayout();
             this.setLayoutAndCamerasGroupBox.ResumeLayout(false);
@@ -827,6 +961,11 @@ namespace VideoWallController
             this.setCamerasGroupBox.ResumeLayout(false);
             this.setCamerasGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.setPositionSetCamerasNumeric)).EndInit();
+            this.showXmlAsViewItemsGroupBox.ResumeLayout(false);
+            this.showXmlAsViewItemsGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownApplyXml)).EndInit();
+            this.changeModeGroupBox.ResumeLayout(false);
+            this.changeModeGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -887,7 +1026,7 @@ namespace VideoWallController
         private System.Windows.Forms.Label setMonitorShowTextLabel;
         private System.Windows.Forms.Label showCameraSetLayoutAndCamerasLabel;
         private System.Windows.Forms.Label setMonitorSetLayoutAndCamerasLabel;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox showXmlAsViewItemsGroupBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDownApplyXml;
         private System.Windows.Forms.Label label2;
@@ -895,5 +1034,15 @@ namespace VideoWallController
         private System.Windows.Forms.Button buttonSendXml;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button selectMonitorApplyXmlButton;
+        private System.Windows.Forms.GroupBox changeModeGroupBox;
+        private System.Windows.Forms.DateTimePicker playbackDateTimePicker;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.RadioButton playbackRadioButton;
+        private System.Windows.Forms.RadioButton liveRadioButton;
+        private System.Windows.Forms.ComboBox playbackModeComboBox;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button selectMonitorChangeModeButton;
+        private System.Windows.Forms.Button changeModeButton;
+        private System.Windows.Forms.ComboBox changeModeSpeedComboBox;
     }
 }

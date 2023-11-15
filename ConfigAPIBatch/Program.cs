@@ -14,7 +14,7 @@ namespace ConfigAPIBatch
 		static void Main(string[] args)
 		{
 			client.ServerAddress = "10.10.48.236";
-			client.Serverport = 0;
+			client.Serverport = 80;
 			client.BasicUser = true;
 			client.Username = "a";
 			client.Password = "a";

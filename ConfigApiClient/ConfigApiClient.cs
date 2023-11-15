@@ -4,19 +4,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using VideoOS.ConfigurationAPI;
 using VideoOS.Platform;
 using VideoOS.Platform.Login;
-using VideoOS.Platform.Messaging;
-using VideoOS.Platform.Resources;
 using VideoOS.Platform.Util;
 
 namespace ConfigAPIClient
@@ -34,15 +29,8 @@ namespace ConfigAPIClient
         internal Dictionary<String, Bitmap> AllMethodBitmaps { get { return _allMethodBitmaps; } }
 
         internal bool TrimTreeToolStripMenuItem { get; set; }
-        public string ServerAddress { get; set; }
-        public int Serverport { get; set; }
-        public ServerTypeEnum ServerType { get; set; }
+        public ServerId ServerId { get; set; }
 
-        public enum ServerTypeEnum
-        {
-            Corporate,
-            Arcus
-        } 
         internal bool Connected { get; set; }
 
         #region Construction, Initialize and Close
@@ -50,14 +38,14 @@ namespace ConfigAPIClient
         {
             try
             {
-                LoginSettings loginSettings = LoginSettingsCache.GetLoginSettings(ServerAddress);
+                LoginSettings loginSettings = LoginSettingsCache.GetLoginSettings(ServerId.ServerHostname);
                 if (loginSettings.IsOAuthConnection)
                 {
-                    _client = CreateOAuthClientProxy(ServerAddress, Serverport, loginSettings);
+                    _client = CreateOAuthClientProxy(ServerId, loginSettings);
                 }
                 else
                 {
-                    _client = CreateClientProxy(ServerAddress, Serverport, loginSettings);
+                    _client = CreateClientProxy(ServerId, loginSettings);
                 }
                 Connected = false;
             }
@@ -66,11 +54,11 @@ namespace ConfigAPIClient
             }
         }
 
-        private IConfigurationService CreateOAuthClientProxy(string address, int serverPort, LoginSettings loginSettings)
+        private IConfigurationService CreateOAuthClientProxy(ServerId serverId, LoginSettings loginSettings)
         {
             // If the OAuth server is available it uses OAuth version of ServerCommandService.
-            var uri = ConfigApiServiceOAuthHelper.CalculateServiceUrl(address, serverPort);
-            var oauthBinding = ConfigApiServiceOAuthHelper.GetOAuthBinding(serverPort == 443);
+            var uri = ConfigApiServiceOAuthHelper.CalculateServiceUrl(serverId.ServerHostname, serverId.Serverport);
+            var oauthBinding = ConfigApiServiceOAuthHelper.GetOAuthBinding(serverId.Serverport == 443);
             string spn = SpnFactory.GetSpn(uri);
             EndpointAddress endpointAddress = new EndpointAddress(uri, EndpointIdentity.CreateSpnIdentity(spn));
 
@@ -81,14 +69,14 @@ namespace ConfigAPIClient
             return channel.CreateChannel();
         }
 
-        public IConfigurationService CreateClientProxy(string serverAddress, int serverport, LoginSettings loginSettings)
+        public IConfigurationService CreateClientProxy(ServerId serverId, LoginSettings loginSettings)
         {
-            string address = serverport == 0 ? serverAddress : serverAddress + ":" + serverport;
+            string address = serverId.Serverport == 0 ? serverId.ServerHostname : serverId.ServerHostname + ":" + serverId.Serverport;
             bool basic = loginSettings != null && loginSettings.IsBasicUser;
 
             string hostName = address;
             string uriString;
-            if (ServerType == ServerTypeEnum.Corporate && loginSettings != null)
+            if (loginSettings != null)
             {
                 uriString = new UriBuilder(loginSettings.UriCorporate).Uri.ToString() + "ManagementServer/ConfigurationApiService.svc";
             }
@@ -99,21 +87,21 @@ namespace ConfigAPIClient
             ChannelFactory<IConfigurationService> channel = null;
 
             Uri uri = new UriBuilder(uriString).Uri;
-            var binding = GetBinding(basic, ServerType == ServerTypeEnum.Corporate);
+            var binding = GetBinding(basic);
             var spn = SpnFactory.GetSpn(uri);
             var endpointAddress = new EndpointAddress(uri, EndpointIdentity.CreateSpnIdentity(spn));
             channel = new ChannelFactory<IConfigurationService>(binding, endpointAddress);
 
-            ClientTokenHelper clientTokenHelper = new ClientTokenHelper(ServerAddress);
+            ClientTokenHelper clientTokenHelper = new ClientTokenHelper(serverId.ServerHostname);
             channel.Endpoint.Behaviors.Add(new TokenServiceBehavior(clientTokenHelper));
 
-#pragma warning disable CS0618 // Type or member is obsolete
+            var networkCredential = LoginSettingsCache.GetNetworkCredential(serverId);
             if (loginSettings != null)
             {
                 if (basic)
                 {
-                    channel.Credentials.UserName.UserName = "[BASIC]\\" + loginSettings.NetworkCredential.UserName;
-                    channel.Credentials.UserName.Password = loginSettings.NetworkCredential.Password;
+                    channel.Credentials.UserName.UserName = "[BASIC]\\" + networkCredential.UserName;
+                    channel.Credentials.UserName.Password = networkCredential.Password;
                     channel.Credentials.ServiceCertificate.SslCertificateAuthentication = new X509ServiceCertificateAuthentication()
                     {
                         CertificateValidationMode = X509CertificateValidationMode.None,
@@ -121,11 +109,10 @@ namespace ConfigAPIClient
                 }
                 else
                 {
-                    channel.Credentials.Windows.ClientCredential.UserName = loginSettings.NetworkCredential.UserName;
-                    channel.Credentials.Windows.ClientCredential.Password = loginSettings.NetworkCredential.Password;
+                    channel.Credentials.Windows.ClientCredential.UserName = networkCredential.UserName;
+                    channel.Credentials.Windows.ClientCredential.Password = networkCredential.Password;
                 }
             }
-#pragma warning restore CS0618 // Type or member is obsolete
             return channel.CreateChannel();
         }
 
@@ -165,20 +152,10 @@ namespace ConfigAPIClient
             return text;
         }
 
-        internal String Token
-        {
-            get
-            {
-                LoginSettings ls = VideoOS.Platform.Login.LoginSettingsCache.GetLoginSettings(ServerAddress);
-                return ls.Token;
-            }
-        }
-
         internal void Close()
         {
             _allMethodInfos.Clear();
             _allMethodBitmaps.Clear();
-
         }
 
         #endregion
@@ -515,7 +492,7 @@ namespace ConfigAPIClient
             }
         }
 
-        internal static System.ServiceModel.Channels.Binding GetBinding(bool IsBasic, bool isCorporate)
+        internal static System.ServiceModel.Channels.Binding GetBinding(bool IsBasic)
         {
             if (!IsBasic)
             {
@@ -542,15 +519,9 @@ namespace ConfigAPIClient
                 binding.UseDefaultWebProxy = true;
                 binding.AllowCookies = false;
                 binding.Namespace = "VideoOS.ConfigurationAPI";
-                if (isCorporate)
-                {
-                    binding.Security.Mode = BasicHttpSecurityMode.Transport;
-                    binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
-                }
-                else
-                {
-                    binding.Security.Mode = BasicHttpSecurityMode.None;                                        
-                }
+                binding.Security.Mode = BasicHttpSecurityMode.Transport;
+                binding.Security.Transport.ClientCredentialType = HttpClientCredentialType.Basic;
+
                 return binding;
             }
         }

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using VideoOS.Platform;
 using VideoOS.Platform.Messaging;
+using VideoOS.Platform;
 
 namespace MultiUserEnvironment
 {
@@ -38,7 +37,7 @@ namespace MultiUserEnvironment
             _messageCommunication.ConnectionStateChangedEvent += new EventHandler(_messageCommunication_ConnectionStateChangedEvent);
 
             _reloadTimer.Change(0, 15000);      // Lets display now
-    
+
         }
 
         public void Dispose()
@@ -84,7 +83,7 @@ namespace MultiUserEnvironment
 
         public void RemoveUserContext(UserContext userContext)
         {
-            lock ( _userContexts)
+            lock (_userContexts)
             {
                 if (_recordersToReload.ContainsKey(userContext))
                     _recordersToReload.Remove(userContext);
@@ -102,8 +101,8 @@ namespace MultiUserEnvironment
         {
             List<FQID> fqidList = message.Data as List<FQID>;
             if (fqidList != null)
-            { 
-                lock (_userContexts)            
+            {
+                lock (_userContexts)
                 {
                     foreach (FQID fqid in fqidList)
                     {
@@ -173,8 +172,5 @@ namespace MultiUserEnvironment
             // Now configuration is ready, let UI thread update the UI in this test sample
             ConfigurationNowReloaded();
         }
-
-
-
     }
 }

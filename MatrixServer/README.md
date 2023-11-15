@@ -8,7 +8,7 @@ title: Matrix Server
 
 # Matrix Server
 
-This sample show how to receive matrix commands from a Milestone VMS
+This sample shows how to receive matrix commands from a Milestone VMS
 system.
 
 This can be used to get immediate notification based on an event or user
@@ -24,7 +24,7 @@ Smart Client (Send to Matrix option in the camera toolbar) or via event configur
 
 ![](MatrixServer.png)
 
-The listbox will contain one line for every matrix command being
+The table will contain one line for every matrix command being
 received. If the command is understood and password is correct, the
 camera being referenced will be displayed below on a row of 3 cameras.
 
@@ -35,6 +35,7 @@ camera being referenced will be displayed below on a row of 3 cameras.
 ## Using
 
 - VideoOS.Platform.UI.LogonDialog
+- ImageViewerWpfControl
 - Matrix protocol
 
 ## Environment

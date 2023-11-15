@@ -1,0 +1,69 @@
+<platformUiControls:VideoOSWindow x:Class="MultiSiteViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiSiteViewer"
+        xmlns:platformUiControls="clr-namespace:VideoOS.Platform.UI.Controls;assembly=VideoOS.Platform"                              
+        xmlns:platformclient="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+        mc:Ignorable="d"
+        Title="MultiSiteViewer Application (sample only - not production code)" Height="700" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" MinHeight="100"/>
+            <RowDefinition Height="auto"/> 
+        </Grid.RowDefinitions>
+        <platformUiControls:VideoOSTextBlockTitle Text="Current avaliable configuration" Margin="20"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="240"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <platformUiControls:VideoOSTreeView x:Name="_configTreeView" 
+                                                ItemsSource="{Binding Path=TreeViewModel.ItemViewModels}"
+                                                ItemChildrenPropertyName="ChildItems"                                                
+                                                IsBorderVisible="False"/>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <platformUiControls:VideoOSButtonPrimaryMedium 
+                    Content="{Binding Path=CameraName1}" 
+                    Margin="20,5,20,5" 
+                    Click="DoSelectionCamera1"/>
+                <platformclient:ImageViewerWpfControl x:Name="_imageViewerControl1" 
+                                                      Grid.Row="1" Margin="20,0,20,10"/>
+                <platformUiControls:VideoOSButtonPrimaryMedium 
+                    Content="{Binding Path=CameraName2}" 
+                    Margin="20,5,20,5" Grid.Row="2" 
+                    Click="DoSelectionCamera2"/>
+                <platformclient:ImageViewerWpfControl x:Name="_imageViewerControl2" 
+                                                      Grid.Row="3" Margin="20,0,20,10"/>
+            </Grid>
+            <platformUiControls:VideoOSButtonPrimaryMedium 
+                Content="Add site" 
+                HorizontalAlignment="Left" 
+                Margin="20" Grid.Row="1" 
+                Click="DoAdd"/>
+            <platformUiControls:VideoOSButtonPrimaryMedium 
+                Content="Remove site" 
+                HorizontalAlignment="Right" 
+                Margin="20" Grid.Row="1" 
+                Click="DoRemove"/>
+             <platformUiControls:VideoOSButtonPrimaryMedium 
+                Content="Close" 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Right" 
+                Margin="20"  Grid.Row="1" Grid.Column="1"
+                Click="DoClose"/>       
+        </Grid>
+    </Grid>
+</platformUiControls:VideoOSWindow>

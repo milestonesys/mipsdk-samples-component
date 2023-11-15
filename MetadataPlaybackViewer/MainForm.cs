@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using VideoOS.Platform;
@@ -9,6 +11,7 @@ using VideoOS.Platform.Data;
 using VideoOS.Platform.Messaging;
 using VideoOS.Platform.SDK.UI.LoginDialog;
 using VideoOS.Platform.UI;
+using VideoOS.Platform.UI.ItemPicker.Utilities;
 
 namespace MetadataPlaybackViewer
 {
@@ -202,15 +205,20 @@ namespace MetadataPlaybackViewer
             {
                 CloseCurrent();
 
-                var form = new ItemPickerForm { KindFilter = Kind.Metadata, AutoAccept = true };
-                form.Init(Configuration.Instance.GetItems(ItemHierarchy.Both));
-                if (form.ShowDialog() == DialogResult.OK)
+                ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow()
                 {
-                    _newlySelectedItem = form.SelectedItem;
+                    KindsFilter = new List<Guid> { Kind.Metadata },
+                    SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                    Items = Configuration.Instance.GetItems(ItemHierarchy.Both),
+                };
+
+                if (itemPicker.ShowDialog().Value)
+                {
+                    _newlySelectedItem = itemPicker.SelectedItems.First();
                     buttonMetadataDevice.Text = _newlySelectedItem.Name;
                     timeLineUserControl1.Item = _newlySelectedItem;
                     timeLineUserControl1.SetShowTime(DateTime.Now);
-                    timeLineUserControl1.MouseSetTimeEvent += timeLineUserControl1_MouseSetTimeEvent;                    
+                    timeLineUserControl1.MouseSetTimeEvent += timeLineUserControl1_MouseSetTimeEvent;
                 }
             }
             catch (Exception ex)

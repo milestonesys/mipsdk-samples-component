@@ -22,6 +22,9 @@ namespace StatusViewer
 
         private MessageCommunication _messageCommunication;
 
+        private System.Timers.Timer _serverConnectedTimer = new System.Timers.Timer();
+        private bool _serverConnected = false;
+
         public MainForm()
         {
             InitializeComponent();
@@ -60,6 +63,8 @@ namespace StatusViewer
 
             treeViewItems.Nodes.Add(tn);
 
+            _treeNodeCache.Add(Guid.Empty, tn);
+
             // Add all children
             tn.Nodes.AddRange(AddChildren(server));
 
@@ -76,7 +81,22 @@ namespace StatusViewer
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
+            _serverConnectedTimer.Elapsed += _timer_Elapsed;
+            _serverConnectedTimer.AutoReset = true;
+            _serverConnectedTimer.Interval = 5000;
+            _serverConnectedTimer.Start();
+
             treeViewItems.ExpandAll();
+        }
+
+        private void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            var connected = VideoOS.Platform.SDK.Environment.IsServerConnected(EnvironmentManager.Instance.CurrentSite.ServerId.Uri);
+            if (connected != _serverConnected)
+            {
+                BeginInvoke(new Action(() => UpdateState(EnvironmentManager.Instance.CurrentSite, connected ? "Server Responding" : "Server Not Responding")));
+            }
+            _serverConnected = connected;
         }
 
         void _messageCommunication_ConnectionStateChangedEvent(object sender, EventArgs e)
@@ -178,22 +198,18 @@ namespace StatusViewer
         /// <param name="state"></param>
         private void UpdateState(FQID fqid, String state)
         {
-            Guid id = Guid.Empty;
+            TreeNode tn = null;
             if (_treeNodeCache.ContainsKey(fqid.ObjectId))
             {
-                id = (Guid)_treeNodeCache[fqid.ObjectId].Tag;
+                tn = _treeNodeCache[fqid.ObjectId];
             }
-            else
+            else if (fqid.ObjectId == Guid.Empty && _treeNodeCache.ContainsKey(fqid.ServerId.Id))
             {
-                if (fqid.ObjectId == Guid.Empty && _treeNodeCache.ContainsKey(fqid.ServerId.Id))
-                {
-                    id = (Guid)_treeNodeCache[fqid.ServerId.Id].Tag;
-                }
+                tn = _treeNodeCache[fqid.ServerId.Id];
             }
 
-            if (id != Guid.Empty && _treeNodeCache.ContainsKey(id))
+            if (tn != null)
             {
-                TreeNode tn = _treeNodeCache[id];
                 tn.ToolTipText = state;
                 if (state == "Enabled" || state == "Responding" || state == "Server Responding")
                     tn.ForeColor = Color.Black;
@@ -271,6 +287,11 @@ namespace StatusViewer
             
             VideoOS.Platform.SDK.Environment.RemoveAllServers();
             Close();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _serverConnectedTimer.Stop();
         }
     }
 }

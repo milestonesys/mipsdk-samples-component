@@ -11,8 +11,8 @@ title: Media RGB Video Enhancement Live
 This sample shows how to utilize the media toolkit for enhancing images
 in live mode.
 
-The sample has an ImageViewerControl shown as a reference, and a
-picturebox showing the same video as it has been enhanced. 5 sliders are
+The sample has an ImageViewerWpfControl shown as a reference, and an
+Image control showing the same video as it has been enhanced. 5 sliders are
 used to instruct the enhancement method of how to change the red, green
 and blue pixels for each frame.
 
@@ -36,7 +36,6 @@ been 'enhanced' with focus on the red color plane.
 
 - VideoOS.Platform.Live.BitmapLiveSource
 - VideoOS.Platform.Live.LiveSourceBitmapContent
-- VideoOS.Platform.BitmapFormat.BGR24
 
 ## Environment
 

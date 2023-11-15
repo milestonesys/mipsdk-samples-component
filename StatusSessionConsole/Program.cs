@@ -48,7 +48,7 @@ namespace StatusSessionConsole
             List<Item> allHardware = Configuration.Instance.GetItemsBySearch(Kind.Hardware.ToString(), 10, 5, out result);
             foreach (var h in allHardware)
             {
-                if (h.FQID.FolderType == FolderType.No)
+                if (h.FQID.FolderType == FolderType.No && !_hardware.ContainsKey(h.FQID.ObjectId))
                     _hardware.Add(h.FQID.ObjectId, h);
             }
             // Subscribe to a set of known events

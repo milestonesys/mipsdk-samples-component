@@ -5,6 +5,7 @@ using System.Globalization;
 using VideoOS.Platform.SDK.RemoteRetrievalTasks;
 using VideoOS.Platform;
 using VideoOS.Platform.UI;
+using System.Linq;
 
 namespace RemoteRetrievalTaskSample
 {
@@ -139,19 +140,24 @@ namespace RemoteRetrievalTaskSample
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			ItemPickerForm form = new ItemPickerForm();
-			form.KindFilter = Kind.Camera;
-			form.AutoAccept = true;
-			form.Init(Configuration.Instance.GetItems());
-			if (form.ShowDialog() == DialogResult.OK)
+			ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow()
 			{
-				txtDevice.Text = form.SelectedItem.Name;
-				_selectedCamera = form.SelectedItem.FQID.ObjectId;
+				KindsFilter = new List<Guid> { Kind.Camera },
+				SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+				Items = Configuration.Instance.GetItems()
+			};
 
-                btnGet.Enabled = true;
-                btnRefresh.Enabled = true;
-                btnRetrieve.Enabled = true;
-            }
+            if (itemPicker.ShowDialog().Value)
+			{
+				var item = itemPicker.SelectedItems.First();
+
+                txtDevice.Text = item.Name;
+				_selectedCamera = item.FQID.ObjectId;
+
+				btnGet.Enabled = true;
+				btnRefresh.Enabled = true;
+				btnRetrieve.Enabled = true;
+			}
         }
 	}
 }

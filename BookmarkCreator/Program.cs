@@ -1,12 +1,14 @@
 ﻿#define LogOn_With_DefaultNetworkCredentials
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
 using VideoOS.Platform;
 using VideoOS.Platform.Data;
-
+using VideoOS.Platform.UI;
 
 namespace BookmarkCreator
 {
@@ -47,14 +49,16 @@ namespace BookmarkCreator
 
             #region Select a camera
             Item _selectItem1 = null;
-            VideoOS.Platform.UI.ItemPickerForm form = new VideoOS.Platform.UI.ItemPickerForm();
-            form.KindFilter = Kind.Camera;
-            form.AutoAccept = true;
-            form.Init(Configuration.Instance.GetItems());
-            if (form.ShowDialog() == DialogResult.OK)
+            ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow();
+            itemPicker.KindsFilter = new List<Guid> { Kind.Camera };
+            itemPicker.SelectionMode = SelectionModeOptions.AutoCloseOnSelect;
+            itemPicker.Items = Configuration.Instance.GetItems();
+
+            if (itemPicker.ShowDialog().Value)
             {
-                _selectItem1 = form.SelectedItem;
+                _selectItem1 = itemPicker.SelectedItems.First();
             }
+
             if (_selectItem1 == null)
             {
                 Console.WriteLine("Failed to pick a camera");

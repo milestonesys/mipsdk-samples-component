@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="EventAndStateViewer.EventViewer.EventViewerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EventAndStateViewer.EventViewer"
+             xmlns:controls="clr-namespace:VideoOS.Platform.UI.Controls;assembly=VideoOS.Platform"
+             xmlns:mvvm="clr-namespace:EventAndStateViewer.Mvvm"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance local:EventViewerViewModel}"
+             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <controls:VideoOSButtonSecondaryMedium Content="Clear" HorizontalAlignment="Left" Margin="5" Command="{Binding Clear}" />
+
+        <controls:VideoOSTable Grid.Row="1" ItemsSource="{Binding Events}" SortColumn="{Binding RelativeSource={RelativeSource Self}, Path=Columns[0]}" SortDirection="Descending">
+            <controls:VideoOSTable.Columns>
+                <mvvm:ColumnCollection>
+                    <controls:VideoOSTableTimestampColumn ItemTimestampPropertyName="Timestamp" Header="Time" Width="150" />
+                    <controls:VideoOSTableTextColumn ItemTextPropertyName="Source" Header="Source" />
+                    <controls:VideoOSTableTextColumn ItemTextPropertyName="EventType" Header="Event" />
+                </mvvm:ColumnCollection>
+            </controls:VideoOSTable.Columns>
+        </controls:VideoOSTable>
+    </Grid>
+</UserControl>

@@ -1,0 +1,39 @@
+﻿<platformcontrols:VideoOSWindow x:Class="VideoFileViewer.MainWindow"
+                                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                                xmlns:platformclient="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
+                                xmlns:platformcontrols="clr-namespace:VideoOS.Platform.UI.Controls;assembly=VideoOS.Platform"
+                                Title="VideoFileViewer Application" 
+                                Height="600" Width="600">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Margin="0,0,0,10" HorizontalAlignment="Stretch">
+            <platformcontrols:VideoOSButtonPrimarySmall Width="80" Margin="0,0,10,0" Click="ButtonMedia_Click">Media</platformcontrols:VideoOSButtonPrimarySmall>
+            <platformcontrols:VideoOSButtonPrimarySmall x:Name="_buttonSelectCamera" HorizontalAlignment="Stretch" IsEnabled="False" Click="ButtonSelectCamera_Click">Camera ...</platformcontrols:VideoOSButtonPrimarySmall>
+        </DockPanel>
+
+        <platformclient:ImageViewerWpfControl x:Name="_imageViewerWpfControl" Grid.Row="1"/>
+
+        <platformclient:PlaybackWpfUserControl x:Name="_playbackWpfUserControl" Grid.Row="2" Margin="0,10,0,10"/>
+
+        <DockPanel Grid.Row="3">
+            <DockPanel.Resources>
+                <Style TargetType="platformcontrols:VideoOSButtonPrimarySmall">
+                    <Setter Property="Width" Value="80"/>
+                </Style>
+            </DockPanel.Resources>
+
+            <platformcontrols:VideoOSButtonPrimarySmall Click="ButtonStart_Click">&lt;&lt;</platformcontrols:VideoOSButtonPrimarySmall>
+            <platformcontrols:VideoOSButtonPrimarySmall Margin="10,0,10,0" Click="ButtonStop_Click">||</platformcontrols:VideoOSButtonPrimarySmall>
+            <platformcontrols:VideoOSButtonPrimarySmall Click="ButtonForward_Click">&gt;</platformcontrols:VideoOSButtonPrimarySmall>
+            <platformcontrols:VideoOSButtonPrimarySmall HorizontalAlignment="Right" Click="ButtonClose_Click">Close</platformcontrols:VideoOSButtonPrimarySmall>
+        </DockPanel>
+    </Grid>
+</platformcontrols:VideoOSWindow>

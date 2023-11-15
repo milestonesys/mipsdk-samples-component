@@ -14,6 +14,7 @@ using VideoOS.ConfigurationAPI;
 using VideoOS.ConfigurationAPI.ConfigurationFaultException;
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using VideoOS.Platform;
 
 namespace ConfigAPIClient
 {
@@ -134,21 +135,19 @@ namespace ConfigAPIClient
                                                            ItemTypes.EventType,
                                                            ItemTypes.StateGroupFolder,
                                                            ItemTypes.StateGroup,
+                                                           ItemTypes.MatrixFolder,
+                                                           ItemTypes.Matrix,
                                                        };
 
 
 	    private static MainForm Instance;
-	    private string _serverAddress;
-	    private int _serverPort;
-	    private bool _corporate;
+        private ServerId _serverId;
 
-		public MainForm(string serverAddress, int serverPort, bool corporate)
+		public MainForm(ServerId serverId)
 		{
 			InitializeComponent();
 
-		    _serverAddress = serverAddress;
-            _serverPort = serverPort;
-		    _corporate = corporate;
+            _serverId = serverId;
 
             Instance = this;
 
@@ -178,11 +177,7 @@ namespace ConfigAPIClient
             treeView.ImageList = UI.Icons.IconListBlack;
 
 		    _configApiClient = new ConfigApiClient();
-            _configApiClient.ServerAddress = _serverAddress;
-            _configApiClient.Serverport = _serverPort;
-		    _configApiClient.ServerType = _corporate
-		                                      ? ConfigApiClient.ServerTypeEnum.Corporate
-		                                      : ConfigApiClient.ServerTypeEnum.Arcus;
+            _configApiClient.ServerId = _serverId;
 		    _configApiClient.Initialize();
             if (_configApiClient.Connected)
                 toolStripStatusLabel1.Text = "Logged on";

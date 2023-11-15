@@ -1,7 +1,7 @@
 ---
 description: The VideoViewer sample can show live and recorded video for
   two cameras. After connecting to a server, the user selects two
-  cameras via the ItemPickerForm.
+  cameras via the ItemPickerWpfWindow.
 keywords: Component integration
 lang: en-US
 title: Video Viewer
@@ -11,7 +11,7 @@ title: Video Viewer
 
 The VideoViewer sample can show live and recorded video for two cameras.
 After connecting to a server, the user selects two cameras via the
-ItemPickerForm.
+ItemPickerWpfWindow.
 
 The two cameras will operate in the same mode and be synchronized with
 regards to the playback time and playback commands.
@@ -43,7 +43,7 @@ export that includes the cache.xml/archives_cache.xml files.
 - Initialization of MIP .NET Library, when video display is required
 - Video display -- live and playback
 - Digital zoom
-- Use the ItemPickerForm dialog to select cameras
+- Use the ItemPickerWpfWindow dialog to select cameras
 - Message system to control playback operations
 - Adaptive streaming
 - Opening offline footage
@@ -51,8 +51,8 @@ export that includes the cache.xml/archives_cache.xml files.
 ## Using
 
 - VideoOS.Platform.ClientControl
-- VideoOS.Platform.UI.ItemPickerForm
-- VideoOS.Platform.UI.ImageViewerControl
+- VideoOS.Platform.UI.ItemPickerWpfWindow
+- VideoOS.Platform.Client.ImageViewerWpfControl
 - VideoOS.Platform.Messaging
 
 ## Environment

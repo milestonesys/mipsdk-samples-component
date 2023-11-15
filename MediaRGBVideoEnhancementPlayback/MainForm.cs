@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Text;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using VideoOS.Platform;
@@ -159,14 +161,17 @@ namespace MediaRGBEnhancementPlayback
 			{
                 _performCloseVideoSource = true;
 
-				ItemPickerForm form = new ItemPickerForm();
-				form.KindFilter = Kind.Camera;
-				form.AutoAccept = true;
-				form.Init(Configuration.Instance.GetItems());
-				if (form.ShowDialog() == DialogResult.OK)
+                ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow()
+                {
+                    KindsFilter = new List<Guid> { Kind.Camera },
+                    SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+                    Items = Configuration.Instance.GetItems()
+                };
+
+                if (itemPicker.ShowDialog().Value)
 				{
-                    _newlySelectedItem = form.SelectedItem;
-                    buttonCameraPick.Text = _newlySelectedItem.Name;
+					_newlySelectedItem = itemPicker.SelectedItems.First();
+					buttonCameraPick.Text = _newlySelectedItem.Name;
 				}
 			}
 			catch (Exception ex)

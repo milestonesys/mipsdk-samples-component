@@ -4,6 +4,7 @@ using VideoOS.Platform.UI;
 using VideoOS.Platform;
 using VideoOS.Platform.Data;
 using VideoOS.Platform.Messaging;
+using System.Linq;
 
 namespace TriggerAnalyticsEventSDK
 {
@@ -18,12 +19,13 @@ namespace TriggerAnalyticsEventSDK
 
 		private void btnSelectEventSource_Click(object sender, EventArgs e)
 		{
-			ItemPickerForm form = new ItemPickerForm();
-			form.AutoAccept = true;
-			form.Init(Configuration.Instance.GetItemsByKind(Kind.Camera, ItemHierarchy.SystemDefined));
-			if (form.ShowDialog() == DialogResult.OK)
+			ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow();
+            itemPicker.SelectionMode = SelectionModeOptions.AutoCloseOnSelect;
+            itemPicker.Items = Configuration.Instance.GetItemsByKind(Kind.Camera, ItemHierarchy.SystemDefined);
+
+			if (itemPicker.ShowDialog().Value)
 			{
-				_selectedItem = form.SelectedItem;
+				_selectedItem = itemPicker.SelectedItems.First();
 				btnSelectEventSource.Text = _selectedItem.Name;
 			}
 		}

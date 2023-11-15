@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using VideoOS.Platform;
@@ -13,7 +15,7 @@ namespace AudioDemo
 	/// </summary>
     public partial class AudioForm : Form
     {
-		private VideoOS.Platform.Client.AudioPlayerControl _audioPlayerControl;
+		private AudioPlayer _audioPlayer;
     	private Item _selectedMic;
 
         private static readonly Guid IntegrationId = new Guid("D9771C97-9D24-4D45-89E4-0166AE434915");
@@ -25,9 +27,8 @@ namespace AudioDemo
         {
             InitializeComponent();
 
-        	_audioPlayerControl = ClientControl.Instance.GenerateAudioPlayerControl();
-            _audioPlayerControl.ConnectResponseEvent += new ConnectResponseEventHandler(_audioPlayerControl_ConnectResponseEvent);
-        	this.Controls.Add(_audioPlayerControl);
+        	_audioPlayer = new AudioPlayer();
+            _audioPlayer.ConnectResponseEvent += new ConnectResponseEventHandler(_audioPlayer_ConnectResponseEvent);
         }
 
         /// <summary>
@@ -76,12 +77,12 @@ namespace AudioDemo
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void OnMuteCheckBoxCheckedChanged(object sender, EventArgs e)
         {
-            _audioPlayerControl.Mute = _muteCheckBox.Checked;
+            _audioPlayer.Mute = _muteCheckBox.Checked;
         }
 
         private void OnVolumeTrackBarValueChanged(object sender, EventArgs e)
         {
-            _audioPlayerControl.Volume = _volumeTrackBar.Value / 10.0;
+            _audioPlayer.Volume = _volumeTrackBar.Value / 10.0;
         }
 
 		/// <summary>
@@ -91,39 +92,38 @@ namespace AudioDemo
 		/// <param name="e"></param>
 		private void OnSelectMic(object sender, EventArgs e)
 		{
-			if (_selectedMic!=null)
+			if (_selectedMic != null)
 			{
-				_audioPlayerControl.Disconnect();
+				_audioPlayer.Disconnect();
 			}
 
-			ItemPickerForm form = new ItemPickerForm();
-			form.KindFilter = Kind.Microphone;
-			form.AutoAccept = true;
-			form.Init();
-			if (form.ShowDialog() == DialogResult.OK)
-			{
-				_selectedMic = form.SelectedItem;
-				buttonSelect.Text = _selectedMic.Name;
+            ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow();
+            itemPicker.KindsFilter = new List<Guid>() { Kind.Microphone };
+            itemPicker.SelectionMode = SelectionModeOptions.AutoCloseOnSelect;
+            itemPicker.Items = Configuration.Instance.GetItems(ItemHierarchy.UserDefined);
 
-				_audioPlayerControl.MicrophoneFQID = _selectedMic.FQID;
-				_audioPlayerControl.Initialize();
-                //_audioPlayerControl.StartLive();
-                _audioPlayerControl.Connect();
-			}
+            if (itemPicker.ShowDialog().Value)
+            {
+                _selectedMic = itemPicker.SelectedItems.First();
+                buttonSelect.Text = _selectedMic.Name;
+
+                _audioPlayer.MicrophoneFQID = _selectedMic.FQID;
+                _audioPlayer.Initialize();
+                _audioPlayer.Connect();
+            }
 		}
 
-        private void _audioPlayerControl_ConnectResponseEvent(object sender, ConnectResponseEventEventArgs e)
+        private void _audioPlayer_ConnectResponseEvent(object sender, ConnectResponseEventEventArgs e)
         {
-            _audioPlayerControl.StartLive();
         }
 
         private void OnClose(object sender, FormClosingEventArgs e)
         {
             if (_selectedMic != null)
             {
-                _audioPlayerControl.Disconnect();
+                _audioPlayer.Disconnect();
             }
-            _audioPlayerControl.Close();
+            _audioPlayer.Close();
         }
     }
 }

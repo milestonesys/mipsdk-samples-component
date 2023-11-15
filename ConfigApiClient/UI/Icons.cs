@@ -303,6 +303,10 @@ namespace ConfigAPIClient.UI
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.EventType, CustomEventIconIx);
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.StateGroupFolder, FolderIconIx);
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.StateGroup, CustomEventIconIx);
+
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.Matrix, MatrixIconIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.MatrixFolder, FolderIconIx);
+
             }
             catch (Exception ex)
 			{

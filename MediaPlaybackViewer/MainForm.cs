@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using VideoOS.Platform;
@@ -210,26 +212,29 @@ namespace MediaPlaybackViewer
 			{
 				CloseCurrent();
 
-				var form = new ItemPickerForm();
-				form.KindFilter = Kind.Camera;
-				form.AutoAccept = true;
-				form.Init(Configuration.Instance.GetItems(ItemHierarchy.Both));
-				if (form.ShowDialog() == DialogResult.OK)
+				ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow()
 				{
-					_newlySelectedItem = form.SelectedItem;
-					buttonCamera.Text = _newlySelectedItem.Name;                    
+					KindsFilter = new List<Guid> { Kind.Camera },
+					SelectionMode = SelectionModeOptions.AutoCloseOnSelect,
+					Items = Configuration.Instance.GetItems(ItemHierarchy.Both)
+				};
+
+                if (itemPicker.ShowDialog().Value)
+				{
+					_newlySelectedItem = itemPicker.SelectedItems.First();
+					buttonCamera.Text = _newlySelectedItem.Name;
 					timeLineUserControl1.Item = _newlySelectedItem;
 					timeLineUserControl1.SetShowTime(DateTime.Now);
-					timeLineUserControl1.MouseSetTimeEvent += new EventHandler(timeLineUserControl1_MouseSetTimeEvent);                    
+					timeLineUserControl1.MouseSetTimeEvent += new EventHandler(timeLineUserControl1_MouseSetTimeEvent);
 					checkBoxAspect.Enabled = false;
 					checkBoxFill.Enabled = false;
 
-                    var list = _newlySelectedItem.GetDataSource().GetTypes();
-                    foreach (DataType dt in list)
-                    {
-                        Trace.WriteLine("Datasource " + dt.Id + "  " + dt.Name);
+					var list = _newlySelectedItem.GetDataSource().GetTypes();
+					foreach (DataType dt in list)
+					{
+						Trace.WriteLine("Datasource " + dt.Id + "  " + dt.Name);
                     }
-                }
+				}
 			}
 			catch (Exception ex)
 			{

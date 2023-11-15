@@ -25,8 +25,8 @@ namespace ImageViewerClient
 
         private IList<DataType> _streams;
         private FQID _playbackFQID;
-        private AudioPlayerControl _microphonePlayer;
-        private AudioPlayerControl _speakerPlayer;
+        private AudioPlayer _microphonePlayer;
+        private AudioPlayer _speakerPlayer;
         private MessageCommunication _mc;
         private Item _selectItem;
         private bool _updatingStreamsFromCode = false;
@@ -65,14 +65,12 @@ namespace ImageViewerClient
             {
                 _microphonePlayer.Disconnect();
                 _microphonePlayer.Close();
-                _microphonePlayer.Dispose();
             }
 
             if (_speakerPlayer != null)
             {
                 _speakerPlayer.Disconnect();
                 _speakerPlayer.Close();
-                _speakerPlayer.Dispose();
             }
 
 
@@ -113,20 +111,24 @@ namespace ImageViewerClient
 
         private void _selectCameraButton_Click(object sender, RoutedEventArgs e)
         {
-            var form = new ItemPickerForm();
-            form.KindFilter = Kind.Camera;
-            form.AutoAccept = true;
-            form.Init(Configuration.Instance.GetItems());
-
-            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            var form2 = new ItemPickerWpfWindow()
             {
-                SetupControls();
-                _selectItem = form.SelectedItem;
-                LoadCamera(_selectItem);
-                var relatedItems = _selectItem.GetRelated();
-                LoadMicrophone(relatedItems);
-                LoadSpeaker(relatedItems);
-                _playbackUserControl.SetCameras(new List<FQID>() { _selectItem.FQID });
+                Items = Configuration.Instance.GetItems(),
+                KindsFilter = new List<Guid>() { Kind.Camera }
+            };
+            if (form2.ShowDialog().Value)
+            {
+                var items = form2.SelectedItems;
+                if (items != null && items.Any())
+                {
+                    SetupControls();
+                    _selectItem = items.First();
+                    LoadCamera(_selectItem);
+                    var relatedItems = _selectItem.GetRelated();
+                    LoadMicrophone(relatedItems);
+                    LoadSpeaker(relatedItems);
+                    _playbackUserControl.SetCameras(new List<FQID>() { _selectItem.FQID });
+                }
             }
         }
 
@@ -198,12 +200,12 @@ namespace ImageViewerClient
             }
         }
 
-        private AudioPlayerControl GenerateAudioplayer()
+        private AudioPlayer GenerateAudioplayer()
         {
-            AudioPlayerControl audioControl = ClientControl.Instance.GenerateAudioPlayerControl();
-            audioControl.Initialize();
-            audioControl.PlaybackControllerFQID = _playbackFQID;
-            return audioControl;
+            AudioPlayer audioPlayer = new AudioPlayer();
+            audioPlayer.Initialize();
+            audioPlayer.PlaybackControllerFQID = _playbackFQID;
+            return audioPlayer;
         }
 
         private void EnablePlayback()
@@ -215,7 +217,6 @@ namespace ImageViewerClient
                 _adaptiveStreamingCheckBox.IsEnabled = false;
                 _playbackUserControl.Visibility = Visibility.Visible;
                 _playbackUserControl.SetEnabled(true);
-                _imageViewerControl.StartBrowse();
                 EnvironmentManager.Instance.SendMessage(new VideoOS.Platform.Messaging.Message(
                                                             VideoOS.Platform.Messaging.MessageId.System.ModeChangeCommand,
                                                             Mode.ClientPlayback), _playbackFQID);
@@ -244,7 +245,6 @@ namespace ImageViewerClient
             _playbackUserControl.Visibility = Visibility.Hidden;
             _visibleTimeStampCheckBox.IsEnabled = false;
             _adaptiveStreamingCheckBox.IsEnabled = true;
-            _imageViewerControl.StartLive();
             EnvironmentManager.Instance.SendMessage(new VideoOS.Platform.Messaging.Message(
                                                         MessageId.System.ModeChangeCommand,
                                                         Mode.ClientLive), _playbackFQID);
@@ -477,10 +477,9 @@ namespace ImageViewerClient
         private void _offlineScpButton_Click(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new OpenFileDialog();
-            string path = "";
             if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                path = openFileDialog.FileName;
+                string path = openFileDialog.FileName;
 
                 Uri fileUri = new Uri(path);
                 string password = "";

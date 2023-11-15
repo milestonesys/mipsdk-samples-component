@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using VideoOS.Platform;
@@ -101,15 +102,14 @@ namespace AudioRecorder
             CloseMic();
             buttonSelectMic.Text = "...";
 
-            ItemPickerForm form = new ItemPickerForm();
-            form.KindFilter = Kind.Microphone;
-            form.AutoAccept = true;
-            form.Init(Configuration.Instance.GetItems());
+            ItemPickerWpfWindow itemPicker = new ItemPickerWpfWindow();
+            itemPicker.KindsFilter = new List<Guid> { Kind.Microphone };
+            itemPicker.SelectionMode = SelectionModeOptions.AutoCloseOnSelect;
+            itemPicker.Items = Configuration.Instance.GetItems();
 
-            // Ask user to select a camera
-            if (form.ShowDialog() == DialogResult.OK)
+            if (itemPicker.ShowDialog().Value)
             {
-                _selectedItem = form.SelectedItem;
+                _selectedItem = itemPicker.SelectedItems.First();
                 buttonSelectMic.Text = _selectedItem.Name;
 
                 _pcmLiveSource = new PcmLiveSource(_selectedItem);
@@ -119,7 +119,7 @@ namespace AudioRecorder
                     _pcmLiveSource.PcmSourceSettings.BitsPerSample = PcmSourceSettings.BitsPerSampleType.TwoBytesInt;
                     _pcmLiveSource.PcmSourceSettings.Channels = PcmSourceSettings.ChannelsType.Mono;
                     _pcmLiveSource.Init();
-               }
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Could not Init:" + ex.Message);

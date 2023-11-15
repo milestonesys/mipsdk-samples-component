@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="MultiUserEnvironment.UserContextControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MultiUserEnvironment"
+             xmlns:platformUiControls="clr-namespace:VideoOS.Platform.UI.Controls;assembly=VideoOS.Platform"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="125"/>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="250" />
+            </Grid.ColumnDefinitions>
+
+            <platformUiControls:VideoOSTextBlockBodySmall Text="Username:" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <platformUiControls:VideoOSTextBoxSmall x:Name="_userNameBox" Margin="5,0,0,0" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Column="1" Grid.ColumnSpan="2"/>
+
+            <platformUiControls:VideoOSTextBlockBodySmall Text="Password:" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" />
+            <platformUiControls:VideoOSPasswordBoxSmall x:Name="_passwordBox" Margin="5,0,0,0" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" />
+
+            <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                <platformUiControls:VideoOSButtonPrimaryMedium x:Name="_onLogonButton" Margin="5" Content="Logon" Click="OnLogon" />
+                <platformUiControls:VideoOSButtonPrimaryMedium x:Name="_onLogoutButton" Margin="5" Content="Logout" Click="OnLogout" IsEnabled="False" />
+            </StackPanel>
+
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Grid.Column="2" Grid.RowSpan="2">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type platformUiControls:VideoOSRadioButtonSmall}">
+                        <Setter Property="Margin" Value="2"/>
+                    </Style>
+                </StackPanel.Resources>
+
+                <platformUiControls:VideoOSRadioButtonSmall x:Name="_negotiateAuthTypeRadioButton" GroupName="{Binding AuthTypeGroupName}" Content="AD User" IsChecked="True"/>
+                <platformUiControls:VideoOSRadioButtonSmall x:Name="_basicAuthTypeRadioButton" GroupName="{Binding AuthTypeGroupName}" Content="Basic User" />
+                <platformUiControls:VideoOSCheckBoxSmall x:Name="_useOAuthTokenCheckBox" Margin="2" Content="Use OAuth token" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" x:Name="_imageFrame" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" IsEnabled="False">
+                <Image x:Name="_image" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Source="{Binding VideoImage}"/>
+            </Border>
+
+            <platformUiControls:VideoOSButtonSecondaryMedium x:Name="_selectedCameraButton" Content="Select camera..." VerticalAlignment="Bottom" Click="OnSelectCamera" Grid.Row="1" IsEnabled="False"/>
+
+            <ListBox Grid.Column="1" Grid.RowSpan="2" Margin="5,0,5,0" ItemsSource="{Binding Path=CamerasUserContext}" />
+        </Grid>
+    </Grid>
+</UserControl>
