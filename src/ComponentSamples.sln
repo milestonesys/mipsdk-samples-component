@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
@@ -23,17 +23,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaLiveViewer", "..\Media
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaPlaybackViewer", "..\MediaPlaybackViewer\MediaPlaybackViewer.csproj", "{D3962827-0270-4C04-B914-0AE6D7956216}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiUserEnvironment", "..\MultiUserEnvironment\MultiUserEnvironment.csproj", "{7BE6D9D2-EE05-4AE9-B54D-6F285C071430}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiUserEnvironment", "..\MultiUserEnvironment\MultiUserEnvironment.csproj", "{E13D1890-A812-4CDF-86B6-43AB6EAC1DDC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaRGBVideoEnhancementLive", "..\MediaRGBVideoEnhancementLive\MediaRGBVideoEnhancementLive.csproj", "{4E5687E5-0AF4-455A-B6D0-F3D9E1551018}"
+	ProjectSection(ProjectDependencies) = postProject
+		{82AE2413-F082-4E0C-91F0-4AED972F105E} = {82AE2413-F082-4E0C-91F0-4AED972F105E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaRGBVideoEnhancementPlayback", "..\MediaRGBVideoEnhancementPlayback\MediaRGBVideoEnhancementPlayback.csproj", "{BD2365CD-644B-4C23-A6A4-9B5F0312D7CF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{82AE2413-F082-4E0C-91F0-4AED972F105E} = {82AE2413-F082-4E0C-91F0-4AED972F105E}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RGBEnhancement", "..\RGBEnhancementDLL\RGBEnhancement.vcxproj", "{82AE2413-F082-4E0C-91F0-4AED972F105E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiSiteViewer", "..\MultiSiteViewer\MultiSiteViewer.csproj", "{1AE44977-3468-472E-9486-E66D82E681E0}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaLiveServiceJPEG", "..\MediaLiveServiceJPEG\MediaLiveServiceJPEG.vcxproj", "{B7F86EB3-25A4-4EDD-8D81-4F7CDDD24695}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatusViewer", "..\StatusViewer\StatusViewer.csproj", "{34800507-A225-4ABE-B040-B9F5072094F2}"
 EndProject
@@ -157,16 +161,14 @@ Global
 		{D3962827-0270-4C04-B914-0AE6D7956216}.Debug|x64.Build.0 = Debug|x64
 		{D3962827-0270-4C04-B914-0AE6D7956216}.Release|x64.ActiveCfg = Release|x64
 		{D3962827-0270-4C04-B914-0AE6D7956216}.Release|x64.Build.0 = Release|x64
-		{7BE6D9D2-EE05-4AE9-B54D-6F285C071430}.Debug|x64.ActiveCfg = Debug|x64
-		{7BE6D9D2-EE05-4AE9-B54D-6F285C071430}.Debug|x64.Build.0 = Debug|x64
-		{7BE6D9D2-EE05-4AE9-B54D-6F285C071430}.Release|x64.ActiveCfg = Release|x64
-		{7BE6D9D2-EE05-4AE9-B54D-6F285C071430}.Release|x64.Build.0 = Release|x64
+		{E13D1890-A812-4CDF-86B6-43AB6EAC1DDC}.Debug|x64.ActiveCfg = Debug|x64
+		{E13D1890-A812-4CDF-86B6-43AB6EAC1DDC}.Debug|x64.Build.0 = Debug|x64
+		{E13D1890-A812-4CDF-86B6-43AB6EAC1DDC}.Release|x64.ActiveCfg = Release|x64
+		{E13D1890-A812-4CDF-86B6-43AB6EAC1DDC}.Release|x64.Build.0 = Release|x64
 		{4E5687E5-0AF4-455A-B6D0-F3D9E1551018}.Debug|x64.ActiveCfg = Debug|x64
-		{4E5687E5-0AF4-455A-B6D0-F3D9E1551018}.Debug|x64.Build.0 = Debug|x64
 		{4E5687E5-0AF4-455A-B6D0-F3D9E1551018}.Release|x64.ActiveCfg = Release|x64
 		{4E5687E5-0AF4-455A-B6D0-F3D9E1551018}.Release|x64.Build.0 = Release|x64
 		{BD2365CD-644B-4C23-A6A4-9B5F0312D7CF}.Debug|x64.ActiveCfg = Debug|x64
-		{BD2365CD-644B-4C23-A6A4-9B5F0312D7CF}.Debug|x64.Build.0 = Debug|x64
 		{BD2365CD-644B-4C23-A6A4-9B5F0312D7CF}.Release|x64.ActiveCfg = Release|x64
 		{BD2365CD-644B-4C23-A6A4-9B5F0312D7CF}.Release|x64.Build.0 = Release|x64
 		{82AE2413-F082-4E0C-91F0-4AED972F105E}.Debug|x64.ActiveCfg = Debug|x64
@@ -177,10 +179,6 @@ Global
 		{1AE44977-3468-472E-9486-E66D82E681E0}.Debug|x64.Build.0 = Debug|x64
 		{1AE44977-3468-472E-9486-E66D82E681E0}.Release|x64.ActiveCfg = Release|x64
 		{1AE44977-3468-472E-9486-E66D82E681E0}.Release|x64.Build.0 = Release|x64
-		{B7F86EB3-25A4-4EDD-8D81-4F7CDDD24695}.Debug|x64.ActiveCfg = Debug|x64
-		{B7F86EB3-25A4-4EDD-8D81-4F7CDDD24695}.Debug|x64.Build.0 = Debug|x64
-		{B7F86EB3-25A4-4EDD-8D81-4F7CDDD24695}.Release|x64.ActiveCfg = Release|x64
-		{B7F86EB3-25A4-4EDD-8D81-4F7CDDD24695}.Release|x64.Build.0 = Release|x64
 		{34800507-A225-4ABE-B040-B9F5072094F2}.Debug|x64.ActiveCfg = Debug|x64
 		{34800507-A225-4ABE-B040-B9F5072094F2}.Debug|x64.Build.0 = Debug|x64
 		{34800507-A225-4ABE-B040-B9F5072094F2}.Release|x64.ActiveCfg = Release|x64

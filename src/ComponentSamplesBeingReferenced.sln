@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
@@ -6,6 +6,16 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RGBEnhancement", "..\RGBEnhancementDLL\RGBEnhancement.vcxproj", "{82AE2413-F082-4E0C-91F0-4AED972F105E}"
 EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 1
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://tfsserver:8080/tfs/xprotect
+		SccProjectUniqueName0 = ..\\RGBEnhancementDLL\\RGBEnhancement.vcxproj
+		SccProjectName0 = ../RGBEnhancementDLL
+		SccAuxPath0 = http://tfsserver:8080/tfs/xprotect
+		SccLocalPath0 = ..\\RGBEnhancementDLL
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms

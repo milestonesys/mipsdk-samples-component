@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using VideoOS.Platform.EventsAndState;
+using VideoOS.Platform.UI.Controls;
 
 namespace EventAndStateViewer.Subscription
 {
@@ -56,10 +57,18 @@ namespace EventAndStateViewer.Subscription
 
             // Subscribe
             var rules = Rules.Select(r => r.ToRule());
-            _subscriptionId = await _session.AddSubscriptionAsync(rules, default);
-            IsDirty = false;
+            try
+            {
+                _subscriptionId = await _session.AddSubscriptionAsync(rules, default);
+                IsDirty = false;
 
-            Subscribed?.Invoke(this, EventArgs.Empty);
+                Subscribed?.Invoke(this, EventArgs.Empty);
+            }
+            catch (Exception e)
+            {
+                // using null as parent window is not a good practice, but it is used here for simplicity - will cause the message box to be centered on the screen
+                VideoOSMessageBox.Show(null, "Failed to subscribe", "Failed to subscribe", e.Message, VideoOSMessageBox.Buttons.OK, VideoOSMessageBox.ResultButtons.OK, new VideoOSIconBuiltInSource() { Icon = VideoOSIconBuiltInSource.Icons.Error_Combined });
+            }
         }
 
         private void OnAddRule()

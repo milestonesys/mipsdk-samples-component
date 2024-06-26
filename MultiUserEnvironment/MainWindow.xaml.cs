@@ -21,7 +21,9 @@ namespace MultiUserEnvironment
 
         private ConfigurationMonitor _configurationMonitor;
 
+#pragma warning disable CS0067 // The event 'MainWindow.PropertyChanged' is never used
         public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore CS0067 // The event 'MainWindow.PropertyChanged' is never used
 
         public MainWindow()
         {

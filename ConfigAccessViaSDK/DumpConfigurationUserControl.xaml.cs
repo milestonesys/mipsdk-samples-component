@@ -241,8 +241,9 @@ namespace ConfigAccessViaSDK
             }
         }
 
-        internal void FillContentSpecific(ItemHierarchy hierarchy)
+        internal void FillContentSpecific()
         {
+            var hierarchy = (bool)_physical_CheckBox.IsChecked ? ItemHierarchy.SystemDefined : ItemHierarchy.UserDefined;
             if (_filledItems.Any())
             {
                 _filledItems = new List<Item>();
@@ -307,7 +308,7 @@ namespace ConfigAccessViaSDK
 
         private void OnHierarchyChanged(object sender, EventArgs e)
         {
-            this.FillContentSpecific((bool)_physical_CheckBox.IsChecked ? ItemHierarchy.SystemDefined : ItemHierarchy.UserDefined);
+            FillContentSpecific();
         }
 
         #region the detail dump methods

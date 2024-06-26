@@ -1,4 +1,6 @@
-﻿namespace ConfigAPIClient.Panels.PropertyUserControls
+﻿using System.Windows.Forms;
+
+namespace ConfigAPIClient.Panels.PropertyUserControls
 {
 	partial class EnumPropertyUserControl
 	{
@@ -45,6 +47,7 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((AnchorStyles.Left | AnchorStyles.Right))));
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(280, 6);
@@ -55,6 +58,7 @@
             // 
             // EnumPropertyUserControl
             // 
+            this.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.WhiteSmoke;

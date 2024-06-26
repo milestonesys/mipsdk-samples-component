@@ -39,12 +39,14 @@
                 Click="Logout_Click"
                 Margin="5, 0"
                 HorizontalAlignment="Center"
+                IsEnabled="{Binding IsLoggedIn}"
                 Width="Auto" />
             <platformUiControls:VideoOSButtonPrimaryMedium 
                 Content="Login" 
                 Margin="5, 0"
                 HorizontalAlignment="Center"
                 Grid.Column="2"
+                IsEnabled="{Binding IsLoggedOut}"
                 Click="Login_Click"
                 Width="Auto"  />
             <platformUiControls:VideoOSButtonPrimaryMedium 

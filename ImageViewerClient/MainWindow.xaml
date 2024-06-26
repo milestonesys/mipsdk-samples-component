@@ -8,7 +8,7 @@
         xmlns:local="clr-namespace:ImageViewerClient"
         xmlns:platformclient="clr-namespace:VideoOS.Platform.Client;assembly=VideoOS.Platform"
         mc:Ignorable="d"
-        Title="MainWindow" Closed="Window_Closed" Loaded="Window_Loaded">
+        Title="MainWindow" Closed="Window_Closed" Loaded="Window_Loaded" Width="1000" Height="600">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

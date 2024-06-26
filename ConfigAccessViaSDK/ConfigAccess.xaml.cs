@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using VideoOS.Platform;
 using VideoOS.Platform.Login;
@@ -13,14 +15,38 @@ namespace ConfigAccessViaSDK
     /// <summary>
     /// Interaction logic for ConfigAccess.xaml
     /// </summary>
-    public partial class ConfigAccess : VideoOSWindow
+    public partial class ConfigAccess : VideoOSWindow, INotifyPropertyChanged
     {
         private ConfigManager _configManager = new ConfigManager();
-        private object _localConfigurationChangedIndicationReference;
+        private object _localConfigurationChangedIndicationReference, _configurationChangedIndicationReference;
 
         public ConfigAccess()
         {
             InitializeComponent();
+            DataContext = this;
+        }
+
+        private bool _loggedIn = true;
+
+        public bool IsLoggedIn
+        {
+            get
+            {
+                return _loggedIn;
+            }
+            set
+            {
+                _loggedIn = value;
+                OnPropertyChanged(nameof(IsLoggedIn));
+                OnPropertyChanged(nameof(IsLoggedOut));
+            }
+        }
+        public bool IsLoggedOut
+        {
+            get
+            {
+                return !_loggedIn;
+            }
         }
 
         private void OnLoad(object sender, EventArgs e)
@@ -36,14 +62,14 @@ namespace ConfigAccessViaSDK
             // Setup to receive a message when the local memory copy of the configuration is updated:
             _localConfigurationChangedIndicationReference = EnvironmentManager.Instance.RegisterReceiver(LocalConfigUpdatedHandler,
                 new MessageIdFilter(MessageId.System.LocalConfigurationChangedIndication));
-            _localConfigurationChangedIndicationReference = EnvironmentManager.Instance.RegisterReceiver(ConfigUpdatedHandler,
+            _configurationChangedIndicationReference = EnvironmentManager.Instance.RegisterReceiver(ConfigUpdatedHandler,
                 new MessageIdFilter(MessageId.Server.ConfigurationChangedIndication));
         }
 
         private object LocalConfigUpdatedHandler(VideoOS.Platform.Messaging.Message message, FQID dest, FQID source)
         {
             // Update tree view
-            _dumpConfigurationUC.FillContentSpecific((bool)_dumpConfigurationUC._physical_CheckBox.IsChecked ? ItemHierarchy.SystemDefined : ItemHierarchy.UserDefined);
+            Dispatcher.Invoke(() => _dumpConfigurationUC.FillContentSpecific());
             return null;
         }
 
@@ -56,6 +82,7 @@ namespace ConfigAccessViaSDK
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             VideoOS.Platform.SDK.Environment.Logout();
+            IsLoggedIn = false;
             _dumpConfigurationUC.Clear();
         }
 
@@ -65,17 +92,18 @@ namespace ConfigAccessViaSDK
             VideoOS.Platform.SDK.Environment.Login(
                 ls.Uri, App.integrationId,
                 App.integrationName,
-                App.manufacturerName,
                 App.version,
+                App.manufacturerName,
                 true);
+            IsLoggedIn = VideoOS.Platform.SDK.Environment.IsLoggedIn(ls.Uri);
             _dumpConfigurationUC.FillContent();
         }
 
-        private void ShowLicense(object sender, EventArgs e)
+        private void ShowLicense(object sender, RoutedEventArgs e)
         {
             string lic = "SLC: " + EnvironmentManager.Instance.SystemLicense.SLC + Environment.NewLine +
              "Expire: " + EnvironmentManager.Instance.SystemLicense.Expire.ToLongDateString() + Environment.NewLine;
-            foreach (String feature in EnvironmentManager.Instance.SystemLicense.FeatureFlags)
+            foreach (String feature in EnvironmentManager.Instance.SystemLicense.FeatureFlags.Where(ff => !string.IsNullOrEmpty(ff)))
             {
                 lic += "Feature: " + feature + Environment.NewLine;
             }
@@ -95,6 +123,7 @@ namespace ConfigAccessViaSDK
         private void OnClose(object sender, EventArgs e)
         {
             EnvironmentManager.Instance.UnRegisterReceiver(_localConfigurationChangedIndicationReference);
+            EnvironmentManager.Instance.UnRegisterReceiver(_configurationChangedIndicationReference);
             _configManager.Close();
             Close();
         }
@@ -197,6 +226,14 @@ namespace ConfigAccessViaSDK
             EnvironmentManager.Instance.PostMessage(
                         new VideoOS.Platform.Messaging.Message(
                             VideoOS.Platform.Messaging.MessageId.Control.TriggerCommand), item.FQID);
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

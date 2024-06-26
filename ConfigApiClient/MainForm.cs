@@ -137,6 +137,8 @@ namespace ConfigAPIClient
                                                            ItemTypes.StateGroup,
                                                            ItemTypes.MatrixFolder,
                                                            ItemTypes.Matrix,
+                                                           ItemTypes.EvidenceLockProfile,
+                                                           ItemTypes.EvidenceLockProfileFolder
                                                        };
 
 

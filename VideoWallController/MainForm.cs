@@ -73,7 +73,7 @@ namespace VideoWallController
             else if (itemFQID.Kind == Kind.View)
                 itemKind = "View";
             if (string.Equals(action, "DELETED") || itemFQID.Kind == Kind.View)
-                ShowMessage(string.Format(@"{0}  Message: {1} of GUID: {2} is {3}", DateTime.Now, itemKind, itemFQID.ObjectId.ToString(), action), data);
+                ShowMessage(string.Format(@"{0}  Message: {1} of GUID: {2} is {3} ParentId: {4}", DateTime.Now, itemKind, itemFQID.ObjectId.ToString(), action, itemFQID.ParentId), data);
             else
                 ShowMessage(string.Format(@"{0}  Message: {1} {2} is {3}", DateTime.Now, itemKind, Configuration.Instance.GetItem(itemFQID).Name, action), data);
             return null;
@@ -98,7 +98,12 @@ namespace VideoWallController
             }
         }
 
-
+        private void insertEmptyUpdateRequestButton_Click(object sender, EventArgs e)
+        {
+            // this content will not cause any change to the video wall monitor, but will trigger a VideoWallIndication to be sent - useful for getting current state
+            textBoxApplyXml.Text = "<viewitems></viewitems>"; 
+        }
+      
         private FQID SelectItem(Guid kind, Button button)
         {
             itemPicker = new ItemPickerWpfWindow()

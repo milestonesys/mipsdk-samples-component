@@ -22,7 +22,7 @@ namespace ConfigAPIClient.Panels
 
 			if (childrens!=null && childrens.Any())
 			{
-			    tableLayoutPanel1.ColumnCount = 5;
+			    tableLayoutPanel1.ColumnCount = 6;
 				tableLayoutPanel1.RowCount = childrens.Length +1;
 
                 tableLayoutPanel1.ColumnStyles[0] = new ColumnStyle(SizeType.AutoSize);
@@ -30,8 +30,9 @@ namespace ConfigAPIClient.Panels
                 tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
                 tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
                 tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+                tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
 
-				for (int ix = 0; ix < childrens.Length; ix++)
+                for (int ix = 0; ix < childrens.Length; ix++)
                 {
 					ConfigurationItem child = childrens[ix];
 
@@ -60,6 +61,8 @@ namespace ConfigAPIClient.Panels
                     if (child.MethodIds.Contains("TaskCleanup"))
                         tableLayoutPanel1.Controls.Add(MakeButton("Cleanup", child), iy + 4, ix);
 
+                    tableLayoutPanel1.Controls.Add(MakeButton("Details", child), iy + 5, ix);
+
                     tableLayoutPanel1.Height = 25 * (childrens.Length + 1) + 1;
 				}
 			}
@@ -86,6 +89,16 @@ namespace ConfigAPIClient.Panels
             if (button.Text == "Cleanup")
             {
                 ConfigurationItem result = _configApiClient.InvokeMethod(task, "TaskCleanup");
+            }
+            if (button.Text == "Details")
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (var p in task.Properties)
+                {
+                    stringBuilder.Append(p.Key + " = " + p.Value);
+                    stringBuilder.Append(Environment.NewLine);
+                }
+                textBox1.Text = stringBuilder.ToString();
             }
         }
 

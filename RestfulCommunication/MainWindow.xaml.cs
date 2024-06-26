@@ -42,8 +42,10 @@ namespace RestfulCommunication
 			{	new RequestDefinition("[GET] Get a list of available ptzPresets tasks", "/cameras/{ptzCameraId}/ptzPresets?tasks&nodata", HttpMethod.Get, "") },
 			{	new RequestDefinition("[POST] Invoke a ptzPresets task", "/cameras/{ptzCameraId}/ptzPresets?task={task}", HttpMethod.Post, "{ \"sessionDataId\" : 0 }") }, //sessionDataId should be set to 0 when starting a new task. The purpose is to be able to approve special two steps tasks
 			{	new RequestDefinition("[GET] Get the status of the invoked task", "/tasks/{taskId}", HttpMethod.Get, "") },
-			{   new RequestDefinition("[POST] Clean up invoked task", "/tasks/{taskId}?task=TaskCleanup", HttpMethod.Post, "" ) }
-		};
+			{ new RequestDefinition("[POST] Clean up invoked task", "/tasks/{taskId}?task=TaskCleanup", HttpMethod.Post, "" ) },
+			{ new RequestDefinition("[PATCH] Rename event", "/userDefinedEvents/{userDefinedEventId}", new HttpMethod("Patch"), "{ \"name\" : \"my updated .NET event\" }") },
+      { new RequestDefinition("[PATCH] Disable rule", "/rules/{ruleId}", new HttpMethod("Patch"), "{ \"enabled\" : \"false\" }") }
+    };
 
 		public MainWindow()
 		{

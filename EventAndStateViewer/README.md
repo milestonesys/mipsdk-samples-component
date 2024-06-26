@@ -1,8 +1,10 @@
 ---
-description: "This sample demonstrates how to subscribe to events and state,
-how to monitor the connection state, how to track and display the
-current state, and how to display events."
-keywords: Component integration
+description: This sample demonstrates how to subscribe to events and state, how to monitor the connection state, how to track and display the current state, and how to display events.
+keywords:
+- Component integration
+- API Gateway
+- WebSocket API
+- Events and State
 lang: en-US
 title: Event and State Viewer
 ---
@@ -23,12 +25,11 @@ The application consists of three tabs:
   - The state is updated when stateful events are received
   - Names of events, state, and state groups are looked up using the Configuration REST API
 - **Event viewer**
-  - Contains a list of the last 100 events received 
+  - Contains a list of the last 100 events received
   - The list is updated when events are received
   - Names of events and event sources (items) are looked up using the Configuration REST API
 
-
-![](EventAndStateViewer.png)
+![Event and State Viewer](EventAndStateViewer.png)
 
 ## The sample demonstrates
 
@@ -36,11 +37,11 @@ The application consists of three tabs:
 - How to get the current state based on an active subscription
 - How to keep track of the state of configuration items based on stateful events
 - How to monitor the connection state
-- How to use the Configuration REST API to look up ids in the event: source, event type, and state group.
+- How to use the Configuration RESTful API to look up ids in the event: source, event type, and state group.
 
 ## Simplified example
 
-```csharp
+```cs
 async Task SampleAsync()
 {
     // TODO: Initialize SDK environment and login
@@ -97,7 +98,6 @@ class EventReceiver : IEventReceiver
 - VideoOS.Platform.UI.ItemPickerWpfWindow
 - VideoOS.Platform.UI.Controls.VideoOSTabControlPrimaryHorizontalLarge
 - VideoOS.Platform.UI.Controls.VideoOSTable
-
 
 ## Environment
 

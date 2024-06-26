@@ -8,28 +8,21 @@ title: Download Manager Client
 
 # Download Manager Client
 
-The DownloadManagerClient is a sample of how you can add and remove your
-installers or other files to the download page.
+The Download Manager Client shows how you can add and remove installers or other files 
+such as tools and plug-ins to the download page.
 
-The code in this sample is expected to be used inside your own tool
-without the UI, so the end user can simply run your tool and have your
-plug-in placed on the download page without any questions or dialogs.
+The sample references 3 SSCM dlls (`SSCM.dll`, `SSCM.Interface.dll` and `SSCM.Interface.Retriever.dll`)
+from a default XProtect Download Manager path (`C:\Program Files\Milestone\XProtect Download Manager`).
+If your installation path is different or if you build the sample on a machine with no XProtect Download
+Manager installed, you need to manually update those references to point to correct files.
 
-Before building the sample, you need to update the 3 SSCM dll references
-(`SSCM.dll`, `SSCM.Interface.dll` and `SSCM.Interface.Retriever.dll`) to
-point to the files located in the XProtect Download Manager installation
-folder (typically
-`C:\Program Files\Milestone\XProtect Download Manager\`).
 
-Before running the sample (or your own tool/application), copy the build
-application (include readme.txt) to the 'XProtect Download Manager'
-installation folder. You need to copy the program files for the
-application to work properly. You will not get an error if the
-application is started in other folders, but you can\'t add or remove
-plugin from the download page.
+Before you run the application, you need to copy the `.exe` output file to the XProtect Download Manager
+installation folder and run it from there. 
+You will not be able to add or remove items from the download page if you run your application
+from another location.
 
-Run the sample as Administrator. The following dialog is displayed if
-you just run the sample:
+Run the sample as Administrator. The following dialog is displayed:
 
 ![](DownloadManagerClient1.png)
 
@@ -39,22 +32,21 @@ this dialog:
 
 ![](DownloadManagerClient2.png)
 
-Now press **OK**
+Press **OK**:
 
 ![](DownloadManagerClient3.png)
 
-Now the dummy text file has been added to the download page.
+The dummy text file has been added to the download page.
 
 Further maintenance can be done in the Download Manager application.
-This tool can be started by the button, or by selecting it in the
+This tool can be started by clicking on Open Download Manager button, or by selecting it in the
 \"Start \> Milestone \> XProtect Download Manager\".
 
 ![](DownloadManagerClient4.png)
 
-In this application you can remove and add features, available for
-download. If you untick a program or feature, it is still installed on
-the server, but not available for download. It can therefore be added
-later again with a simple tick mark.
+In Download Manager application you can remove and add features available for
+download. If you deselect a program or feature, it will remain installed on
+the server, but not available for download.
 
 The `http://localhost/installation` page would now look like this:
 

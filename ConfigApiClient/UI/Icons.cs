@@ -307,6 +307,9 @@ namespace ConfigAPIClient.UI
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.Matrix, MatrixIconIx);
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.MatrixFolder, FolderIconIx);
 
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.EvidenceLockProfile, RoleIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.EvidenceLockProfileFolder, FolderIconIx);
+
             }
             catch (Exception ex)
 			{

@@ -9,7 +9,7 @@
              d:DataContext="{d:DesignInstance local:StateViewerViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="White"
-             Loaded="UserControl_Loaded">
+             Loaded="UserControl_Loaded" Unloaded="UserControl_Unloaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
