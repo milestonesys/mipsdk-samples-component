@@ -83,7 +83,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK" Version="*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK" Version="*-*" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>

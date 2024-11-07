@@ -71,8 +71,8 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <PackageReference Include="MilestoneSystems.VideoOS.ConfigurationAPI" Version="*" />
-    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK" Version="*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.ConfigurationAPI" Version="*-*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK" Version="*-*" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="App.xaml">

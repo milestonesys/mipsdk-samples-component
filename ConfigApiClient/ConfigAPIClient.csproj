@@ -125,8 +125,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK" Version="*" />
-    <PackageReference Include="MilestoneSystems.VideoOS.ConfigurationAPI" Version="*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK" Version="*-*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.ConfigurationAPI" Version="*-*" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigApiClient.cs" />
@@ -150,6 +150,12 @@
     </Compile>
     <Compile Include="Panels\CustomPropertiesUserControl.Designer.cs">
       <DependentUpon>CustomPropertiesUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\DictionaryPropertyUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PropertyUserControls\DictionaryPropertyUserControl.Designer.cs">
+      <DependentUpon>DictionaryPropertyUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Panels\PropertyUserControls\ArrayPropertyUserControl.cs">
       <SubType>UserControl</SubType>
@@ -337,6 +343,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\CustomPropertiesUserControl.resx">
       <DependentUpon>CustomPropertiesUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PropertyUserControls\DictionaryPropertyUserControl.resx">
+      <DependentUpon>DictionaryPropertyUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Panels\PropertyUserControls\ArrayPropertyUserControl.resx">
       <DependentUpon>ArrayPropertyUserControl.cs</DependentUpon>

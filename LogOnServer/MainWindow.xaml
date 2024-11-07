@@ -25,17 +25,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <platformUiControls:VideoOSButtonPrimaryMedium Grid.Column="0" Margin="20,10,10,10" ToolTip="Start recording" Click="OnStartRecording">
-                <platformUiControls:VideoOSButtonPrimaryMedium.IconSource>
-                    <platformUiControls:VideoOSIconBuiltInSource Icon="Start_Recording" />
-                </platformUiControls:VideoOSButtonPrimaryMedium.IconSource>
-            </platformUiControls:VideoOSButtonPrimaryMedium>
+            <platformUiControls:VideoOSButtonPrimaryMedium Grid.Column="0" Margin="20,10,10,10" ToolTip="Start recording" Click="OnStartRecording" IconSource="{platformUiControls:VideoOSIconBuiltInSource Start_Recording}" />
 
-            <platformUiControls:VideoOSButtonPrimaryMedium Grid.Column="1" Margin="10,10,10,10" ToolTip="Stop recording" Click="OnStopRecording">
-                <platformUiControls:VideoOSButtonPrimaryMedium.IconSource>
-                    <platformUiControls:VideoOSIconBuiltInSource Icon="Pause"/>
-                </platformUiControls:VideoOSButtonPrimaryMedium.IconSource>
-            </platformUiControls:VideoOSButtonPrimaryMedium>
+            <platformUiControls:VideoOSButtonPrimaryMedium Grid.Column="1" Margin="10,10,10,10" ToolTip="Stop recording" Click="OnStopRecording" IconSource="{platformUiControls:VideoOSIconBuiltInSource Pause}" />
 
             <platformUiControls:VideoOSButtonPrimaryMedium Content="Test" VerticalAlignment="Center" HorizontalAlignment="Center" Click="OnGranted" Grid.Column="2" Margin="10,10,10,10"/>
 

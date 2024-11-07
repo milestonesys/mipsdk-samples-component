@@ -93,6 +93,9 @@ namespace ConfigAPIClient
                         case ValueTypes.Array:
                             uc = new ArrayPropertyUserControl(property);
                             break;
+                        case ValueTypes.Dictionary:
+                            uc = new DictionaryPropertyUserControl(property);
+                            break;
                         case ValueTypes.StringType:
 						default:
 							uc = new StringPropertyUserControl(property);

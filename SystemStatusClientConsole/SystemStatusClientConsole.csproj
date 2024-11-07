@@ -103,7 +103,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK" Version="*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK" Version="*-*" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />

@@ -49,10 +49,16 @@ namespace GpsMetadataProvider
             if (_metadataProviderChannel != null)
             {
                 _metadataProviderChannel.Disconnect();
+                _metadataProviderChannel.SessionOpening -= MetadataProviderSessionOpening;
+                _metadataProviderChannel.SessionClosed -= MetadataProviderSessionClosed;
                 textBoxSessionCount.Text = @"0";
             }
-
-            _metadataProviderService.RemoveMetadataProvider(_metadataProviderChannel);
+            if (_metadataProviderService != null)
+            {
+                _metadataProviderService.RemoveMetadataProvider(_metadataProviderChannel);
+                _metadataProviderService.Close();
+                _metadataProviderService = null;
+            }
             buttonConnect.Enabled = true;
             buttonDisconnect.Enabled = false;
             buttonSendData.Enabled = false;

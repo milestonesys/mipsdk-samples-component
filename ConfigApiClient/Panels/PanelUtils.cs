@@ -56,6 +56,9 @@ namespace ConfigAPIClient.Panels
                             case ValueTypes.Array:
                                 uc = new ArrayPropertyUserControl(property);
                                 break;
+                            case ValueTypes.Dictionary:
+                                uc = new DictionaryPropertyUserControl(property);
+                                break;
 
                             case ValueTypes.ProgressType:
                             case ValueTypes.StringType:

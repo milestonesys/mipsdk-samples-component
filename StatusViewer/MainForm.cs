@@ -257,9 +257,17 @@ namespace StatusViewer
 						{
                             string name = string.Empty;
 
-                            var configItem = VideoOS.Platform.ConfigurationItems.Factory.GetConfigurationItem(detail.FQID);
-                            if (configItem != null)
-                                name = configItem.Name;
+                            try
+                            {
+                                var configItem = VideoOS.Platform.ConfigurationItems.Factory.GetConfigurationItem(detail.FQID);
+                                if (configItem != null)
+                                    name = configItem.Name;
+                            }
+                            catch (MIPException) 
+                            {
+                                name = "Unavailable";
+                                // Item not found, probably a Delete ChangeType
+                            }
 
                             string kindName = VideoOS.Platform.ConfigurationItems.Factory.GetItemTypeFromKind(detail.FQID.Kind);
 

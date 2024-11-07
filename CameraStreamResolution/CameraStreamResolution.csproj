@@ -124,7 +124,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK" Version="*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK" Version="*-*" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />

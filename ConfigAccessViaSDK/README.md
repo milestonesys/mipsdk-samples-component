@@ -37,14 +37,3 @@ finds, it will ask for the children belonging to that item.
 ## Visual Studio C\# project
 
 - [ConfigAccessViaSDK.csproj](javascript:clone('https://github.com/milestonesys/mipsdk-samples-component','src/ComponentSamples.sln');)
-
-## Special notes
-
-This sample only needs access to configuration and the simple
-ItemPickerWpfUserControl, and no need to display live video, the only 2
-files which are required for deployment:
-
-- VideoOS.Platform.dll
-- VideoOS.Platform.SDK.dll
-
-![ItemPickerUserControl](itempickerusercontrol.jpg)

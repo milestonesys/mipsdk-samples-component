@@ -174,6 +174,9 @@ namespace MultiChannelMetadataProvider
             if (_boundingBoxProviderChannel != null)
             {
                 _boundingBoxProviderChannel.Disconnect();
+                _boundingBoxProviderChannel.SessionOpening -= MetadataProviderSessionOpening;
+                _boundingBoxProviderChannel.SessionClosed -= MetadataProviderSessionClosed;
+                _boundingBoxProviderChannel.ParametersChanged -= MetadataProviderParametersChanged;
                 _metadataProviderService.RemoveMetadataProvider(_boundingBoxProviderChannel);
                 textBoxSessionCount.Text = @"0";
             }
@@ -182,6 +185,9 @@ namespace MultiChannelMetadataProvider
             if (_gpsProviderChannel != null)
             {
                 _gpsProviderChannel.Disconnect();
+                _gpsProviderChannel.SessionOpening -= MetadataProviderSessionOpening;
+                _gpsProviderChannel.SessionClosed -= MetadataProviderSessionClosed;
+                _gpsProviderChannel.ParametersChanged -= MetadataProviderParametersChanged;
                 _metadataProviderService.RemoveMetadataProvider(_gpsProviderChannel);
                 textBoxSessionCount.Text = @"0";
             }
@@ -189,6 +195,9 @@ namespace MultiChannelMetadataProvider
             if (_nonStandardProviderChannel != null)
             {
                 _nonStandardProviderChannel.Disconnect();
+                _nonStandardProviderChannel.SessionOpening -= MetadataProviderSessionOpening;
+                _nonStandardProviderChannel.SessionClosed -= MetadataProviderSessionClosed;
+                _nonStandardProviderChannel.ParametersChanged -= MetadataProviderParametersChanged;
                 _metadataProviderService.RemoveMetadataProvider(_nonStandardProviderChannel);
                 textBoxSessionCount.Text = @"0";
             }

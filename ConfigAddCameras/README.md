@@ -45,7 +45,7 @@ http://10.10.48.75:52123,root,password,616,myHardware,myCamera,REC007,myGroup
 
 In this example we add a camera using the MIP Driver (i.e.
 CameraMetadataProvider sample), MIP driver is Hardware ID number 616.
-(See <a href="https://www.milestonesys.com/community/business-partner-tools/supported-devices/xprotect-corporate-and-xprotect-expert/?StringSearchData=mip+driver" target="_blank">Driver page</a>)
+(See <a href="https://www.milestonesys.com/support/software/supported-devices/xprotect-corporate-and-xprotect-expert/" target="_blank">Driver page</a>)
 
 The camera is on the address http://10.10.48.75:52123, has the admin
 user \"root\" with the password \"password\". The camera should be added
@@ -61,7 +61,8 @@ one camera.
 
 ## The sample demonstrates
 
-- Login with credentials provided by operator
+- Retrieve OAuth token for credentials provided by operator
+- Log in to the Management Server using the OAuth token
 - Usage of strongly typed Configuration API classes to add a camera to
   the VMS and specify the name and group for it.
 

@@ -8,6 +8,8 @@ using VideoOS.Platform.Data;
 using VideoOS.Platform.Live;
 using VideoOS.Platform.SDK.Platform;
 using VideoOS.Platform.ConfigurationItems;
+using VideoOS.Platform.OAuth;
+using VideoOS.Platform.SDK.OAuth;
 
 namespace ConfigAddCameras
 {
@@ -129,20 +131,25 @@ namespace ConfigAddCameras
         static private bool LoginUsingCurrentCredentials()
         {
             Uri uri = new UriBuilder(_url).Uri;
+            Uri idpUri = new Uri(uri, "idp");
             NetworkCredential nc;
+            MipTokenCache mipTokenCache;
             switch (_auth)
             {
                 case Authorizationmodes.DefaultWindows:
                     nc = CredentialCache.DefaultNetworkCredentials;
-                    VideoOS.Platform.SDK.Environment.AddServer(_secureOnly, uri, nc);
+                    mipTokenCache = new VideoOS.Platform.SDK.OAuth.MipTokenCache(idpUri);
+                    VideoOS.Platform.SDK.Environment.AddServerOAuth(_secureOnly, uri, mipTokenCache);
                     break;
                 case Authorizationmodes.Windows:
                     nc = new NetworkCredential(_user, _pass);
-                    VideoOS.Platform.SDK.Environment.AddServer(_secureOnly, uri, nc);
+                    mipTokenCache = new VideoOS.Platform.SDK.OAuth.MipTokenCache(idpUri, nc, isBasicUser: false);
+                    VideoOS.Platform.SDK.Environment.AddServerOAuth(_secureOnly, uri, mipTokenCache);
                     break;
                 case Authorizationmodes.Basic:
-                    CredentialCache cc = VideoOS.Platform.Login.Util.BuildCredentialCache(uri, _user, _pass, "Basic");
-                    VideoOS.Platform.SDK.Environment.AddServer(_secureOnly, uri, cc);
+                    nc = new NetworkCredential(_user, _pass);
+                    mipTokenCache = new VideoOS.Platform.SDK.OAuth.MipTokenCache(idpUri, nc, isBasicUser: true);
+                    VideoOS.Platform.SDK.Environment.AddServerOAuth(_secureOnly, uri, mipTokenCache);
                     break;
             }
 

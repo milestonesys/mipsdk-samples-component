@@ -97,7 +97,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK" Version="*" />
+    <PackageReference Include="MilestoneSystems.VideoOS.Platform.SDK" Version="*-*" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainForm.cs">

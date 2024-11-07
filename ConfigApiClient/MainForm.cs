@@ -138,7 +138,11 @@ namespace ConfigAPIClient
                                                            ItemTypes.MatrixFolder,
                                                            ItemTypes.Matrix,
                                                            ItemTypes.EvidenceLockProfile,
-                                                           ItemTypes.EvidenceLockProfileFolder
+                                                           ItemTypes.EvidenceLockProfileFolder,
+                                                           ItemTypes.MailNotificationProfile,
+                                                           ItemTypes.MailNotificationProfileFolder,
+                                                           ItemTypes.Compressor,
+                                                           ItemTypes.CompressorFolder,
                                                        };
 
 
@@ -412,7 +416,8 @@ namespace ConfigAPIClient
                                 childItem.ItemType == ItemTypes.ClientSettingsFolder ||
                                 childItem.ItemType == ItemTypes.PrivacyProtectionFolder ||
                                 childItem.ItemType == ItemTypes.HardwareDeviceEventFolder ||
-                                childItem.ItemType == ItemTypes.PatrollingProfileFolder 
+                                childItem.ItemType == ItemTypes.PatrollingProfileFolder ||
+                                childItem.ItemType == ItemTypes.LicenseFeature
                                 )
                                 continue;
 

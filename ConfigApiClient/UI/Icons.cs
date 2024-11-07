@@ -310,6 +310,12 @@ namespace ConfigAPIClient.UI
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.EvidenceLockProfile, RoleIx);
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.EvidenceLockProfileFolder, FolderIconIx);
 
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.MailNotificationProfile, SettingsIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.MailNotificationProfileFolder, FolderIconIx);
+
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.Compressor, SettingsIx);
+                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.CompressorFolder, FolderIconIx);
+
             }
             catch (Exception ex)
 			{

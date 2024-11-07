@@ -23,6 +23,7 @@
                     <controls:VideoOSTableTimestampColumn ItemTimestampPropertyName="Timestamp" Header="Time" Width="150" />
                     <controls:VideoOSTableTextColumn ItemTextPropertyName="Source" Header="Source" />
                     <controls:VideoOSTableTextColumn ItemTextPropertyName="EventType" Header="Event" />
+                    <controls:VideoOSTableTextColumn ItemTextPropertyName="EventData" Header="Data" />
                 </mvvm:ColumnCollection>
             </controls:VideoOSTable.Columns>
         </controls:VideoOSTable>

@@ -30,7 +30,11 @@ namespace ConfigAPIClient
             Application.Run(loginForm);
             if (Connected)
             {
-                Application.Run(new MainForm(EnvironmentManager.Instance.MasterSite.ServerId));
+                VideoOS.Platform.SDK.Environment.Properties.EnableConfigurationRefresh = false;
+				VideoOS.Platform.SDK.Environment.Properties.ConfigurationRefreshIntervalInMs = int.MaxValue;
+                EnvironmentManager.Instance.EnableConfigurationChangedService = false;
+
+				Application.Run(new MainForm(EnvironmentManager.Instance.MasterSite.ServerId));
             }
         }
 
