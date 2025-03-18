@@ -5,6 +5,8 @@ using System.ServiceModel.Channels;
 using System.ServiceModel.Configuration;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
+using VideoOS.Platform.Login;
+using VideoOS.Platform.OAuth;
 
 namespace ConfigAPIClient.OAuth
 {
@@ -13,13 +15,14 @@ namespace ConfigAPIClient.OAuth
 	/// </summary>
 	public class BearerAuthorizationHeaderInspector : IClientMessageInspector
 	{
-		private readonly string _accessToken;
-		private const HttpRequestHeader AuthorizationHeader = HttpRequestHeader.Authorization;
+        //Getting token through IMipTokenCache will check for timeout and refresh token if needed.
+        private IMipTokenCache _identityTokenCache;
+        private const HttpRequestHeader AuthorizationHeader = HttpRequestHeader.Authorization;
 
-		public BearerAuthorizationHeaderInspector(string accessToken)
+		public BearerAuthorizationHeaderInspector(IMipTokenCache identityTokenCache)
 		{
-			_accessToken = accessToken;
-		}
+            _identityTokenCache = identityTokenCache;
+        }
 
 		#region IClientMessageInspector Members
 		/// <summary>
@@ -62,7 +65,9 @@ namespace ConfigAPIClient.OAuth
 		{
 			try
 			{
-				return FormattableString.Invariant($"Bearer {_accessToken}");
+                //Updated to use IMipTokenCache token. When calling the MIPTokenCache.Token the token string is refreshed if it is expired
+
+                return FormattableString.Invariant($"Bearer {_identityTokenCache.Token}");
 			}
 			catch (Exception ex)
 			{
@@ -76,12 +81,12 @@ namespace ConfigAPIClient.OAuth
 	/// </summary>
 	public class AddTokenBehavior : BehaviorExtensionElement, IEndpointBehavior
 	{
-		private string _accessToken;
+        private LoginSettings _loginSettings;
 
-		internal AddTokenBehavior(string accessToken)
+        internal AddTokenBehavior(LoginSettings loginSettings)
 		{
-			_accessToken = accessToken;
-		}
+            _loginSettings = loginSettings;
+        }
 
 		#region IEndpointBehavior Members     
 		/// <summary>
@@ -97,7 +102,7 @@ namespace ConfigAPIClient.OAuth
 		/// </summary>
 		public void ApplyClientBehavior(System.ServiceModel.Description.ServiceEndpoint endpoint, ClientRuntime clientRuntime)
 		{
-			clientRuntime.MessageInspectors.Add(new BearerAuthorizationHeaderInspector(_accessToken));
+			clientRuntime.MessageInspectors.Add(new BearerAuthorizationHeaderInspector(_loginSettings.IdentityTokenCache));
 		}
 
 		/// <summary>
@@ -136,7 +141,7 @@ namespace ConfigAPIClient.OAuth
 		/// <returns>The behavior extension.</returns>
 		protected override object CreateBehavior()
 		{
-			return new AddTokenBehavior(_accessToken);
+			return new AddTokenBehavior(_loginSettings);
 		}
 	}
 }

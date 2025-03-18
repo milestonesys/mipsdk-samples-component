@@ -1,10 +1,13 @@
-﻿using System;
+﻿using Azure.Core;
+using System;
 using System.Net;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Configuration;
 using System.ServiceModel.Description;
 using System.ServiceModel.Dispatcher;
+using VideoOS.Platform.Login;
+using VideoOS.Platform.OAuth;
 
 namespace ConfigAPIClient.OAuth
 {
@@ -13,19 +16,20 @@ namespace ConfigAPIClient.OAuth
 	/// </summary>
 	public class BearerAuthorizationHeaderInspector : IClientMessageInspector
 	{
-		private readonly string _accessToken;
-		private const HttpRequestHeader AuthorizationHeader = HttpRequestHeader.Authorization;
+        //Getting token through IMipTokenCache will check for timeout and refresh token if needed.
+        private IMipTokenCache _identityTokenCache;
+        private const HttpRequestHeader AuthorizationHeader = HttpRequestHeader.Authorization;
 
-		public BearerAuthorizationHeaderInspector(string accessToken)
-		{
-			_accessToken = accessToken;
-		}
+        public BearerAuthorizationHeaderInspector(IMipTokenCache IdentityTokenCache)
+        {
+			_identityTokenCache = IdentityTokenCache;
+        }
 
-		#region IClientMessageInspector Members
-		/// <summary>
-		/// This method adds the bearer token in <see cref="AuthorizationHeader"/> before a request message is sent to a service. 
-		/// </summary>
-		public object BeforeSendRequest(ref Message request, IClientChannel channel)
+        #region IClientMessageInspector Members
+        /// <summary>
+        /// This method adds the bearer token in <see cref="AuthorizationHeader"/> before a request message is sent to a service. 
+        /// </summary>
+        public object BeforeSendRequest(ref Message request, IClientChannel channel)
 		{
 			if (request == null)
 			{
@@ -62,7 +66,9 @@ namespace ConfigAPIClient.OAuth
 		{
 			try
 			{
-				return FormattableString.Invariant($"Bearer {_accessToken}");
+                //Updated to use IMipTokenCache token. When calling the MIPTokenCache.Token the token string is refreshed if it is expired
+
+                return FormattableString.Invariant($"Bearer {_identityTokenCache.Token}");
 			}
 			catch (Exception ex)
 			{
@@ -76,12 +82,12 @@ namespace ConfigAPIClient.OAuth
 	/// </summary>
 	public class AddTokenBehavior : BehaviorExtensionElement, IEndpointBehavior
 	{
-		private string _accessToken;
+        private LoginSettings _loginSettings;
 
-		internal AddTokenBehavior(string accessToken)
+        internal AddTokenBehavior(LoginSettings loginSettings)
 		{
-			_accessToken = accessToken;
-		}
+            _loginSettings = loginSettings;
+        }
 
 		#region IEndpointBehavior Members     
 		/// <summary>
@@ -97,8 +103,11 @@ namespace ConfigAPIClient.OAuth
 		/// </summary>
 		public void ApplyClientBehavior(System.ServiceModel.Description.ServiceEndpoint endpoint, ClientRuntime clientRuntime)
 		{
-			clientRuntime.MessageInspectors.Add(new BearerAuthorizationHeaderInspector(_accessToken));
-		}
+            if (_loginSettings != null)
+            {
+                clientRuntime.MessageInspectors.Add(new BearerAuthorizationHeaderInspector(_loginSettings.IdentityTokenCache));
+            }
+        }
 
 		/// <summary>
 		/// Use the method to modify, examine or insert extensions to endpoint-wide execution in a service application.
@@ -136,7 +145,7 @@ namespace ConfigAPIClient.OAuth
 		/// <returns>The behavior extension.</returns>
 		protected override object CreateBehavior()
 		{
-			return new AddTokenBehavior(_accessToken);
+			return new AddTokenBehavior(_loginSettings);
 		}
 	}
 }

@@ -55,3 +55,5 @@ Commands to change monitor content:
 To play with the sample, there are some prerequisites: in Management
 Client, the user shall at least set up one Smart Wall, one monitor on it
 and one preset with a layout.
+
+A hidden feature to get XML in the "Show XML as ViewItems" input text box is to use items in "Video wall message listener". When commands are sent, they are displayed in the listener text box in the top. To get the XML of any of these commands, simply click on the command in the list box and the XML will be shown in the "Show XML as ViewItems" input text box.

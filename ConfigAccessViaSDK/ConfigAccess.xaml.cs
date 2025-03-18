@@ -19,6 +19,7 @@ namespace ConfigAccessViaSDK
     {
         private ConfigManager _configManager = new ConfigManager();
         private object _localConfigurationChangedIndicationReference, _configurationChangedIndicationReference;
+        private bool _loggingIn = false;
 
         public ConfigAccess()
         {
@@ -68,8 +69,11 @@ namespace ConfigAccessViaSDK
 
         private object LocalConfigUpdatedHandler(VideoOS.Platform.Messaging.Message message, FQID dest, FQID source)
         {
-            // Update tree view
-            Dispatcher.Invoke(() => _dumpConfigurationUC.FillContentSpecific());
+            if (!_loggingIn) // While logging in configuration will be updated and requesting a UI refresh at this point can cause a deadlock. Login method will refresh UI itself anyways.
+            {
+                // Update tree view
+                Dispatcher.Invoke(() => _dumpConfigurationUC.FillContentSpecific());
+            }
             return null;
         }
 
@@ -88,6 +92,7 @@ namespace ConfigAccessViaSDK
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
+            _loggingIn = true;
             LoginSettings ls = LoginSettingsCache.GetLoginSettings(EnvironmentManager.Instance.MasterSite);
             VideoOS.Platform.SDK.Environment.Login(
                 ls.Uri, App.integrationId,
@@ -97,6 +102,7 @@ namespace ConfigAccessViaSDK
                 true);
             IsLoggedIn = VideoOS.Platform.SDK.Environment.IsLoggedIn(ls.Uri);
             _dumpConfigurationUC.FillContent();
+            _loggingIn = false;
         }
 
         private void ShowLicense(object sender, RoutedEventArgs e)

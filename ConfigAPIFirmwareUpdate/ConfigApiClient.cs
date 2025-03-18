@@ -63,7 +63,10 @@ namespace ConfigAPIClient
             EndpointAddress endpointAddress = new EndpointAddress(uri, EndpointIdentity.CreateSpnIdentity(spn));
 
             ChannelFactory<IConfigurationService> channel = new ChannelFactory<IConfigurationService>(oauthBinding, endpointAddress);
-            channel.Endpoint.EndpointBehaviors.Add(new AddTokenBehavior(loginSettings.IdentityTokenCache.Token));
+
+            //Adding loginSettings instead of just the token enables the use of IMipTokenCache
+            channel.Endpoint.EndpointBehaviors.Add(new AddTokenBehavior(loginSettings));
+
             ConfigApiServiceOAuthHelper.ConfigureEndpoint(channel.Endpoint);
 
             return channel.CreateChannel();
