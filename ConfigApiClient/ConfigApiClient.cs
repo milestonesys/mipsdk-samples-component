@@ -33,6 +33,8 @@ namespace ConfigAPIClient
 
         internal bool Connected { get; set; }
 
+        internal bool RetryOnError { get; set; }
+
         #region Construction, Initialize and Close
         internal void InitializeClientProxy()
         {
@@ -220,6 +222,9 @@ namespace ConfigAPIClient
                     case ItemTypes.FailoverRecorder:
                         item = _client.GetItem("/"+ItemTypes.FailoverGroupFolder);
                         break;
+                    case ItemTypes.View:
+                        item = _client.GetItem("/ViewGroupFolder");
+                        break;
                     default:
                         item = _client.GetItem("/"); 
                         break;
@@ -297,14 +302,19 @@ namespace ConfigAPIClient
             catch (Exception)
             {
                 InitializeClientProxy();
-                try
+                if (RetryOnError)
                 {
-                    return _client.GetChildItems(path);
+                    try
+                    {
+                        return _client.GetChildItems(path);
+                    }
+                    catch (Exception)
+                    {
+                        return new ConfigurationItem[0];
+                    }
                 }
-                catch (Exception)
-                {
-                    return new ConfigurationItem[0];
-                }
+                else
+                    throw;
             }
         }
 
@@ -315,16 +325,21 @@ namespace ConfigAPIClient
                 return _client.GetMethodInfos();
             }
             catch (Exception)
-            {
+            {                
                 InitializeClientProxy();
-                try
+                if (RetryOnError)
                 {
-                    return _client.GetMethodInfos();
+                    try
+                    {
+                        return _client.GetMethodInfos();
+                    }
+                    catch (Exception)
+                    {
+                        return new MethodInfo[0];
+                    }
                 }
-                catch (Exception)
-                {
-                    return new MethodInfo[0];
-                }
+                else
+                    throw;
             }
         }
 
@@ -337,14 +352,19 @@ namespace ConfigAPIClient
             catch (Exception)
             {
                 InitializeClientProxy();
-                try
+                if (RetryOnError)
                 {
-                    return _client.GetTranslations(language);
+                    try
+                    {
+                        return _client.GetTranslations(language);
+                    }
+                    catch (Exception)
+                    {
+                        return new Dictionary<string, string>();
+                    }
                 }
-                catch (Exception)
-                {
-                    return new Dictionary<string, string>();
-                }
+                else
+                    throw;
             }
         }
 
@@ -357,15 +377,20 @@ namespace ConfigAPIClient
             catch (Exception)
             {
                 InitializeClientProxy();
-                try
+                if (RetryOnError)
                 {
-                    return _client.InvokeMethod(item, methodId);
+                    try
+                    {
+                        return _client.InvokeMethod(item, methodId);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("InvokeMethod:" + ex.Message);
+                        throw;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("InvokeMethod:" + ex.Message);
+                else
                     throw;
-                }
             }
         }
 
@@ -378,15 +403,20 @@ namespace ConfigAPIClient
             catch (Exception)
             {
                 InitializeClientProxy();
-                try
+                if (RetryOnError)
                 {
-                    return _client.ValidateItem(item);
+                    try
+                    {
+                        return _client.ValidateItem(item);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("ValidateItem:" + ex.Message);
+                        throw;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("ValidateItem:" + ex.Message);
-                    throw;
-                }
+                else                
+                    throw;                
             }
         }
 
@@ -400,15 +430,20 @@ namespace ConfigAPIClient
             catch (Exception)
             {
                 InitializeClientProxy();
-                try
+                if (RetryOnError)
                 {
-                    return _client.GetItem(path);
+                    try
+                    {
+                        return _client.GetItem(path);
+                    }
+                    catch (Exception)
+                    {
+                        // Let caller handle it
+                        throw;
+                    }
                 }
-                catch (Exception)
-                {
-                    // Let caller handle it
+                else
                     throw;
-                }
             }
         }
 
@@ -421,15 +456,20 @@ namespace ConfigAPIClient
             catch (Exception)
             {
                 InitializeClientProxy();
-                try
+                if (RetryOnError)
                 {
-                    return _client.SetItem(item);
+                    try
+                    {
+                        return _client.SetItem(item);
+                    }
+                    catch (Exception)
+                    {
+                        // Let caller handle it
+                        throw;
+                    }
                 }
-                catch (Exception)
-                {
-                    // Let caller handle it
+                else
                     throw;
-                }
             }
         }
 
@@ -442,15 +482,20 @@ namespace ConfigAPIClient
             catch (Exception)
             {
                 InitializeClientProxy();
-                try
+                if (RetryOnError)
                 {
-                    return _client.GetChildItemsHierarchy(path, itemTypes, itemFilters);
+                    try
+                    {
+                        return _client.GetChildItemsHierarchy(path, itemTypes, itemFilters);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("FillChildren:" + ex.Message);
+                        throw;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("FillChildren:" + ex.Message);
+                else
                     throw;
-                }
             }
         }
 
@@ -463,15 +508,20 @@ namespace ConfigAPIClient
             catch (Exception)
             {
                 InitializeClientProxy();
-                try
+                if (RetryOnError)
                 {
-                    return _client.QueryItems(itemFilter, maxResult);
+                    try
+                    {
+                        return _client.QueryItems(itemFilter, maxResult);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("QueryItems:" + ex.Message);
+                        throw;
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("QueryItems:" + ex.Message);
+                else
                     throw;
-                }
             }
         }
 

@@ -28,9 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.btnConnect = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblRetrieveError = new System.Windows.Forms.Label();
             this.btnRetrieve = new System.Windows.Forms.Button();
             this.lblDevice = new System.Windows.Forms.Label();
             this.lblStartTime = new System.Windows.Forms.Label();
@@ -39,10 +37,6 @@
             this.dtpEndTime = new System.Windows.Forms.DateTimePicker();
             this.txtDevice = new System.Windows.Forms.TextBox();
             this.dataGridTasks = new System.Windows.Forms.DataGridView();
-            this.btnGet = new System.Windows.Forms.Button();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.btnSelectCamera = new System.Windows.Forms.Button();
-            this.lblLoginError = new System.Windows.Forms.Label();
             this.Device = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.UserName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CreationTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,28 +44,20 @@
             this.EndTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Percent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cancel = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Stop = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Cleanup = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnGet = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnSelectCamera = new System.Windows.Forms.Button();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridTasks)).BeginInit();
             this.SuspendLayout();
-            // 
-            // btnConnect
-            // 
-            this.btnConnect.Location = new System.Drawing.Point(13, 18);
-            this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(275, 23);
-            this.btnConnect.TabIndex = 6;
-            this.btnConnect.Text = "Connect to Retrieval Service";
-            this.btnConnect.UseVisualStyleBackColor = true;
-            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.70588F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 83.29412F));
-            this.tableLayoutPanel2.Controls.Add(this.lblRetrieveError, 0, 4);
             this.tableLayoutPanel2.Controls.Add(this.btnRetrieve, 1, 3);
             this.tableLayoutPanel2.Controls.Add(this.lblDevice, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.lblStartTime, 0, 1);
@@ -90,16 +76,6 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(387, 138);
             this.tableLayoutPanel2.TabIndex = 7;
             // 
-            // lblRetrieveError
-            // 
-            this.lblRetrieveError.AutoSize = true;
-            this.tableLayoutPanel2.SetColumnSpan(this.lblRetrieveError, 2);
-            this.lblRetrieveError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblRetrieveError.Location = new System.Drawing.Point(3, 107);
-            this.lblRetrieveError.Name = "lblRetrieveError";
-            this.lblRetrieveError.Size = new System.Drawing.Size(0, 13);
-            this.lblRetrieveError.TabIndex = 3;
-            // 
             // btnRetrieve
             // 
             this.btnRetrieve.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -110,7 +86,7 @@
             this.btnRetrieve.TabIndex = 6;
             this.btnRetrieve.Text = "Retrieve";
             this.btnRetrieve.UseVisualStyleBackColor = true;
-            this.btnRetrieve.Click += new System.EventHandler(this.btnRetrieve_Click);
+            this.btnRetrieve.Click += new System.EventHandler(this.StartRetrieval);
             // 
             // lblDevice
             // 
@@ -191,7 +167,7 @@
             this.EndTime,
             this.State,
             this.Percent,
-            this.Cancel,
+            this.Stop,
             this.Cleanup});
             this.dataGridTasks.Location = new System.Drawing.Point(13, 185);
             this.dataGridTasks.MultiSelect = false;
@@ -199,50 +175,9 @@
             this.dataGridTasks.ReadOnly = true;
             this.dataGridTasks.RowHeadersVisible = false;
             this.dataGridTasks.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridTasks.Size = new System.Drawing.Size(900, 389);
+            this.dataGridTasks.Size = new System.Drawing.Size(1100, 389);
             this.dataGridTasks.TabIndex = 8;
-            this.dataGridTasks.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridTasks_CellClick);
-            // 
-            // btnGet
-            // 
-            this.btnGet.Enabled = false;
-            this.btnGet.Location = new System.Drawing.Point(12, 156);
-            this.btnGet.Name = "btnGet";
-            this.btnGet.Size = new System.Drawing.Size(75, 23);
-            this.btnGet.TabIndex = 9;
-            this.btnGet.Text = "Get tasks";
-            this.btnGet.UseVisualStyleBackColor = true;
-            this.btnGet.Click += new System.EventHandler(this.btnGet_Click);
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Enabled = false;
-            this.btnRefresh.Location = new System.Drawing.Point(93, 156);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
-            this.btnRefresh.TabIndex = 10;
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
-            // btnSelectCamera
-            // 
-            this.btnSelectCamera.Enabled = false;
-            this.btnSelectCamera.Location = new System.Drawing.Point(12, 93);
-            this.btnSelectCamera.Name = "btnSelectCamera";
-            this.btnSelectCamera.Size = new System.Drawing.Size(275, 23);
-            this.btnSelectCamera.TabIndex = 11;
-            this.btnSelectCamera.Text = "Select Camera ...";
-            this.btnSelectCamera.UseVisualStyleBackColor = true;
-            this.btnSelectCamera.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // lblLoginError
-            // 
-            this.lblLoginError.AutoSize = true;
-            this.lblLoginError.Location = new System.Drawing.Point(12, 48);
-            this.lblLoginError.Name = "lblLoginError";
-            this.lblLoginError.Size = new System.Drawing.Size(0, 13);
-            this.lblLoginError.TabIndex = 12;
+            this.dataGridTasks.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.GridCellClick);
             // 
             // Device
             // 
@@ -251,23 +186,25 @@
             this.Device.HeaderText = "Device Name";
             this.Device.Name = "Device";
             this.Device.ReadOnly = true;
-            this.Device.Width = 97;
+            this.Device.Width = 89;
             // 
             // UserName
             // 
             this.UserName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.UserName.DataPropertyName = "User";
+            this.UserName.DataPropertyName = "UserName";
             this.UserName.HeaderText = "User Name";
             this.UserName.Name = "UserName";
             this.UserName.ReadOnly = true;
-            this.UserName.Width = 85;
+            this.UserName.Width = 79;
             // 
             // CreationTime
             // 
-            this.CreationTime.DataPropertyName = "CreationTime";
+            this.CreationTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CreationTime.DataPropertyName = "TaskStartTime";
             this.CreationTime.HeaderText = "Creation Time (UTC)";
             this.CreationTime.Name = "CreationTime";
             this.CreationTime.ReadOnly = true;
+            this.CreationTime.Width = 92;
             // 
             // StartTime
             // 
@@ -297,19 +234,19 @@
             // Percent
             // 
             this.Percent.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.Percent.DataPropertyName = "PercentCompleted";
+            this.Percent.DataPropertyName = "Progress";
             this.Percent.HeaderText = "Percent Completed";
             this.Percent.Name = "Percent";
             this.Percent.ReadOnly = true;
             this.Percent.Width = 112;
             // 
-            // Cancel
+            // Stop
             // 
-            this.Cancel.HeaderText = "Cancel";
-            this.Cancel.Name = "Cancel";
-            this.Cancel.ReadOnly = true;
-            this.Cancel.Text = "Cancel";
-            this.Cancel.UseColumnTextForButtonValue = true;
+            this.Stop.HeaderText = "Stop";
+            this.Stop.Name = "Stop";
+            this.Stop.ReadOnly = true;
+            this.Stop.Text = "Stop";
+            this.Stop.UseColumnTextForButtonValue = true;
             // 
             // Cleanup
             // 
@@ -320,33 +257,59 @@
             this.Cleanup.Text = "Cleanup";
             this.Cleanup.UseColumnTextForButtonValue = true;
             // 
+            // btnGet
+            // 
+            this.btnGet.Enabled = false;
+            this.btnGet.Location = new System.Drawing.Point(12, 156);
+            this.btnGet.Name = "btnGet";
+            this.btnGet.Size = new System.Drawing.Size(75, 23);
+            this.btnGet.TabIndex = 9;
+            this.btnGet.Text = "Get tasks";
+            this.btnGet.UseVisualStyleBackColor = true;
+            this.btnGet.Click += new System.EventHandler(this.GetTasks_Click);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Enabled = false;
+            this.btnRefresh.Location = new System.Drawing.Point(93, 156);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 10;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.Refresh);
+            // 
+            // btnSelectCamera
+            // 
+            this.btnSelectCamera.Location = new System.Drawing.Point(13, 12);
+            this.btnSelectCamera.Name = "btnSelectCamera";
+            this.btnSelectCamera.Size = new System.Drawing.Size(275, 23);
+            this.btnSelectCamera.TabIndex = 11;
+            this.btnSelectCamera.Text = "Select Camera ...";
+            this.btnSelectCamera.UseVisualStyleBackColor = true;
+            this.btnSelectCamera.Click += new System.EventHandler(this.SelectCamera);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(927, 586);
-            this.Controls.Add(this.lblLoginError);
+            this.ClientSize = new System.Drawing.Size(1127, 586);
             this.Controls.Add(this.btnRefresh);
-            this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.btnGet);
             this.Controls.Add(this.dataGridTasks);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.btnSelectCamera);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Remote Retrieval Task sample";
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridTasks)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
 		}
 
 		#endregion
-
-        private System.Windows.Forms.Button btnConnect;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-		private System.Windows.Forms.Label lblRetrieveError;
 		private System.Windows.Forms.Button btnRetrieve;
 		private System.Windows.Forms.TextBox txtDevice;
 		private System.Windows.Forms.Label lblDevice;
@@ -358,7 +321,6 @@
 		private System.Windows.Forms.Button btnGet;
         private System.Windows.Forms.Button btnRefresh;
 		private System.Windows.Forms.Button btnSelectCamera;
-        private System.Windows.Forms.Label lblLoginError;
         private System.Windows.Forms.DataGridViewTextBoxColumn Device;
         private System.Windows.Forms.DataGridViewTextBoxColumn UserName;
         private System.Windows.Forms.DataGridViewTextBoxColumn CreationTime;
@@ -366,7 +328,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EndTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn State;
         private System.Windows.Forms.DataGridViewTextBoxColumn Percent;
-        private System.Windows.Forms.DataGridViewButtonColumn Cancel;
+        private System.Windows.Forms.DataGridViewButtonColumn Stop;
         private System.Windows.Forms.DataGridViewButtonColumn Cleanup;
     }
 }

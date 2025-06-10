@@ -67,7 +67,7 @@ namespace ConfigAPIClient.Panels
             }
             if (!string.IsNullOrEmpty(property.Value))
             {
-                string[] paths = property.Value.Split(';');
+                string[] paths = property.Value.Split(';', ',');
                 foreach (string path in paths)
                 {
                     listBox1.Items.Add(path);
