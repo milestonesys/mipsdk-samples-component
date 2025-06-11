@@ -142,8 +142,6 @@ namespace ConfigAPIClient.UI
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.SystemAddressFolder, FolderIconIx);
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.RecordingServer, RecorderIconIx);
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.RecordingServerFolder, FolderIconIx);
-                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.Server, ServerIconIx);
-                ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.ServerFolder, FolderIconIx);
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.ArchiveStorageFolder, FolderIconIx);
 
                 ObjectTypeToIndex.Add(VideoOS.ConfigurationAPI.ItemTypes.Camera, CameraIconIx);

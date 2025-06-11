@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using ConfigAPIClient.UI;
 using VideoOS.ConfigurationAPI;
-using VideoOS.Platform.Proxy.ConfigApi;
 using VideoOS.Platform.Util;
 
 namespace ConfigAPIClient
@@ -83,25 +81,20 @@ namespace ConfigAPIClient
 
                 string itemType = comboBoxItemType.SelectedItem as string;
 
-                List<ConfigurationItem> children = _configApiClient.GetNextForItemType(item, itemType);
-                if (!children.Any())
-                {
-                    var path = new ConfigurationItemPath(item.Path);
-                    if (path.IsFolder) // Might be that the type is deeper in the tree
-                    {
-                        children = _configApiClient.GetChildItems(item.Path).ToList();
-                    }
-                }
-				children.Sort((i1, i2) => Sort.NumericStringCompare(i1.DisplayName, i2.DisplayName));
-                foreach (ConfigurationItem child in children.Where(c => c.ItemType == itemType || _configApiClient.GetChildItems(c.Path).Any()))
-                {
-                    TreeNode tnNew = new TreeNode(child.DisplayName);
-                    tnNew.Tag = child;
-                    tnNew.ImageIndex = tnNew.SelectedImageIndex = Icons.GetImageIndex(child.ItemType);
-                    tnNew.Nodes.Add("...");
+                List<ConfigurationItem> childs = _configApiClient.GetNextForItemType(item, itemType);
 
-                    tn.Nodes.Add(tnNew);
+				childs.Sort((i1, i2) => Sort.NumericStringCompare(i1.DisplayName, i2.DisplayName));
+                foreach (ConfigurationItem child in childs)
+                {
+                    TreeNode tnnew = new TreeNode(child.DisplayName);
+                    tnnew.Tag = child;
+                    tnnew.ImageIndex = tnnew.SelectedImageIndex = Icons.GetImageIndex(child.ItemType);
+                    tnnew.Nodes.Add("...");
+
+                    tn.Nodes.Add(tnnew);
                 }
+                //treeView1.Sort();
+                //tn.Expand();
             }
         }
 

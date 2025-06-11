@@ -41,7 +41,6 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.retryOnErrorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.advancedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.trimTreeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -142,8 +141,7 @@
             this.logoffToolStripMenuItem,
             this.toolStripMenuItem1,
             this.refreshToolStripMenuItem,
-            this.copyPathToolStripMenuItem,
-            this.retryOnErrorToolStripMenuItem});
+            this.copyPathToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -181,16 +179,6 @@
             this.copyPathToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.copyPathToolStripMenuItem.Text = "Copy path";
             this.copyPathToolStripMenuItem.Click += new System.EventHandler(this.OnCopyPath);
-            // 
-            // retryOnErrorToolStripMenuItem
-            // 
-            this.retryOnErrorToolStripMenuItem.Checked = true;
-            this.retryOnErrorToolStripMenuItem.CheckOnClick = true;
-            this.retryOnErrorToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.retryOnErrorToolStripMenuItem.Name = "retryOnErrorToolStripMenuItem";
-            this.retryOnErrorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.retryOnErrorToolStripMenuItem.Text = "Retry on error";
-            this.retryOnErrorToolStripMenuItem.Click += new System.EventHandler(this.retryOnErrorToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -320,7 +308,6 @@
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyPathToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sortTreeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem retryOnErrorToolStripMenuItem;
     }
 }
 

@@ -131,8 +131,7 @@ namespace ExportSample
                     Password = textBoxEncryptPassword.Text,
                     SignExport = checkBoxSign.Checked,
                     PreventReExport = checkBoxReExport.Checked,
-                    IncludeBookmarks = checkBoxIncludeBookmark.Checked,
-                    FailOnInvalidSignature = checkBoxFailOnSignErrors.Checked
+                    IncludeBookmarks = checkBoxIncludeBookmark.Checked
                 };
                 dbExporter.MetadataList.AddRange(metadataSources);
 
@@ -247,15 +246,7 @@ namespace ExportSample
                     if (progress == 100)
                     {
                         _timer.Stop();
-                        if (radioButtonDB.Checked && (_exporter as DBExporter).SignErrorsDetected)
-                        {
-                            SetResultLabel("Done with errors in data signature");
-                        }
-                        else
-                        {
-                            SetResultLabel("Done");
-                        }
-                        
+                        SetResultLabel("Done");
                         _exporter.EndExport();
                         _exporter = null;
                         buttonCancel.Enabled = false;
@@ -375,9 +366,5 @@ namespace ExportSample
             }
         }
 
-        private void checkBoxSign_CheckedChanged(object sender, EventArgs e)
-        {
-            checkBoxFailOnSignErrors.Enabled = checkBoxSign.Checked;
-        }
     }
 }

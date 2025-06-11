@@ -24,17 +24,11 @@ store this in the Recording Server.
 
 ## Using
 
-- VideoOS.Platform.ConfigurationItems.Camera.RetrieveEdgeStorage
-- VideoOS.Platform.ConfigurationItems.ManagementServer.LoadTasks	
+- VideoOS.Platform.SDK.RemoteRetrievalTasks.RetrievalTaskManager
 
 ## Environment
 
 - .NET library MIP Environment
-
-## Requirements
-
-- MIP SDK 2025R2 or later
-- XProtect VMS 2025R2 or later
 
 ## Visual Studio C\# project
 

@@ -32,8 +32,6 @@ namespace ConfigAPIClient
 	                                                       ItemTypes.System,
 	                                                       ItemTypes.RecordingServer,
 	                                                       ItemTypes.RecordingServerFolder,
-                                                           ItemTypes.Server,
-                                                           ItemTypes.ServerFolder,
 	                                                       ItemTypes.HardwareDriverFolder,
 	                                                       ItemTypes.HardwareDriver,
 	                                                       ItemTypes.Hardware,
@@ -185,7 +183,6 @@ namespace ConfigAPIClient
             treeView.ImageList = UI.Icons.IconListBlack;
 
 		    _configApiClient = new ConfigApiClient();
-            _configApiClient.RetryOnError = retryOnErrorToolStripMenuItem.Checked;
             _configApiClient.ServerId = _serverId;
 		    _configApiClient.Initialize();
             if (_configApiClient.Connected)
@@ -289,13 +286,17 @@ namespace ConfigAPIClient
             {
                 switch (item.ItemType)
                 {
-                    case ItemTypes.Hardware:
-                    case ItemTypes.Camera:
-                    case ItemTypes.Microphone:
-                    case ItemTypes.Speaker:
-                    case ItemTypes.InputEvent:
-                    case ItemTypes.Output:
-                    case ItemTypes.Metadata:
+                    case VideoOS.ConfigurationAPI.ItemTypes.System:
+                    case VideoOS.ConfigurationAPI.ItemTypes.RecordingServer:
+                        panelMain.Controls.Add(new SimpleUserControl(item, true, _configApiClient) { Dock = DockStyle.Fill });
+                        break;
+                    case VideoOS.ConfigurationAPI.ItemTypes.Hardware:
+                    case VideoOS.ConfigurationAPI.ItemTypes.Camera:
+                    case VideoOS.ConfigurationAPI.ItemTypes.Microphone:
+                    case VideoOS.ConfigurationAPI.ItemTypes.Speaker:
+                    case VideoOS.ConfigurationAPI.ItemTypes.InputEvent:
+                    case VideoOS.ConfigurationAPI.ItemTypes.Output:
+                    case VideoOS.ConfigurationAPI.ItemTypes.Metadata:
                     case ItemTypes.ClientProfile:
                         panelMain.Controls.Add(new TabUserControl(item, _configApiClient) { Dock = DockStyle.Fill });
                         break;
@@ -595,11 +596,6 @@ namespace ConfigAPIClient
         private void OnCopyPath(object sender, EventArgs e)
         {
             Clipboard.SetText(toolStripStatusLabel1.Text);
-        }
-
-        private void retryOnErrorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            _configApiClient.RetryOnError = retryOnErrorToolStripMenuItem.Checked;
         }
     }
 
