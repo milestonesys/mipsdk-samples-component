@@ -55,6 +55,7 @@ namespace ExportSample
             this.label1 = new System.Windows.Forms.Label();
             this.radioButtonMKV = new System.Windows.Forms.RadioButton();
             this.groupBoxDbSettings = new System.Windows.Forms.GroupBox();
+            this.checkBoxFailOnSignErrors = new System.Windows.Forms.CheckBox();
             this.checkBoxIncludeBookmark = new System.Windows.Forms.CheckBox();
             this.checkBoxReExport = new System.Windows.Forms.CheckBox();
             this.textBoxEncryptPassword = new System.Windows.Forms.TextBox();
@@ -214,7 +215,7 @@ namespace ExportSample
             // listBoxCameras
             // 
             this.listBoxCameras.FormattingEnabled = true;
-            this.listBoxCameras.Location = new System.Drawing.Point(134, 31);
+            this.listBoxCameras.Location = new System.Drawing.Point(134, 23);
             this.listBoxCameras.Margin = new System.Windows.Forms.Padding(2);
             this.listBoxCameras.Name = "listBoxCameras";
             this.listBoxCameras.Size = new System.Drawing.Size(237, 121);
@@ -222,7 +223,7 @@ namespace ExportSample
             // 
             // buttonRemoveCamera
             // 
-            this.buttonRemoveCamera.Location = new System.Drawing.Point(8, 60);
+            this.buttonRemoveCamera.Location = new System.Drawing.Point(8, 52);
             this.buttonRemoveCamera.Name = "buttonRemoveCamera";
             this.buttonRemoveCamera.Size = new System.Drawing.Size(104, 23);
             this.buttonRemoveCamera.TabIndex = 14;
@@ -311,7 +312,7 @@ namespace ExportSample
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 14);
+            this.label1.Location = new System.Drawing.Point(6, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 13);
             this.label1.TabIndex = 1;
@@ -330,21 +331,35 @@ namespace ExportSample
             // 
             // groupBoxDbSettings
             // 
+            this.groupBoxDbSettings.Controls.Add(this.checkBoxFailOnSignErrors);
             this.groupBoxDbSettings.Controls.Add(this.checkBoxIncludeBookmark);
             this.groupBoxDbSettings.Controls.Add(this.checkBoxReExport);
             this.groupBoxDbSettings.Controls.Add(this.textBoxEncryptPassword);
             this.groupBoxDbSettings.Controls.Add(this.checkBoxEncrypt);
             this.groupBoxDbSettings.Controls.Add(this.checkBoxSign);
-            this.groupBoxDbSettings.Location = new System.Drawing.Point(190, 185);
+            this.groupBoxDbSettings.Location = new System.Drawing.Point(190, 169);
             this.groupBoxDbSettings.Name = "groupBoxDbSettings";
-            this.groupBoxDbSettings.Size = new System.Drawing.Size(180, 129);
+            this.groupBoxDbSettings.Size = new System.Drawing.Size(180, 145);
             this.groupBoxDbSettings.TabIndex = 12;
             this.groupBoxDbSettings.TabStop = false;
+            // 
+            // checkBoxFailOnSignErrors
+            // 
+            this.checkBoxFailOnSignErrors.AutoSize = true;
+            this.checkBoxFailOnSignErrors.Checked = true;
+            this.checkBoxFailOnSignErrors.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxFailOnSignErrors.Enabled = false;
+            this.checkBoxFailOnSignErrors.Location = new System.Drawing.Point(29, 32);
+            this.checkBoxFailOnSignErrors.Name = "checkBoxFailOnSignErrors";
+            this.checkBoxFailOnSignErrors.Size = new System.Drawing.Size(108, 17);
+            this.checkBoxFailOnSignErrors.TabIndex = 7;
+            this.checkBoxFailOnSignErrors.Text = "Fail on sign errors";
+            this.checkBoxFailOnSignErrors.UseVisualStyleBackColor = true;
             // 
             // checkBoxIncludeBookmark
             // 
             this.checkBoxIncludeBookmark.AutoSize = true;
-            this.checkBoxIncludeBookmark.Location = new System.Drawing.Point(10, 105);
+            this.checkBoxIncludeBookmark.Location = new System.Drawing.Point(10, 121);
             this.checkBoxIncludeBookmark.Name = "checkBoxIncludeBookmark";
             this.checkBoxIncludeBookmark.Size = new System.Drawing.Size(116, 17);
             this.checkBoxIncludeBookmark.TabIndex = 6;
@@ -354,7 +369,7 @@ namespace ExportSample
             // checkBoxReExport
             // 
             this.checkBoxReExport.AutoSize = true;
-            this.checkBoxReExport.Location = new System.Drawing.Point(10, 83);
+            this.checkBoxReExport.Location = new System.Drawing.Point(10, 100);
             this.checkBoxReExport.Margin = new System.Windows.Forms.Padding(2);
             this.checkBoxReExport.Name = "checkBoxReExport";
             this.checkBoxReExport.Size = new System.Drawing.Size(107, 17);
@@ -365,7 +380,7 @@ namespace ExportSample
             // textBoxEncryptPassword
             // 
             this.textBoxEncryptPassword.Enabled = false;
-            this.textBoxEncryptPassword.Location = new System.Drawing.Point(29, 53);
+            this.textBoxEncryptPassword.Location = new System.Drawing.Point(29, 74);
             this.textBoxEncryptPassword.Name = "textBoxEncryptPassword";
             this.textBoxEncryptPassword.Size = new System.Drawing.Size(119, 20);
             this.textBoxEncryptPassword.TabIndex = 4;
@@ -373,7 +388,7 @@ namespace ExportSample
             // checkBoxEncrypt
             // 
             this.checkBoxEncrypt.AutoSize = true;
-            this.checkBoxEncrypt.Location = new System.Drawing.Point(10, 34);
+            this.checkBoxEncrypt.Location = new System.Drawing.Point(10, 55);
             this.checkBoxEncrypt.Name = "checkBoxEncrypt";
             this.checkBoxEncrypt.Size = new System.Drawing.Size(94, 17);
             this.checkBoxEncrypt.TabIndex = 3;
@@ -390,10 +405,11 @@ namespace ExportSample
             this.checkBoxSign.TabIndex = 2;
             this.checkBoxSign.Text = "Sign export";
             this.checkBoxSign.UseVisualStyleBackColor = true;
+            this.checkBoxSign.CheckedChanged += new System.EventHandler(this.checkBoxSign_CheckedChanged);
             // 
             // buttonCameraAdd
             // 
-            this.buttonCameraAdd.Location = new System.Drawing.Point(8, 31);
+            this.buttonCameraAdd.Location = new System.Drawing.Point(8, 23);
             this.buttonCameraAdd.Name = "buttonCameraAdd";
             this.buttonCameraAdd.Size = new System.Drawing.Size(104, 23);
             this.buttonCameraAdd.TabIndex = 0;
@@ -415,7 +431,7 @@ namespace ExportSample
             // checkBoxRelated
             // 
             this.checkBoxRelated.AutoSize = true;
-            this.checkBoxRelated.Location = new System.Drawing.Point(134, 162);
+            this.checkBoxRelated.Location = new System.Drawing.Point(134, 154);
             this.checkBoxRelated.Name = "checkBoxRelated";
             this.checkBoxRelated.Size = new System.Drawing.Size(136, 17);
             this.checkBoxRelated.TabIndex = 2;
@@ -425,7 +441,7 @@ namespace ExportSample
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 196);
+            this.label4.Location = new System.Drawing.Point(10, 181);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(72, 13);
             this.label4.TabIndex = 7;
@@ -435,7 +451,7 @@ namespace ExportSample
             // 
             this.radioButtonDB.AutoSize = true;
             this.radioButtonDB.Checked = true;
-            this.radioButtonDB.Location = new System.Drawing.Point(91, 194);
+            this.radioButtonDB.Location = new System.Drawing.Point(91, 179);
             this.radioButtonDB.Name = "radioButtonDB";
             this.radioButtonDB.Size = new System.Drawing.Size(71, 17);
             this.radioButtonDB.TabIndex = 6;
@@ -524,5 +540,6 @@ namespace ExportSample
         private System.Windows.Forms.ListBox listBoxCameras;
         private System.Windows.Forms.Button buttonRemoveCamera;
         private System.Windows.Forms.ToolTip resultLabelToolTip;
+        private System.Windows.Forms.CheckBox checkBoxFailOnSignErrors;
     }
 }
